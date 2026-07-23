@@ -1,1 +1,5 @@
-# connerald.github.io
+# 董俊叶的个人主页
+
+数据工程、云端 ETL 与智能系统方向的个人主页。
+
+由 GitHub Pages 托管。

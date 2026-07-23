@@ -1,205 +1,650 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>董俊叶 - 个人简历</title>
-    <style>
-        body {
-            font-family: "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 40px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-radius: 5px;
-        }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #2c3e50;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        h2 {
-            color: #2980b9;
-            margin-top: 30px;
-            border-left: 5px solid #2980b9;
-            padding-left: 10px;
-            font-size: 1.4em;
-        }
-        h3 {
-            margin-bottom: 5px;
-            color: #34495e;
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.1em;
-        }
-        .sub-info {
-            font-style: italic;
-            color: #7f8c8d;
-            margin-bottom: 10px;
-            font-size: 0.95em;
-        }
-        .contact-info {
-            margin-bottom: 20px;
-            font-size: 0.95em;
-        }
-        .contact-info span {
-            margin-right: 15px;
-        }
-        a {
-            color: #2980b9;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        ul {
-            margin-top: 5px;
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 5px;
-        }
-        .skill-item {
-            margin-bottom: 8px;
-        }
-        .date {
-            font-weight: normal;
-            font-size: 0.9em;
-            color: #666;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f0e9">
+  <meta name="description" content="董俊叶的个人主页——中央财经大学大数据管理与应用本科生，关注数据工程、云端 ETL 与智能系统开发。">
+  <meta property="og:title" content="董俊叶｜数据工程与智能系统">
+  <meta property="og:description" content="把原始数据，变成可靠的系统与清晰的决策。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://connerald.github.io/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="董俊叶｜数据工程与智能系统">
+  <meta name="twitter:description" content="把原始数据，变成可靠的系统与清晰的决策。">
+  <meta name="twitter:image" content="https://connerald.github.io/og.png">
+  <title>董俊叶｜数据工程与智能系统</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f2f0e9;
+      --paper-2: #e8e5db;
+      --ink: #171914;
+      --muted: #62655c;
+      --line: rgba(23, 25, 20, .16);
+      --acid: #d9ff43;
+      --blue: #1638e9;
+      --card: rgba(255, 255, 255, .42);
+      --shadow: 0 24px 70px rgba(37, 39, 29, .09);
+      --radius: 24px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 80% 0, rgba(217, 255, 67, .38), transparent 26rem),
+        var(--paper);
+      font-family: "DM Sans", "Noto Sans SC", system-ui, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      content: "";
+      opacity: .22;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(0,0,0,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,.025) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    ::selection { color: var(--ink); background: var(--acid); }
+    .shell { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+
+    .nav {
+      position: sticky;
+      top: 14px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: min(calc(100% - 28px), 1212px);
+      height: 66px;
+      margin: 14px auto 0;
+      padding: 0 18px 0 24px;
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 999px;
+      background: rgba(242, 240, 233, .78);
+      box-shadow: 0 8px 32px rgba(28, 31, 21, .07);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: -.02em; }
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--acid);
+      background: var(--ink);
+      font-size: 13px;
+    }
+    .nav-links { display: flex; align-items: center; gap: 26px; font-size: 14px; font-weight: 600; }
+    .nav-links a { color: var(--muted); transition: color .2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta, .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      color: var(--paper);
+      background: var(--ink);
+      font-weight: 700;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .nav-cta:hover, .button:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(23,25,20,.16); }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .55fr);
+      gap: 64px;
+      min-height: 690px;
+      padding: 100px 0 76px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 25px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 34px; height: 10px; border-radius: 99px; background: var(--blue); content: ""; }
+    h1 {
+      max-width: 850px;
+      margin: 0;
+      font-size: clamp(58px, 8.4vw, 116px);
+      line-height: .94;
+      letter-spacing: -.07em;
+      font-weight: 900;
+    }
+    .hero-accent {
+      position: relative;
+      display: inline-block;
+      z-index: 0;
+      white-space: nowrap;
+    }
+    .hero-accent::after {
+      position: absolute;
+      right: -.02em;
+      bottom: .02em;
+      left: -.02em;
+      z-index: -1;
+      height: .27em;
+      border-radius: 99px;
+      background: var(--acid);
+      content: "";
+      transform: rotate(-1deg);
+    }
+    .hero-copy {
+      max-width: 680px;
+      margin: 32px 0 0;
+      color: #42453c;
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.62;
+      letter-spacing: -.02em;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
+    .button { min-height: 52px; padding-inline: 23px; }
+    .button.secondary { color: var(--ink); background: transparent; }
+    .button .arrow { font-size: 18px; transition: transform .2s; }
+    .button:hover .arrow { transform: translate(3px, -3px); }
+
+    .hero-aside { align-self: end; padding-bottom: 14px; }
+    .profile-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.33);
+      box-shadow: var(--shadow);
+    }
+    .profile-top { padding: 24px; background: var(--ink); color: var(--paper); }
+    .status { display: flex; align-items: center; gap: 9px; color: #b9bcb1; font-size: 13px; }
+    .status-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--acid); box-shadow: 0 0 0 5px rgba(217,255,67,.13); }
+    .profile-name { margin: 44px 0 4px; font-size: 31px; font-weight: 800; letter-spacing: -.05em; }
+    .profile-role { color: #b9bcb1; }
+    .profile-meta { display: grid; grid-template-columns: 1fr 1fr; }
+    .metric { padding: 19px 20px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .metric:nth-child(even) { border-right: 0; }
+    .metric:nth-last-child(-n + 2) { border-bottom: 0; }
+    .metric strong { display: block; font-size: 22px; line-height: 1.2; letter-spacing: -.04em; }
+    .metric span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+
+    .marquee { overflow: hidden; border-block: 1px solid var(--line); background: var(--acid); }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      padding: 15px 0;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee span { display: flex; align-items: center; gap: 24px; margin-right: 24px; font-size: 13px; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; }
+    .marquee i { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    section { padding: 112px 0; }
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 50px;
+      margin-bottom: 58px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .section-index { color: var(--blue); font-size: 13px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(38px, 5vw, 70px); line-height: 1.08; letter-spacing: -.055em; }
+
+    .timeline { margin-left: calc(33.333% + 17px); }
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 34px;
+      padding: 0 0 64px 30px;
+      border-left: 1px solid var(--line);
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before {
+      position: absolute;
+      top: 8px;
+      left: -6px;
+      width: 11px;
+      height: 11px;
+      border: 2px solid var(--paper);
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 1px var(--blue);
+      content: "";
+    }
+    .timeline-date { padding-top: 1px; color: var(--muted); font-size: 13px; font-weight: 700; }
+    .timeline-body h3 { margin: 0; font-size: 27px; line-height: 1.3; letter-spacing: -.04em; }
+    .role { margin: 4px 0 17px; color: var(--blue); font-weight: 700; }
+    .timeline-body ul { margin: 0; padding-left: 18px; color: #4d5047; }
+    .timeline-body li + li { margin-top: 7px; }
+
+    .feature {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      min-height: 500px;
+      border-radius: 32px;
+      color: var(--paper);
+      background: var(--ink);
+      box-shadow: var(--shadow);
+    }
+    .feature-copy { padding: clamp(32px, 6vw, 72px); }
+    .feature-kicker { color: var(--acid); font-size: 13px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+    .feature h3 { max-width: 620px; margin: 22px 0 24px; font-size: clamp(39px, 5vw, 68px); line-height: 1.03; letter-spacing: -.06em; }
+    .feature p { max-width: 650px; margin: 0; color: #c4c7bc; font-size: 17px; }
+    .feature-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
+    .tag { padding: 8px 13px; border: 1px solid #46493e; border-radius: 999px; color: #dfe1d8; font-size: 12px; font-weight: 700; }
+    .feature-visual { position: relative; min-height: 420px; background: var(--blue); }
+    .battery {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: min(66%, 300px);
+      aspect-ratio: .72;
+      border: 2px solid rgba(255,255,255,.8);
+      border-radius: 34px;
+      transform: translate(-50%, -50%) rotate(7deg);
+      box-shadow: 24px 24px 0 rgba(217,255,67,.94), -24px -24px 0 rgba(23,25,20,.9);
+    }
+    .battery::before {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      width: 34%;
+      height: 16px;
+      border-radius: 7px 7px 0 0;
+      background: var(--paper);
+      content: "";
+      transform: translateX(-50%);
+    }
+    .battery::after {
+      position: absolute;
+      inset: 28px;
+      border-radius: 19px;
+      background: repeating-linear-gradient(0deg, var(--acid) 0 18px, transparent 18px 28px);
+      content: "";
+      opacity: .9;
+    }
+    .award {
+      position: absolute;
+      right: 24px;
+      bottom: 24px;
+      max-width: 180px;
+      padding: 13px 16px;
+      border-radius: 14px;
+      color: var(--ink);
+      background: var(--paper);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.4;
+      transform: rotate(-2deg);
+    }
+
+    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      min-height: 380px;
+      padding: 34px;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--card);
+      transition: transform .25s, background .25s, box-shadow .25s;
+    }
+    .project-card:hover { z-index: 1; background: rgba(255,255,255,.75); box-shadow: var(--shadow); transform: translateY(-6px) rotate(-.4deg); }
+    .project-card:nth-child(2):hover { transform: translateY(-6px) rotate(.4deg); }
+    .project-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+    .project-no { color: var(--blue); font-size: 13px; font-weight: 900; }
+    .external { display: grid; width: 40px; height: 40px; place-items: center; border: 1px solid var(--line); border-radius: 50%; font-size: 18px; }
+    .project-card:hover .external { color: var(--paper); background: var(--ink); }
+    .project-card h3 { max-width: 460px; margin: auto 0 14px; font-size: clamp(32px, 4vw, 50px); line-height: 1.05; letter-spacing: -.055em; }
+    .project-card p { margin: 0; color: var(--muted); }
+    .tech { margin-top: 22px; color: var(--ink); font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+
+    .education-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; }
+    .edu-card, .skills-card {
+      padding: clamp(30px, 5vw, 56px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.36);
+    }
+    .edu-card { display: flex; min-height: 390px; flex-direction: column; }
+    .edu-card .school { margin: auto 0 12px; font-size: clamp(38px, 5vw, 62px); line-height: 1.05; letter-spacing: -.06em; font-weight: 800; }
+    .edu-card .major { color: var(--blue); font-size: 20px; font-weight: 700; }
+    .edu-card .course { margin-top: 24px; color: var(--muted); }
+    .course strong { color: var(--ink); }
+    .skills-card { color: var(--paper); background: var(--blue); }
+    .skills-card h3 { margin: 0 0 28px; font-size: 27px; letter-spacing: -.04em; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 9px; }
+    .skill-list span { padding: 9px 13px; border: 1px solid rgba(255,255,255,.34); border-radius: 999px; font-size: 13px; font-weight: 700; }
+    .campus-note { margin-top: 30px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.25); color: rgba(255,255,255,.75); font-size: 14px; }
+
+    .contact { padding-bottom: 40px; }
+    .contact-box {
+      padding: clamp(34px, 7vw, 86px);
+      border-radius: 32px;
+      color: var(--paper);
+      background: var(--ink);
+      text-align: center;
+    }
+    .contact-box h2 { max-width: 820px; margin: 0 auto 27px; }
+    .contact-box p { max-width: 620px; margin: 0 auto 34px; color: #b9bcb1; font-size: 18px; }
+    .contact-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .contact-links a, .copy-wechat {
+      min-height: 47px;
+      padding: 0 18px;
+      border: 1px solid #41443a;
+      border-radius: 999px;
+      color: var(--paper);
+      background: transparent;
+      cursor: pointer;
+    }
+    .contact-links a { display: inline-flex; align-items: center; }
+    .contact-links a:hover, .copy-wechat:hover { border-color: var(--acid); color: var(--acid); }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 28px 0 42px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 80px; }
+      .hero-aside { width: min(100%, 440px); }
+      .section-head { grid-template-columns: 1fr; gap: 12px; }
+      .timeline { margin-left: 0; }
+      .timeline-item { grid-template-columns: 1fr; gap: 10px; }
+      .feature { grid-template-columns: 1fr; }
+      .feature-visual { min-height: 370px; }
+      .education-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 650px) {
+      .shell { width: min(calc(100% - 26px), var(--max)); }
+      .nav { top: 8px; width: calc(100% - 16px); height: 58px; margin-top: 8px; padding-left: 14px; }
+      .brand span:last-child { display: none; }
+      .nav-cta { min-height: 38px; }
+      .hero { gap: 46px; padding: 72px 0 58px; }
+      h1 { font-size: clamp(54px, 18vw, 78px); }
+      .hero-copy { font-size: 18px; }
+      section { padding: 82px 0; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card { min-height: 330px; padding: 26px; }
+      .timeline-item { padding-left: 22px; }
+      .feature-copy { padding: 32px 26px 42px; }
+      .feature-visual { min-height: 320px; }
+      .contact-links { flex-direction: column; }
+      .contact-links a, .copy-wechat { justify-content: center; width: 100%; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    @media print {
+      :root { --paper: #fff; }
+      body { background: #fff; font-size: 11px; }
+      body::before, .nav, .marquee, .hero-actions, .feature-visual, .contact, footer { display: none !important; }
+      .shell { width: 100%; }
+      .hero { display: block; min-height: 0; padding: 10px 0 24px; }
+      h1 { font-size: 50px; }
+      .hero-copy { max-width: 100%; margin-top: 16px; font-size: 14px; }
+      .hero-aside { margin-top: 18px; }
+      .profile-card { box-shadow: none; }
+      .profile-top { padding: 15px; color: #000; background: #fff; }
+      .status, .profile-role { color: #555; }
+      .profile-name { margin-top: 10px; }
+      section { padding: 28px 0; break-inside: avoid; }
+      .section-head { margin-bottom: 24px; }
+      h2 { font-size: 32px; }
+      .timeline { margin-left: 0; }
+      .timeline-item { padding-bottom: 24px; }
+      .feature { display: block; min-height: 0; color: #000; background: #fff; border: 1px solid #aaa; }
+      .feature-copy { padding: 28px; }
+      .feature h3 { font-size: 38px; }
+      .feature p, .feature-kicker, .tag { color: #333; }
+      .project-card, .edu-card, .skills-card { min-height: 0; break-inside: avoid; color: #000; background: #fff; }
+      .project-card h3 { margin-top: 50px; }
+      .skills-card { border: 1px solid #aaa; }
+      .campus-note { color: #333; border-color: #aaa; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
 <body>
+  <nav class="nav" aria-label="主导航">
+    <a class="brand" href="#top" aria-label="返回首页">
+      <span class="brand-mark">DJY</span>
+      <span>董俊叶 / CONNERALD</span>
+    </a>
+    <div class="nav-links">
+      <a href="#experience">经历</a>
+      <a href="#projects">项目</a>
+      <a href="#about">关于</a>
+      <a class="nav-cta" href="mailto:connerald359@163.com">联系我 ↗</a>
+    </div>
+  </nav>
 
-<div class="container">
-    <header>
-        <h1>董俊叶</h1>
-        <div class="contact-info">
-            <span>📞 18058890806</span>
-            <span>📧 <a href="mailto:connerald359@163.com">connerald359@163.com</a></span>
-            <span>💬 Wechat: Connerald359</span>
-            <span>💻 <a href="https://github.com/connerald" target="_blank">Github: Connerald</a></span>
+  <main id="top">
+    <header class="hero shell">
+      <div>
+        <div class="eyebrow">Data engineering · Intelligent systems</div>
+        <h1>把数据做成<br><span class="hero-accent">可靠系统。</span></h1>
+        <p class="hero-copy">你好，我是董俊叶。中央财经大学大数据管理与应用本科生，关注数据工程、云端 ETL 与智能系统开发——让原始数据稳定流动，也让复杂问题真正落地。</p>
+        <div class="hero-actions">
+          <a class="button" href="#projects">查看项目 <span class="arrow">↗</span></a>
+          <button class="button secondary" type="button" onclick="window.print()">打印简历</button>
         </div>
+      </div>
+      <aside class="hero-aside reveal" aria-label="个人概览">
+        <div class="profile-card">
+          <div class="profile-top">
+            <div class="status"><span class="status-dot"></span> Open to opportunities</div>
+            <div class="profile-name">董俊叶</div>
+            <div class="profile-role">Data Developer & Product Builder</div>
+          </div>
+          <div class="profile-meta">
+            <div class="metric"><strong>CUFE</strong><span>大数据管理与应用</span></div>
+            <div class="metric"><strong>2027</strong><span>预计毕业</span></div>
+            <div class="metric"><strong>97</strong><span>机器学习</span></div>
+            <div class="metric"><strong>95</strong><span>应用随机过程</span></div>
+          </div>
+        </div>
+      </aside>
     </header>
 
-    <section>
-        <h2>教育经历</h2>
-        <div class="item">
-            <h3>中央财经大学 <span class="date">2023.09 ~ 至今</span></h3>
-            <div class="sub-info">本科 | 大数据管理与应用 | 管理科学与工程学院</div>
-            <p><strong>相关课程：</strong>机器学习、云计算与大数据技术、运筹学、应用随机过程、多元统计与数据挖掘</p>
-        </div>
-    </section>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Python <i></i> SQL <i></i> Azure Data Factory <i></i> Databricks <i></i> Synapse <i></i> Spark <i></i> Kafka <i></i> Django <i></i> AI Coding <i></i></span>
+        <span>Python <i></i> SQL <i></i> Azure Data Factory <i></i> Databricks <i></i> Synapse <i></i> Spark <i></i> Kafka <i></i> Django <i></i> AI Coding <i></i></span>
+      </div>
+    </div>
 
-    <section>
-        <h2>专业技能</h2>
-        <div class="skill-item"><strong>Python：</strong>熟练使用 Python 进行数据处理、数据挖掘与数据可视化。</div>
-        <div class="skill-item"><strong>SQL / 数据库：</strong>熟练编写复杂 SQL 查询，熟悉 MySQL 数据库基本原理与常用操作。</div>
-        <div class="skill-item"><strong>大数据技术栈：</strong>熟悉 Hadoop、Spark Streaming、Kafka 等分布式数据处理框架的基本原理与使用场景。</div>
-        <div class="skill-item"><strong>机器学习：</strong>掌握 SVM（支持向量机）、BP 神经网络、K-means 聚类等常见机器学习算法的原理及 Python 实现。</div>
-        <div class="skill-item"><strong>办公软件：</strong>熟练使用 Word、Excel、PowerPoint、LaTeX 进行数据分析与报告展示。</div>
-        <div class="skill-item"><strong>综合能力：</strong>具备良好的沟通与团队协作能力，拥有竞赛团队协同经验，能够在高压环境下高效推进任务并按时完成交付。</div>
-        <div class="skill-item"><strong>语言：</strong>英语（CET-6）</div>
-    </section>
-
-    <section>
-        <h2>实习经历</h2>
-        
-        <div class="item">
-            <h3>数据开发实习生 | 神州数码（000034.SZ） | 北京 <span class="date">2025.09 ~ 2025.12</span></h3>
-            <ul>
-                <li>参与百济神州（BeiGene）FG HTS 高通量实验数据自动化处理项目，负责实验数据处理流程的 ETL 设计与开发。</li>
-                <li>使用 Python 开发数据解析与清洗脚本，实现对 HTS 高通量实验数据的自动化处理与标准化转换，替代原有的人工数据整理流程。</li>
-                <li>基于 Azure Data Factory 搭建数据处理 Pipeline，通过 Databricks / Copy Data 组件实现数据调度与跨存储系统同步。</li>
-                <li>支持实验数据的自动化处理与入库流程，提升数据处理效率并降低人工操作成本。</li>
-            </ul>
+    <section id="experience">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">01 / Experience</div>
+          <h2>从金融风控到<br>生命科学数据链路</h2>
         </div>
-
-        <div class="item">
-            <h3>量化策略实习生 | 启后资本 | 北京 <span class="date">2025.01 ~ 2025.05</span></h3>
-            <ul>
-                <li>使用 Python 开发私募基金持仓风险管理工具，实现基金净值数据的自动化获取、清洗与存储。</li>
-                <li>构建投资组合风险监控模块，自动计算收益率、最大回撤、夏普比率等风险指标，用于辅助组合风险监控。</li>
-                <li>实现净值数据的定期更新与风险指标自动生成，减少人工统计工作量并提高风险监控效率。</li>
-            </ul>
-        </div>
-        <!-- 测试哔哩哔哩视频嵌入功能 -->
-        <div class="item">
-            <h3>新媒体运营 | 丽水市骏腾汽车销售服务有限公司 | 丽水 <span class="date">2024.07 ~ 2024.09</span></h3>
-            <ul>
-                <li><strong>实习成果：</strong>策划、剪辑一汽奔腾“奔腾小马”车型宣传片，为一汽奔腾官方账号所录用。</li>
-            </ul>
-            <!-- Bilibili 视频嵌入 -->
-            <div style="margin-top: 15px; border: 1px solid #eee; padding: 5px;">
-                <p style="font-size: 0.9em; margin: 0 0 5px 0; color: #666;">作品预览：</p>
-                <iframe 
-                    src="https://player.bilibili.com/player.html?bvid=BV1VE41137jY&page=1&high_quality=1&danmaku=0" 
-                    width="100%" 
-                    height="450" 
-                    frameborder="0" 
-                    scrolling="no"
-                    allowfullscreen="true"
-                    sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts" 
-                    style="border: 1px solid #ddd;">
-                </iframe>
-                <p style="font-size: 0.85em; color: #888; margin-top: 5px;">
-                    *注：如视频无法播放，请点击 <a href="https://www.bilibili.com/video/BV1VE41137jY" target="_blank">此处跳转 Bilibili 观看</a>
-                </p>
+        <div class="timeline">
+          <article class="timeline-item reveal">
+            <div class="timeline-date">2025.09 — 2025.12<br>北京</div>
+            <div class="timeline-body">
+              <h3>神州数码</h3>
+              <div class="role">数据开发实习生</div>
+              <ul>
+                <li>参与百济神州 HTS 高通量筛选实验数据自动化处理项目，建设从原始文件接入、标准化清洗、任务调度到数仓落地的 ETL 链路。</li>
+                <li>设计字段抽取、格式转换、质量校验与批量处理逻辑，推动实验数据由人工整理转向自动化 Pipeline。</li>
+                <li>基于 Azure Data Factory 编排流程，调用 Databricks 完成数据处理与跨存储同步；数据写入 Azure Synapse，并以 SQL 视图服务 ELN 系统。</li>
+              </ul>
             </div>
+          </article>
+          <article class="timeline-item reveal">
+            <div class="timeline-date">2025.01 — 2025.05<br>北京</div>
+            <div class="timeline-body">
+              <h3>启后资本</h3>
+              <div class="role">量化实习生</div>
+              <ul>
+                <li>使用 Python 开发私募基金持仓风险管理工具，打通净值数据的自动获取、清洗、存储与定期更新。</li>
+                <li>构建投资组合风险指标模块，自动计算收益率、最大回撤、夏普比率等指标，减少人工统计并提升风险监控效率。</li>
+              </ul>
+            </div>
+          </article>
         </div>
+      </div>
     </section>
 
-    <section>
-        <h2>项目经历</h2>
-        
-        <div class="item">
-            <h3>TsingLink | 清华大学 EMBA/MBA 校友信息交流平台 <span class="date">2025.06 ~ 2025.11</span></h3>
-            <div class="sub-info">项目链接：<a href="https://gitee.com/oceanccc/tsing-link" target="_blank">gitee.com/oceanccc/tsing-link</a></div>
-            <ul>
-                <li>负责系统需求分析与后端开发，基于 Django + MySQL 设计并实现校友资源信息交流平台。</li>
-                <li>设计用户、酒类资源、融创项目等核心数据模型，并实现供需信息发布、查询与管理功能。</li>
-            </ul>
-        </div>
-
-        <div class="item">
-            <h3>Crypto-dashboard | 加密货币实时行情数据看板 <span class="date">2025.05 ~ 2025.06</span></h3>
-            <div class="sub-info">项目链接：<a href="https://github.com/Connerald/crypto-dashboard" target="_blank">github.com/Connerald/crypto-dashboard</a></div>
-            <ul>
-                <li>实现用 Binance API 接口监听价格动态。并使用 Kafka + Spark Streaming 实现实时流计算。搭建基于 HighChart 的数据看板。</li>
-            </ul>
-        </div>
+    <section aria-labelledby="venture-title">
+      <div class="shell">
+        <article class="feature reveal">
+          <div class="feature-copy">
+            <div class="feature-kicker">Venture / 2025 — 2027</div>
+            <h3 id="venture-title">瑶想科技<br>端末智能电池管理系统</h3>
+            <p>面向储能电站的电池安全监测、风险预警与站控联动。作为核心成员参与国家电网萧山电站、苏州精控能源高邮大储等场景的需求调研与方案对接，负责系统前后端核心功能，并参与电芯健康评估与风险预警规则设计。</p>
+            <div class="feature-tags">
+              <span class="tag">前后端开发</span>
+              <span class="tag">设备数据管理</span>
+              <span class="tag">风险预警</span>
+              <span class="tag">站控联动</span>
+            </div>
+          </div>
+          <div class="feature-visual" aria-hidden="true">
+            <div class="battery"></div>
+            <div class="award">2025 中央财经大学<br>大创校赛一等奖冠军</div>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section>
-        <h2>比赛经历</h2>
-        <div class="item">
-            <h3>2024 MathorCup 大数据竞赛 | 华北赛区二等奖 <span class="date">2024.10 ~ 2024.11</span></h3>
-            <ul>
-                <li><strong>职责：</strong>Python 建模与数据处理和 LaTeX 论文排版。</li>
-                <li><strong>成果：</strong>基于 XGBoost 、遗传算法训练模型，实现对某电商平台的销售数据预测。建立并求解多目标规划模型实现电商分仓策略预测。</li>
-            </ul>
+    <section id="projects">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">02 / Selected work</div>
+          <h2>把想法推进到<br>可以运行的产品</h2>
         </div>
+        <div class="project-grid">
+          <a class="project-card reveal" href="https://gitee.com/oceanccc/tsing-link" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">PROJECT 01 · 2025</span><span class="external">↗</span></div>
+            <h3>TsingLink</h3>
+            <p>清华大学 EMBA/MBA 校友信息交流平台。负责需求分析与 Django 后端开发，设计用户、酒类资源、融创项目等核心模型，实现供需信息发布、查询与管理。</p>
+            <div class="tech">Django · Data modeling · Backend</div>
+          </a>
+          <a class="project-card reveal" href="https://github.com/connerald/crypto-dashboard" target="_blank" rel="noreferrer">
+            <div class="project-top"><span class="project-no">PROJECT 02 · 2025</span><span class="external">↗</span></div>
+            <h3>Crypto<br>Dashboard</h3>
+            <p>加密货币实时行情数据看板。接入 Binance API 监听价格动态，以 Kafka + Spark Streaming 完成实时流计算，并搭建 Highcharts 可视化界面。</p>
+            <div class="tech">Kafka · Spark Streaming · Highcharts</div>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <section>
-        <h2>校园经历</h2>
-        <div class="item">
-            <h3>干事 | 管理科学与工程学院文体部 <span class="date">2023.09 ~ 2024.06</span></h3>
-            <ul>
-                <li>撰写院级足球赛、羽毛球赛策划案。协助举办十佳歌手、主持人大赛等活动。</li>
-            </ul>
+    <section id="about">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-index">03 / Foundation</div>
+          <h2>技术底座与<br>持续学习</h2>
         </div>
+        <div class="education-grid">
+          <article class="edu-card reveal">
+            <div class="section-index">2023.09 — 2027.06</div>
+            <div class="school">中央财经大学</div>
+            <div class="major">大数据管理与应用 · 本科</div>
+            <div class="course"><strong>核心课程：</strong>机器学习（97）、应用随机过程（95）、云计算与大数据技术、多元统计与数据挖掘</div>
+          </article>
+          <article class="skills-card reveal">
+            <h3>Toolkit</h3>
+            <div class="skill-list">
+              <span>Python</span><span>SQL</span><span>MySQL</span><span>Hadoop</span><span>Spark</span><span>Kafka</span><span>Data Mining</span><span>Data Visualization</span><span>GitHub Copilot</span><span>Codex</span><span>Claude Code</span>
+            </div>
+            <div class="campus-note">
+              <strong>MathorCup 赛区三等奖</strong><br>
+              基于 XGBoost 与遗传算法完成多品类销售预测，并以多目标规划求解供应链商品分仓策略。
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
-</div>
 
+    <section class="contact" id="contact">
+      <div class="shell">
+        <div class="contact-box reveal">
+          <h2>一起把复杂问题，<br>做成可用的系统。</h2>
+          <p>如果你正在寻找数据开发、数据工程或智能系统方向的实习生与合作伙伴，欢迎联系我。</p>
+          <div class="contact-links">
+            <a href="mailto:connerald359@163.com">connerald359@163.com</a>
+            <a href="tel:+8618058890806">180 5889 0806</a>
+            <button class="copy-wechat" type="button" data-wechat="Connerald359">微信 · Connerald359</button>
+            <a href="https://github.com/connerald" target="_blank" rel="noreferrer">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>© <span id="year"></span> 董俊叶 · Connerald</span>
+    <span>Designed around data, built for the real world.</span>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+
+    const wechatButton = document.querySelector(".copy-wechat");
+    wechatButton.addEventListener("click", async () => {
+      const account = wechatButton.dataset.wechat;
+      try {
+        await navigator.clipboard.writeText(account);
+        wechatButton.textContent = "微信号已复制 ✓";
+        setTimeout(() => { wechatButton.textContent = `微信 · ${account}`; }, 1800);
+      } catch {
+        wechatButton.textContent = account;
+      }
+    });
+  </script>
 </body>
 </html>
