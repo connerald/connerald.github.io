@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f5f0">
-  <meta name="description" content="董俊叶的个人主页——连接业务需求、数据工程与技术产品，将复杂问题推进为可靠、可用的系统。">
-  <meta property="og:title" content="董俊叶｜数据工程与技术产品">
-  <meta property="og:description" content="连接业务需求、数据链路与产品方案，将复杂问题推进为可靠、可用的系统。">
+  <meta name="description" content="董俊叶，中央财经大学大数据管理与应用本科生。以数据工程为基础，探索储能安全、风险分析与可追溯的 AI Agent 应用。">
+  <meta property="og:title" content="董俊叶｜数据工程与 AI 应用">
+  <meta property="og:description" content="从数据处理到风险分析，探索有业务依据、结论可追溯的 AI 应用。">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:image" content="https://connerald.github.io/og.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="董俊叶｜数据工程与技术产品">
-  <meta name="twitter:description" content="连接业务需求、数据链路与产品方案，将复杂问题推进为可靠、可用的系统。">
+  <meta name="twitter:title" content="董俊叶｜数据工程与 AI 应用">
+  <meta name="twitter:description" content="从数据处理到风险分析，探索有业务依据、结论可追溯的 AI 应用。">
   <meta name="twitter:image" content="https://connerald.github.io/og.png">
-  <title>董俊叶｜数据工程与技术产品</title>
+  <title>董俊叶｜数据工程与 AI 应用</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -316,7 +316,7 @@
     .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
     .project-card {
       display: flex;
-      min-height: 440px;
+      min-height: 390px;
       padding: 36px;
       border: 1px solid var(--line-strong);
       border-radius: var(--radius);
@@ -328,7 +328,7 @@
     .project-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
     .project-no { color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: .08em; }
     .project-link { color: var(--accent); font-size: 12px; font-weight: 700; }
-    .project-card h3 { margin: 48px 0 10px; font-size: 34px; line-height: 1.2; letter-spacing: -.045em; }
+    .project-card h3 { margin: 36px 0 10px; font-size: 30px; line-height: 1.2; letter-spacing: -.045em; }
     .project-role { margin: 0; color: var(--accent); font-size: 13px; font-weight: 700; }
     .project-description { margin: 24px 0 0; color: var(--muted); font-size: 14px; }
     .project-stack {
@@ -342,6 +342,12 @@
       text-transform: uppercase;
     }
 
+    .about-intro { max-width: 850px; margin: -12px 0 38px; color: #4f596a; font-size: 17px; line-height: 1.9; }
+    .principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin-bottom: 56px; }
+    .principle { padding-top: 22px; border-top: 1px solid var(--line-strong); }
+    .principle h3 { margin: 18px 0 12px; font-size: 20px; font-weight: 600; }
+    .principle p { margin: 0; color: var(--muted); font-size: 14px; }
+    .education-dates { margin-top: 14px; color: var(--muted); font-size: 12px; }
     .about-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 22px; }
     .about-card {
       min-height: 420px;
@@ -351,7 +357,7 @@
       background: rgba(255,255,255,.5);
     }
     .card-label { color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-    .school { margin: 94px 0 10px; font-size: clamp(34px, 4vw, 48px); line-height: 1.2; letter-spacing: -.05em; font-weight: 600; }
+    .school { margin: 48px 0 10px; font-size: clamp(34px, 4vw, 48px); line-height: 1.2; letter-spacing: -.05em; font-weight: 600; }
     .major { color: var(--accent); font-size: 16px; font-weight: 700; }
     .education-meta { margin-top: 22px; color: var(--muted); font-size: 13px; }
     .skills-card { color: #fff; background: var(--accent-dark); border-color: var(--accent-dark); }
@@ -456,10 +462,12 @@
         padding: 24px 0;
         border-right: 0;
       }
-      .project-grid { grid-template-columns: 1fr; }
+      .project-grid, .principles { grid-template-columns: 1fr; }
       .project-card { min-height: 380px; padding: 28px; }
       .about-card { min-height: 0; padding: 28px; }
-      .school { margin-top: 64px; }
+      .school { margin-top: 40px; }
+      .about-intro { font-size: 15px; }
+      .principles { gap: 26px; }
       .skill-group { grid-template-columns: 1fr; gap: 7px; }
       .award-note { grid-template-columns: 1fr; gap: 10px; padding: 25px 28px; }
       .contact-box { padding: 34px 25px; }
@@ -504,9 +512,9 @@
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">跳至主要内容</a>
 
-  <nav class="nav" aria-label="主导航" data-i18n-aria="navLabel">
+  <nav class="nav" data-i18n-aria="navLabel" aria-label="主导航">
     <div class="nav-inner shell">
-      <a class="brand" href="#top" aria-label="返回首页" data-i18n-aria="homeLabel">
+      <a class="brand" href="#top" data-i18n-aria="homeLabel" aria-label="返回首页">
         <span class="brand-mark">DJY</span>
         <span class="brand-name">董俊叶 / CONNERALD</span>
       </a>
@@ -517,7 +525,7 @@
           <a href="#about" data-i18n="navAbout">关于</a>
           <a href="#contact" data-i18n="navContact">联系</a>
         </div>
-        <div class="language-switch" role="group" aria-label="语言选择" data-i18n-aria="languageLabel">
+        <div class="language-switch" role="group" data-i18n-aria="languageLabel" aria-label="语言选择">
           <button type="button" data-lang="zh" aria-pressed="true">中</button>
           <button type="button" data-lang="en" aria-pressed="false">EN</button>
         </div>
@@ -528,48 +536,48 @@
   <main id="main">
     <header class="hero shell" id="top">
       <div class="hero-copy">
-        <div class="eyebrow" data-i18n="heroEyebrow">数据工程 · 技术产品</div>
+        <div class="eyebrow" data-i18n="heroEyebrow">数据工程 · AI 应用</div>
         <h1 data-i18n="name">董俊叶</h1>
-        <p class="hero-role" data-i18n="heroRole">连接业务需求、数据链路与可用系统。</p>
-        <p class="hero-summary" data-i18n="heroSummary">中央财经大学大数据管理与应用本科生。关注数据工程、云端 ETL 与智能系统开发，能够从业务场景出发，把分析方法和技术方案推进为可靠、可落地的产品。</p>
+        <p class="hero-role" data-i18n="heroRole">让数据成为有依据的判断。</p>
+        <p class="hero-summary" data-i18n="heroSummary">我是中央财经大学大数据管理与应用专业的本科生，预计 2027 年毕业。从基金风险工具、实验数据 ETL，到储能安全与 AI Agent，我一直在探索：怎样把分散的数据，变成能回答实际问题的系统。</p>
         <div class="hero-actions">
-          <a class="button" href="#experience"><span data-i18n="viewExperience">查看经历</span><span class="arrow" aria-hidden="true">↓</span></a>
+          <a class="button" href="#projects"><span data-i18n="viewProjects">查看项目</span><span class="arrow" aria-hidden="true">↓</span></a>
           <a class="button secondary" href="mailto:connerald359@163.com"><span data-i18n="emailMe">邮件联系</span><span class="arrow" aria-hidden="true">↗</span></a>
         </div>
       </div>
 
-      <aside class="profile-panel reveal" aria-label="个人概览" data-i18n-aria="profileLabel">
+      <aside class="profile-panel reveal" data-i18n-aria="profileLabel" aria-label="个人概览">
         <h2 class="profile-heading" data-i18n="profileHeading">Profile / 概览</h2>
         <dl class="profile-list">
           <div class="profile-row"><dt data-i18n="profileSchoolLabel">院校</dt><dd data-i18n="profileSchool">中央财经大学</dd></div>
           <div class="profile-row"><dt data-i18n="profileMajorLabel">专业</dt><dd data-i18n="profileMajor">大数据管理与应用</dd></div>
-          <div class="profile-row"><dt data-i18n="profileGraduationLabel">毕业时间</dt><dd data-i18n="profileGraduation">2027 年 6 月</dd></div>
-          <div class="profile-row"><dt data-i18n="profileFocusLabel">方向</dt><dd data-i18n="profileFocus">数据工程 · 技术产品</dd></div>
+          <div class="profile-row"><dt data-i18n="profileGraduationLabel">预计毕业</dt><dd data-i18n="profileGraduation">2027 年 6 月</dd></div>
+          <div class="profile-row"><dt data-i18n="profileFocusLabel">方向</dt><dd data-i18n="profileFocus">数据工程 · AI Agent</dd></div>
           <div class="profile-row"><dt data-i18n="profileLocationLabel">所在地</dt><dd data-i18n="profileLocation">北京 · 中国</dd></div>
           <div class="profile-row">
             <dt data-i18n="profileStatusLabel">当前状态</dt>
-            <dd class="status-inline"><span class="status-dot" aria-hidden="true"></span><span data-i18n="profileStatus">开放实习与合作机会</span></dd>
+            <dd class="status-inline"><span class="status-dot" aria-hidden="true"></span><span data-i18n="profileStatus">开放实习与项目合作</span></dd>
           </div>
         </dl>
       </aside>
     </header>
 
-    <section class="capabilities" aria-label="核心能力" data-i18n-aria="capabilitiesLabel">
+    <section class="capabilities" data-i18n-aria="capabilitiesLabel" aria-label="核心能力">
       <div class="capability-grid shell">
         <article class="capability reveal">
           <div class="capability-no">01</div>
-          <h2 data-i18n="capability1Title">数据链路与工程实现</h2>
-          <p data-i18n="capability1Body">从原始数据接入、清洗、校验与调度，到数仓落地和下游系统服务。</p>
+          <h2 data-i18n="capability1Title">把数据链路打通</h2>
+          <p data-i18n="capability1Body">在基金风险工具与实验数据 ETL 中，处理数据获取、清洗、校验、存储和下游查询，让分析建立在可用的数据上。</p>
         </article>
         <article class="capability reveal">
           <div class="capability-no">02</div>
-          <h2 data-i18n="capability2Title">业务问题与产品方案</h2>
-          <p data-i18n="capability2Body">理解行业场景与使用需求，将模糊问题拆解为可实现、可验证的系统能力。</p>
+          <h2 data-i18n="capability2Title">把业务问题拆清</h2>
+          <p data-i18n="capability2Body">从校友交流平台到储能电池管理，参与需求梳理、数据建模与前后端开发，将场景里的问题转化为具体功能。</p>
         </article>
         <article class="capability reveal">
           <div class="capability-no">03</div>
-          <h2 data-i18n="capability3Title">分析方法与智能应用</h2>
-          <p data-i18n="capability3Body">结合机器学习、实时计算与可视化，支持风险监控、预测和业务决策。</p>
+          <h2 data-i18n="capability3Title">让 AI 分析有据可查</h2>
+          <p data-i18n="capability3Body">在 Agent 原型中实践工具查询、结构化证据、多轮会话与评测，让分析结果能够回到数据和筛选条件。</p>
         </article>
       </div>
     </section>
@@ -589,10 +597,10 @@
                 <div class="experience-role" data-i18n="dcRole">数据开发实习生</div>
               </div>
               <div class="experience-points">
-                <div class="evidence-row"><div class="evidence-label" data-i18n="contextLabel">业务背景</div><p data-i18n="dcContext">参与百济神州 HTS 高通量筛选实验数据自动化处理项目，支持实验数据从原始文件进入 ELN 系统。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="responsibilityLabel">个人职责</div><p data-i18n="dcResponsibility">参与 ETL 链路建设，负责字段抽取、格式转换、质量校验、批量处理及跨存储同步逻辑。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="solutionLabel">技术方案</div><p data-i18n="dcSolution">通过 Azure Data Factory 编排流程，调用 Databricks 处理数据，写入 Azure Synapse，并以 SQL 视图服务 ELN。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="valueLabel">交付价值</div><p data-i18n="dcValue">推动实验数据处理由人工整理转向结构化、可调度的自动化 Pipeline。</p></div>
+                <div class="evidence-row"><div class="evidence-label" data-i18n="contextLabel">场景与问题</div><p data-i18n="dcContext">参与百济神州 HTS 高通量筛选实验数据自动化处理项目，支持实验数据从原始文件进入 ELN 系统。</p></div>
+                <div class="evidence-row"><div class="evidence-label" data-i18n="responsibilityLabel">我的工作</div><p data-i18n="dcResponsibility">参与 ETL 链路建设，负责字段抽取、格式转换、质量校验、批量处理及跨存储同步逻辑。</p></div>
+                <div class="evidence-row"><div class="evidence-label" data-i18n="solutionLabel">实现方法</div><p data-i18n="dcSolution">通过 Azure Data Factory 编排流程，调用 Databricks 处理数据，写入 Azure Synapse，并以 SQL 视图服务 ELN。</p></div>
+                <div class="evidence-row"><div class="evidence-label" data-i18n="valueLabel">实践与结果</div><p data-i18n="dcValue">推动实验数据处理由人工整理转向结构化、可调度的自动化 Pipeline。</p></div>
               </div>
             </div>
           </article>
@@ -605,10 +613,10 @@
                 <div class="experience-role" data-i18n="qhRole">量化实习生</div>
               </div>
               <div class="experience-points">
-                <div class="evidence-row"><div class="evidence-label" data-i18n="contextLabel">业务背景</div><p data-i18n="qhContext">面向私募基金持仓与净值数据，建设日常风险监控所需的数据和指标工具。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="responsibilityLabel">个人职责</div><p data-i18n="qhResponsibility">使用 Python 打通净值数据的自动获取、清洗、存储与定期更新流程。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="solutionLabel">技术方案</div><p data-i18n="qhSolution">构建收益率、最大回撤、夏普比率等投资组合风险指标模块。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="valueLabel">交付价值</div><p data-i18n="qhValue">减少人工统计步骤，为持仓风险管理提供稳定、可复用的分析工具。</p></div>
+                <div class="evidence-row"><div class="evidence-label" data-i18n="contextLabel">场景与问题</div><p data-i18n="qhContext">面向私募基金持仓与净值数据，建设日常风险监控所需的数据和指标工具。</p></div>
+                <div class="evidence-row"><div class="evidence-label" data-i18n="responsibilityLabel">我的工作</div><p data-i18n="qhResponsibility">用 Python 处理邮件中的净值文本与文件，完成清洗、MySQL 存储和定期更新。</p></div>
+                <div class="evidence-row"><div class="evidence-label" data-i18n="solutionLabel">实现方法</div><p data-i18n="qhSolution">构建收益率、最大回撤、夏普比率等投资组合风险指标模块。</p></div>
+                <div class="evidence-row"><div class="evidence-label" data-i18n="valueLabel">实践与结果</div><p data-i18n="qhValue">将重复的数据整理与指标计算自动化，并参与基金尽职调查与风控报告整理。</p></div>
               </div>
             </div>
           </article>
@@ -619,16 +627,16 @@
     <section class="case-study" aria-labelledby="venture-title">
       <div class="case-layout shell reveal">
         <div>
-          <div class="case-kicker" data-i18n="ventureKicker">重点案例 · 2025—2027</div>
-          <h2 id="venture-title" data-i18n="ventureTitle">瑶想科技<br>端末智能电池管理系统</h2>
-          <p class="case-lead" data-i18n="ventureLead">面向储能电站的电池安全监测、风险预警与站控联动，连接现场设备数据、业务规则和系统操作。</p>
-          <div class="case-award" data-i18n="ventureAward">2025 中央财经大学大学生创新创业训练计划校赛一等奖冠军</div>
+          <div class="case-kicker" data-i18n="ventureKicker">重点案例 · 2026.05 启动 · AI 原型</div>
+          <h2 id="venture-title" data-i18n="ventureTitle">AnchorCell</h2>
+          <p class="case-lead" data-i18n="ventureLead">储能电站安全运维 AI Agent。围绕电芯风险分析，让业务事实来自工具查询，让分析结论附带可追溯的证据。</p>
+          <div class="case-award" data-i18n="ventureAward">评测实践：构建覆盖 40+ 业务问题的 Agent 评测集。</div>
         </div>
         <div class="case-details">
-          <article class="case-detail"><h3 data-i18n="contextLabel">业务背景</h3><p data-i18n="ventureContext">参与国家电网萧山电站、苏州精控能源高邮大储等场景的需求调研与方案对接。</p></article>
-          <article class="case-detail"><h3 data-i18n="responsibilityLabel">个人职责</h3><p data-i18n="ventureResponsibility">作为核心成员负责系统前后端核心功能，并协同推进需求澄清和产品实现。</p></article>
-          <article class="case-detail"><h3 data-i18n="solutionLabel">技术方案</h3><p data-i18n="ventureSolution">围绕设备数据管理、状态展示、告警处置和站控联动组织系统能力。</p></article>
-          <article class="case-detail"><h3 data-i18n="valueLabel">交付价值</h3><p data-i18n="ventureValue">参与电芯健康评估与风险预警规则设计，将安全监测需求落实到可使用的系统流程。</p></article>
+          <article class="case-detail"><h3 data-i18n="contextLabel">场景与问题</h3><p data-i18n="ventureContext">面对储能设备的多层级数据，探索如何从舱、Rack、电芯及 SOS 数据中定位风险，并向使用者解释分析依据。</p></article>
+          <article class="case-detail"><h3 data-i18n="responsibilityLabel">我的工作</h3><p data-i18n="ventureResponsibility">使用 LangGraph 构建状态图驱动的 Agent，以受控只读工具查询业务数据，明确模型与数据工具的职责。</p></article>
+          <article class="case-detail"><h3 data-i18n="solutionLabel">实现方法</h3><p data-i18n="ventureSolution">记录数据版本、筛选条件和匹配范围，通过 SSE 向前端流式返回 KPI、表格与图表，保留结果与证据的关联。</p></article>
+          <article class="case-detail"><h3 data-i18n="valueLabel">实践与结果</h3><p data-i18n="ventureValue">使用 SQLite Checkpointer 维护多轮上下文，设置执行步数、超时与异常回退，并用业务问题集检查 Agent 的表现。</p></article>
         </div>
       </div>
     </section>
@@ -637,22 +645,50 @@
       <div class="shell">
         <div class="section-heading reveal">
           <div class="section-label" data-i18n="projectsLabel">02 / Selected Work</div>
-          <h2 data-i18n="projectsHeading">从需求分析到可运行产品</h2>
+          <h2 data-i18n="projectsHeading">在不同场景里，把问题做具体</h2>
         </div>
         <div class="project-grid">
-          <a class="project-card reveal" href="https://gitee.com/oceanccc/tsing-link" target="_blank" rel="noreferrer" data-i18n-aria="tsingLinkAria">
-            <div class="project-top"><span class="project-no">PROJECT 01 · 2025</span><span class="project-link" data-i18n="visitProject">访问项目 ↗</span></div>
+          <article class="project-card reveal">
+            <div class="project-top"><span class="project-no">PROJECT 01</span><span class="project-link" data-i18n="yaoxiangStatus">创业项目 · 2025.05 启动</span></div>
+            <h3 data-i18n="yaoxiangTitle">端末智能电池管理系统</h3>
+            <p class="project-role" data-i18n="yaoxiangRole">瑶想科技 · 核心成员</p>
+            <p class="project-description" data-i18n="yaoxiangDescription">参与储能电站电池安全监测与风险预警项目，开展需求调研和方案对接；负责前后端核心功能，参与设备层级展示、告警处置和电芯健康评估规则设计。</p>
+            <div class="project-stack">Data Modeling · Full Stack · Energy Storage</div>
+          </article>
+          <article class="project-card reveal">
+            <div class="project-top"><span class="project-no">PROJECT 02 · 2026</span><span class="project-link" data-i18n="caraStatus">2026.03 — 2026.05</span></div>
+            <h3>cara</h3>
+            <p class="project-role" data-i18n="caraRole">多 Agent 架构 · 风控研究</p>
+            <p class="project-description" data-i18n="caraDescription">A 股事件驱动风控研究助手。基于 ReAct 设计 Agent 职责分工与冲突仲裁，通过 Intent Router 分类和分发问题，并调整提示词以支持结构化证据追溯。</p>
+            <div class="project-stack">ReAct · Intent Router · Multi-agent</div>
+          </article>
+          <a class="project-card reveal" href="https://gitee.com/oceanccc/tsing-link" target="_blank" rel="noreferrer" data-i18n-aria="tsingLinkAria" aria-label="访问 TsingLink 项目">
+            <div class="project-top"><span class="project-no">PROJECT 03 · 2025</span><span class="project-link" data-i18n="visitProject">访问项目 ↗</span></div>
             <h3>TsingLink</h3>
             <p class="project-role" data-i18n="tsingRole">需求分析 · Django 后端开发</p>
             <p class="project-description" data-i18n="tsingDescription">面向清华大学 EMBA/MBA 校友的信息交流平台。设计用户、酒类资源、融创项目等核心模型，实现供需信息发布、查询与管理。</p>
             <div class="project-stack">Django · Data Modeling · Backend</div>
           </a>
-          <a class="project-card reveal" href="https://github.com/connerald/crypto-dashboard" target="_blank" rel="noreferrer" data-i18n-aria="cryptoAria">
-            <div class="project-top"><span class="project-no">PROJECT 02 · 2025</span><span class="project-link" data-i18n="visitProject">访问项目 ↗</span></div>
+          <a class="project-card reveal" href="https://github.com/connerald/crypto-dashboard" target="_blank" rel="noreferrer" data-i18n-aria="cryptoAria" aria-label="访问 Crypto Dashboard 项目">
+            <div class="project-top"><span class="project-no">PROJECT 04 · 2025</span><span class="project-link" data-i18n="visitProject">访问项目 ↗</span></div>
             <h3>Crypto Dashboard</h3>
             <p class="project-role" data-i18n="cryptoRole">实时数据链路 · 可视化界面</p>
-            <p class="project-description" data-i18n="cryptoDescription">接入 Binance API 监听价格动态，以 Kafka 与 Spark Streaming 完成实时流计算，并搭建 Highcharts 行情数据看板。</p>
-            <div class="project-stack">Kafka · Spark Streaming · Highcharts</div>
+            <p class="project-description" data-i18n="cryptoDescription">从 Binance API 接入行情，以 Kafka 与 Spark 处理实时数据，并通过 Flask、Socket.IO 展示价格与告警。项目从课程原型持续演进，覆盖采集、流计算和实时展示。</p>
+            <div class="project-stack">Kafka · Spark · Flask · Socket.IO</div>
+          </a>
+          <a class="project-card reveal" href="https://github.com/connerald/cufe-bdmma2026s" target="_blank" rel="noreferrer" data-i18n-aria="behaviorAria" aria-label="访问电商用户行为分析项目">
+            <div class="project-top"><span class="project-no">PROJECT 05 · 2026</span><span class="project-link" data-i18n="visitProject">访问项目 ↗</span></div>
+            <h3 data-i18n="behaviorTitle">电商用户行为分析</h3>
+            <p class="project-role" data-i18n="behaviorRole">项目负责人 · 分布式数据分析</p>
+            <p class="project-description" data-i18n="behaviorDescription">基于 Hadoop、YARN 与 Spark 搭建三节点环境，分析百万级淘宝用户行为数据；负责主节点配置与核心 PySpark、Spark SQL 程序，围绕活跃、转化和用户分群设计分析任务。</p>
+            <div class="project-stack">Hadoop · YARN · PySpark · Spark SQL</div>
+          </a>
+          <a class="project-card reveal" href="https://github.com/connerald/CUFEpaper" target="_blank" rel="noreferrer" data-i18n-aria="paperAria" aria-label="访问 CUFEpaper 项目">
+            <div class="project-top"><span class="project-no">PROJECT 06 · 2025</span><span class="project-link" data-i18n="visitProject">访问项目 ↗</span></div>
+            <h3>CUFEpaper</h3>
+            <p class="project-role" data-i18n="paperRole">独立开发 · 可复用的写作工具</p>
+            <p class="project-description" data-i18n="paperDescription">为中央财经大学课程论文开发 LaTeX 模板，把重复的格式处理沉淀为可复用的工具，让写作更专注于内容。</p>
+            <div class="project-stack">LaTeX · Academic Writing</div>
           </a>
         </div>
       </div>
@@ -661,29 +697,41 @@
     <section id="about">
       <div class="shell">
         <div class="section-heading reveal">
-          <div class="section-label" data-i18n="aboutLabel">03 / Foundation</div>
-          <h2 data-i18n="aboutHeading">教育背景与技术底座</h2>
+          <div class="section-label" data-i18n="aboutLabel">03 / About Me</div>
+          <h2 data-i18n="aboutHeading">从理解数据，到理解数据背后的问题</h2>
+        </div>
+        <p class="about-intro reveal" data-i18n="aboutIntro">金融、实验数据和储能安全，看起来是不同的领域。我在其中反复遇到同一个问题：数据已经存在，但把它变成可用的判断，还需要清晰的规则、可靠的流程和对业务的理解。</p>
+        <div class="principles">
+          <article class="principle reveal"><span class="capability-no">01</span><h3 data-i18n="principle1Title">先把问题问清楚</h3><p data-i18n="principle1Body">TsingLink 的需求分析和储能项目的方案对接，让我开始从使用场景出发：谁需要什么信息，数据如何组织，功能怎样支持实际操作。</p></article>
+          <article class="principle reveal"><span class="capability-no">02</span><h3 data-i18n="principle2Title">沿着整条链路做事</h3><p data-i18n="principle2Body">我做过数据接入、指标计算、后端接口和前端展示。比起只看某个技术点，我更关心数据经过每一步之后，能否被下游真正使用。</p></article>
+          <article class="principle reveal"><span class="capability-no">03</span><h3 data-i18n="principle3Title">给结论留下依据</h3><p data-i18n="principle3Body">在 AnchorCell 与 cara 中，我把工具查询、证据追溯和 Agent 评测放进设计。接下来，我想继续探索储能安全中的时间序列分析、风险预警与可解释决策。</p></article>
         </div>
         <div class="about-grid">
           <article class="about-card reveal">
-            <div class="card-label">2023.09 — 2027.06</div>
+            <div class="card-label" data-i18n="foundationLabel">Education / 教育背景</div>
+            <div class="education-dates">2023.09 — 2027.06</div>
             <div class="school" data-i18n="school">中央财经大学</div>
-            <div class="major" data-i18n="major">大数据管理与应用 · 本科</div>
-            <div class="education-meta" data-i18n="courses">核心课程：机器学习（97）、应用随机过程（95）、云计算与大数据技术、多元统计与数据挖掘</div>
+            <div class="major" data-i18n="major">大数据管理与应用 · 本科（2027 届）</div>
+            <div class="education-meta" data-i18n="courses">课程成绩：机器学习 97、自然语言处理 95、应用随机过程 95。关注数据工程、统计建模与可持续发展场景中的分析应用。</div>
+            <div class="education-meta" data-i18n="educationLanguage">英语：IELTS 7.0</div>
           </article>
           <article class="about-card skills-card reveal">
             <div class="card-label" data-i18n="toolkitLabel">Toolkit / 技术能力</div>
-            <h3 data-i18n="toolkitHeading">覆盖数据处理、工程实现与智能应用</h3>
+            <h3 data-i18n="toolkitHeading">在项目中使用的工具与方法</h3>
             <div class="skill-groups">
               <div class="skill-group"><strong data-i18n="skillProgramming">编程</strong><span>Python · SQL · Django</span></div>
               <div class="skill-group"><strong data-i18n="skillData">数据工程</strong><span>Azure Data Factory · Databricks · Synapse · MySQL</span></div>
               <div class="skill-group"><strong data-i18n="skillBigData">大数据</strong><span>Hadoop · Spark · Kafka</span></div>
-              <div class="skill-group"><strong data-i18n="skillMethods">分析方法</strong><span data-i18n="skillMethodsValue">机器学习 · 数据挖掘 · 数据可视化</span></div>
+              <div class="skill-group"><strong data-i18n="skillMethods">AI 应用</strong><span data-i18n="skillMethodsValue">LangGraph · ReAct · 工具调用 · Agent 评测</span></div>
             </div>
           </article>
           <article class="award-note reveal">
             <strong data-i18n="mathorTitle">MathorCup 赛区三等奖</strong>
-            <p data-i18n="mathorDescription">基于 XGBoost 与遗传算法完成多品类销售预测，并以多目标规划求解供应链商品分仓策略。</p>
+            <p data-i18n="mathorDescription">负责 Python 数据处理、建模与论文排版；基于 XGBoost、遗传算法开展多品类销量预测，并通过规划模型研究商品分仓策略。</p>
+          </article>
+          <article class="award-note reveal">
+            <strong data-i18n="careerNoteTitle">也在团队协作中学习</strong>
+            <p data-i18n="careerNoteBody">曾任学院文体部干事、排球队经理，参与赛事策划、活动执行、赞助沟通与训练协调。这些经历让我练习把方案写清楚，也把人与时间协调好。</p>
           </article>
         </div>
       </div>
@@ -693,8 +741,8 @@
       <div class="contact-box shell reveal">
         <div>
           <div class="section-label" data-i18n="contactLabel">04 / Contact</div>
-          <h2 data-i18n="contactHeading">一起把复杂问题推进为可用系统。</h2>
-          <p data-i18n="contactBody">正在寻找数据工程、技术产品与智能系统方向的实习和合作机会。欢迎通过邮件或 GitHub 与我联系。</p>
+          <h2 data-i18n="contactHeading">聊聊数据、AI 与实际问题。</h2>
+          <p data-i18n="contactBody">关注数据工程、AI 应用与数据产品方向的实习及合作机会，尤其希望继续探索储能安全与风险分析场景。欢迎通过邮件交流项目与想法。</p>
         </div>
         <div class="contact-links">
           <a class="contact-link" href="mailto:connerald359@163.com"><span>Email</span><span aria-hidden="true">↗</span></a>
@@ -706,106 +754,248 @@
 
   <footer class="shell">
     <span>© <span id="year"></span> 董俊叶 · Connerald</span>
-    <span data-i18n="footerNote">连接业务、数据与可用产品。</span>
+    <span data-i18n="footerNote">从数据出发，让判断有据可依。</span>
   </footer>
 
   <script>
     const translations = {
-      zh: {
-        documentTitle: "董俊叶｜数据工程与技术产品",
-        description: "董俊叶的个人主页——连接业务需求、数据工程与技术产品，将复杂问题推进为可靠、可用的系统。",
-        ogDescription: "连接业务需求、数据链路与产品方案，将复杂问题推进为可靠、可用的系统。",
-        skip: "跳至主要内容", navLabel: "主导航", homeLabel: "返回首页", languageLabel: "语言选择",
-        navExperience: "经历", navProjects: "项目", navAbout: "关于", navContact: "联系",
-        heroEyebrow: "数据工程 · 技术产品", name: "董俊叶", heroRole: "连接业务需求、数据链路与可用系统。",
-        heroSummary: "中央财经大学大数据管理与应用本科生。关注数据工程、云端 ETL 与智能系统开发，能够从业务场景出发，把分析方法和技术方案推进为可靠、可落地的产品。",
-        viewExperience: "查看经历", emailMe: "邮件联系", profileLabel: "个人概览", profileHeading: "Profile / 概览",
-        profileSchoolLabel: "院校", profileSchool: "中央财经大学", profileMajorLabel: "专业", profileMajor: "大数据管理与应用",
-        profileGraduationLabel: "毕业时间", profileGraduation: "2027 年 6 月", profileFocusLabel: "方向", profileFocus: "数据工程 · 技术产品",
-        profileLocationLabel: "所在地", profileLocation: "北京 · 中国", profileStatusLabel: "当前状态", profileStatus: "开放实习与合作机会",
-        capabilitiesLabel: "核心能力", capability1Title: "数据链路与工程实现", capability1Body: "从原始数据接入、清洗、校验与调度，到数仓落地和下游系统服务。",
-        capability2Title: "业务问题与产品方案", capability2Body: "理解行业场景与使用需求，将模糊问题拆解为可实现、可验证的系统能力。",
-        capability3Title: "分析方法与智能应用", capability3Body: "结合机器学习、实时计算与可视化，支持风险监控、预测和业务决策。",
-        experienceLabel: "01 / Experience", experienceHeading: "在真实业务中建设数据能力", beijing: "北京",
-        contextLabel: "业务背景", responsibilityLabel: "个人职责", solutionLabel: "技术方案", valueLabel: "交付价值",
-        dcCompany: "神州数码", dcRole: "数据开发实习生",
-        dcContext: "参与百济神州 HTS 高通量筛选实验数据自动化处理项目，支持实验数据从原始文件进入 ELN 系统。",
-        dcResponsibility: "参与 ETL 链路建设，负责字段抽取、格式转换、质量校验、批量处理及跨存储同步逻辑。",
-        dcSolution: "通过 Azure Data Factory 编排流程，调用 Databricks 处理数据，写入 Azure Synapse，并以 SQL 视图服务 ELN。",
-        dcValue: "推动实验数据处理由人工整理转向结构化、可调度的自动化 Pipeline。",
-        qhCompany: "启后资本", qhRole: "量化实习生",
-        qhContext: "面向私募基金持仓与净值数据，建设日常风险监控所需的数据和指标工具。",
-        qhResponsibility: "使用 Python 打通净值数据的自动获取、清洗、存储与定期更新流程。",
-        qhSolution: "构建收益率、最大回撤、夏普比率等投资组合风险指标模块。",
-        qhValue: "减少人工统计步骤，为持仓风险管理提供稳定、可复用的分析工具。",
-        ventureKicker: "重点案例 · 2025—2027", ventureTitle: "瑶想科技｜端末智能电池管理系统",
-        ventureLead: "面向储能电站的电池安全监测、风险预警与站控联动，连接现场设备数据、业务规则和系统操作。",
-        ventureAward: "2025 中央财经大学大学生创新创业训练计划校赛一等奖冠军",
-        ventureContext: "参与国家电网萧山电站、苏州精控能源高邮大储等场景的需求调研与方案对接。",
-        ventureResponsibility: "作为核心成员负责系统前后端核心功能，并协同推进需求澄清和产品实现。",
-        ventureSolution: "围绕设备数据管理、状态展示、告警处置和站控联动组织系统能力。",
-        ventureValue: "参与电芯健康评估与风险预警规则设计，将安全监测需求落实到可使用的系统流程。",
-        projectsLabel: "02 / Selected Work", projectsHeading: "从需求分析到可运行产品", visitProject: "访问项目 ↗",
-        tsingLinkAria: "访问 TsingLink 项目", tsingRole: "需求分析 · Django 后端开发",
-        tsingDescription: "面向清华大学 EMBA/MBA 校友的信息交流平台。设计用户、酒类资源、融创项目等核心模型，实现供需信息发布、查询与管理。",
-        cryptoAria: "访问 Crypto Dashboard 项目", cryptoRole: "实时数据链路 · 可视化界面",
-        cryptoDescription: "接入 Binance API 监听价格动态，以 Kafka 与 Spark Streaming 完成实时流计算，并搭建 Highcharts 行情数据看板。",
-        aboutLabel: "03 / Foundation", aboutHeading: "教育背景与技术底座", school: "中央财经大学", major: "大数据管理与应用 · 本科",
-        courses: "核心课程：机器学习（97）、应用随机过程（95）、云计算与大数据技术、多元统计与数据挖掘",
-        toolkitLabel: "Toolkit / 技术能力", toolkitHeading: "覆盖数据处理、工程实现与智能应用",
-        skillProgramming: "编程", skillData: "数据工程", skillBigData: "大数据", skillMethods: "分析方法", skillMethodsValue: "机器学习 · 数据挖掘 · 数据可视化",
-        mathorTitle: "MathorCup 赛区三等奖", mathorDescription: "基于 XGBoost 与遗传算法完成多品类销售预测，并以多目标规划求解供应链商品分仓策略。",
-        contactLabel: "04 / Contact", contactHeading: "一起把复杂问题推进为可用系统。",
-        contactBody: "正在寻找数据工程、技术产品与智能系统方向的实习和合作机会。欢迎通过邮件或 GitHub 与我联系。",
-        footerNote: "连接业务、数据与可用产品。"
+      "zh": {
+        "documentTitle": "董俊叶｜数据工程与 AI 应用",
+        "description": "董俊叶，中央财经大学大数据管理与应用本科生。以数据工程为基础，探索储能安全、风险分析与可追溯的 AI Agent 应用。",
+        "ogDescription": "从数据处理到风险分析，探索有业务依据、结论可追溯的 AI 应用。",
+        "skip": "跳至主要内容",
+        "navLabel": "主导航",
+        "homeLabel": "返回首页",
+        "languageLabel": "语言选择",
+        "navExperience": "经历",
+        "navProjects": "项目",
+        "navAbout": "关于",
+        "navContact": "联系",
+        "heroEyebrow": "数据工程 · AI 应用",
+        "name": "董俊叶",
+        "heroRole": "让数据成为有依据的判断。",
+        "heroSummary": "我是中央财经大学大数据管理与应用专业的本科生，预计 2027 年毕业。从基金风险工具、实验数据 ETL，到储能安全与 AI Agent，我一直在探索：怎样把分散的数据，变成能回答实际问题的系统。",
+        "emailMe": "邮件联系",
+        "profileLabel": "个人概览",
+        "profileHeading": "Profile / 概览",
+        "profileSchoolLabel": "院校",
+        "profileSchool": "中央财经大学",
+        "profileMajorLabel": "专业",
+        "profileMajor": "大数据管理与应用",
+        "profileGraduationLabel": "预计毕业",
+        "profileGraduation": "2027 年 6 月",
+        "profileFocusLabel": "方向",
+        "profileFocus": "数据工程 · AI Agent",
+        "profileLocationLabel": "所在地",
+        "profileLocation": "北京 · 中国",
+        "profileStatusLabel": "当前状态",
+        "profileStatus": "开放实习与项目合作",
+        "capabilitiesLabel": "核心能力",
+        "capability1Title": "把数据链路打通",
+        "capability1Body": "在基金风险工具与实验数据 ETL 中，处理数据获取、清洗、校验、存储和下游查询，让分析建立在可用的数据上。",
+        "capability2Title": "把业务问题拆清",
+        "capability2Body": "从校友交流平台到储能电池管理，参与需求梳理、数据建模与前后端开发，将场景里的问题转化为具体功能。",
+        "capability3Title": "让 AI 分析有据可查",
+        "capability3Body": "在 Agent 原型中实践工具查询、结构化证据、多轮会话与评测，让分析结果能够回到数据和筛选条件。",
+        "experienceLabel": "01 / Experience",
+        "experienceHeading": "在真实业务中建设数据能力",
+        "beijing": "北京",
+        "contextLabel": "场景与问题",
+        "responsibilityLabel": "我的工作",
+        "solutionLabel": "实现方法",
+        "valueLabel": "实践与结果",
+        "dcCompany": "神州数码",
+        "dcRole": "数据开发实习生",
+        "dcContext": "参与百济神州 HTS 高通量筛选实验数据自动化处理项目，支持实验数据从原始文件进入 ELN 系统。",
+        "dcResponsibility": "参与 ETL 链路建设，负责字段抽取、格式转换、质量校验、批量处理及跨存储同步逻辑。",
+        "dcSolution": "通过 Azure Data Factory 编排流程，调用 Databricks 处理数据，写入 Azure Synapse，并以 SQL 视图服务 ELN。",
+        "dcValue": "推动实验数据处理由人工整理转向结构化、可调度的自动化 Pipeline。",
+        "qhCompany": "启后资本",
+        "qhRole": "量化实习生",
+        "qhContext": "面向私募基金持仓与净值数据，建设日常风险监控所需的数据和指标工具。",
+        "qhResponsibility": "用 Python 处理邮件中的净值文本与文件，完成清洗、MySQL 存储和定期更新。",
+        "qhSolution": "构建收益率、最大回撤、夏普比率等投资组合风险指标模块。",
+        "qhValue": "将重复的数据整理与指标计算自动化，并参与基金尽职调查与风控报告整理。",
+        "ventureKicker": "重点案例 · 2026.05 启动 · AI 原型",
+        "ventureTitle": "AnchorCell",
+        "ventureLead": "储能电站安全运维 AI Agent。围绕电芯风险分析，让业务事实来自工具查询，让分析结论附带可追溯的证据。",
+        "ventureAward": "评测实践：构建覆盖 40+ 业务问题的 Agent 评测集。",
+        "ventureContext": "面对储能设备的多层级数据，探索如何从舱、Rack、电芯及 SOS 数据中定位风险，并向使用者解释分析依据。",
+        "ventureResponsibility": "使用 LangGraph 构建状态图驱动的 Agent，以受控只读工具查询业务数据，明确模型与数据工具的职责。",
+        "ventureSolution": "记录数据版本、筛选条件和匹配范围，通过 SSE 向前端流式返回 KPI、表格与图表，保留结果与证据的关联。",
+        "ventureValue": "使用 SQLite Checkpointer 维护多轮上下文，设置执行步数、超时与异常回退，并用业务问题集检查 Agent 的表现。",
+        "projectsLabel": "02 / Selected Work",
+        "projectsHeading": "在不同场景里，把问题做具体",
+        "visitProject": "访问项目 ↗",
+        "tsingLinkAria": "访问 TsingLink 项目",
+        "tsingRole": "需求分析 · Django 后端开发",
+        "tsingDescription": "面向清华大学 EMBA/MBA 校友的信息交流平台。设计用户、酒类资源、融创项目等核心模型，实现供需信息发布、查询与管理。",
+        "cryptoAria": "访问 Crypto Dashboard 项目",
+        "cryptoRole": "实时数据链路 · 可视化界面",
+        "cryptoDescription": "从 Binance API 接入行情，以 Kafka 与 Spark 处理实时数据，并通过 Flask、Socket.IO 展示价格与告警。项目从课程原型持续演进，覆盖采集、流计算和实时展示。",
+        "aboutLabel": "03 / About Me",
+        "aboutHeading": "从理解数据，到理解数据背后的问题",
+        "school": "中央财经大学",
+        "major": "大数据管理与应用 · 本科（2027 届）",
+        "courses": "课程成绩：机器学习 97、自然语言处理 95、应用随机过程 95。关注数据工程、统计建模与可持续发展场景中的分析应用。",
+        "toolkitLabel": "Toolkit / 技术能力",
+        "toolkitHeading": "在项目中使用的工具与方法",
+        "skillProgramming": "编程",
+        "skillData": "数据工程",
+        "skillBigData": "大数据",
+        "skillMethods": "AI 应用",
+        "skillMethodsValue": "LangGraph · ReAct · 工具调用 · Agent 评测",
+        "mathorTitle": "MathorCup 赛区三等奖",
+        "mathorDescription": "负责 Python 数据处理、建模与论文排版；基于 XGBoost、遗传算法开展多品类销量预测，并通过规划模型研究商品分仓策略。",
+        "contactLabel": "04 / Contact",
+        "contactHeading": "聊聊数据、AI 与实际问题。",
+        "contactBody": "关注数据工程、AI 应用与数据产品方向的实习及合作机会，尤其希望继续探索储能安全与风险分析场景。欢迎通过邮件交流项目与想法。",
+        "footerNote": "从数据出发，让判断有据可依。",
+        "yaoxiangTitle": "端末智能电池管理系统",
+        "yaoxiangStatus": "创业项目 · 2025.05 启动",
+        "yaoxiangRole": "瑶想科技 · 核心成员",
+        "yaoxiangDescription": "参与储能电站电池安全监测与风险预警项目，开展需求调研和方案对接；负责前后端核心功能，参与设备层级展示、告警处置和电芯健康评估规则设计。",
+        "caraRole": "多 Agent 架构 · 风控研究",
+        "caraDescription": "A 股事件驱动风控研究助手。基于 ReAct 设计 Agent 职责分工与冲突仲裁，通过 Intent Router 分类和分发问题，并调整提示词以支持结构化证据追溯。",
+        "behaviorTitle": "电商用户行为分析",
+        "behaviorRole": "项目负责人 · 分布式数据分析",
+        "behaviorDescription": "基于 Hadoop、YARN 与 Spark 搭建三节点环境，分析百万级淘宝用户行为数据；负责主节点配置与核心 PySpark、Spark SQL 程序，围绕活跃、转化和用户分群设计分析任务。",
+        "behaviorAria": "访问电商用户行为分析项目",
+        "paperRole": "独立开发 · 可复用的写作工具",
+        "paperDescription": "为中央财经大学课程论文开发 LaTeX 模板，把重复的格式处理沉淀为可复用的工具，让写作更专注于内容。",
+        "paperAria": "访问 CUFEpaper 项目",
+        "aboutIntro": "金融、实验数据和储能安全，看起来是不同的领域。我在其中反复遇到同一个问题：数据已经存在，但把它变成可用的判断，还需要清晰的规则、可靠的流程和对业务的理解。",
+        "principle1Title": "先把问题问清楚",
+        "principle1Body": "TsingLink 的需求分析和储能项目的方案对接，让我开始从使用场景出发：谁需要什么信息，数据如何组织，功能怎样支持实际操作。",
+        "principle2Title": "沿着整条链路做事",
+        "principle2Body": "我做过数据接入、指标计算、后端接口和前端展示。比起只看某个技术点，我更关心数据经过每一步之后，能否被下游真正使用。",
+        "principle3Title": "给结论留下依据",
+        "principle3Body": "在 AnchorCell 与 cara 中，我把工具查询、证据追溯和 Agent 评测放进设计。接下来，我想继续探索储能安全中的时间序列分析、风险预警与可解释决策。",
+        "foundationLabel": "Education / 教育背景",
+        "educationLanguage": "英语：IELTS 7.0",
+        "careerNoteTitle": "也在团队协作中学习",
+        "careerNoteBody": "曾任学院文体部干事、排球队经理，参与赛事策划、活动执行、赞助沟通与训练协调。这些经历让我练习把方案写清楚，也把人与时间协调好。",
+        "caraStatus": "2026.03 — 2026.05",
+        "viewProjects": "查看项目"
       },
-      en: {
-        documentTitle: "Dong Junye | Data Engineering & Technical Products",
-        description: "Dong Junye's portfolio — bridging business needs, data engineering, and technical products to deliver reliable, usable systems.",
-        ogDescription: "Bridging business needs, data pipelines, and product delivery to turn complex problems into reliable systems.",
-        skip: "Skip to main content", navLabel: "Main navigation", homeLabel: "Back to top", languageLabel: "Language selector",
-        navExperience: "Experience", navProjects: "Projects", navAbout: "About", navContact: "Contact",
-        heroEyebrow: "Data Engineering · Technical Products", name: "Dong Junye", heroRole: "Bridging business needs, data pipelines, and usable systems.",
-        heroSummary: "An undergraduate in Big Data Management and Application at the Central University of Finance and Economics. I focus on data engineering, cloud ETL, and intelligent systems—turning business contexts, analytical methods, and technical plans into reliable products.",
-        viewExperience: "View experience", emailMe: "Email me", profileLabel: "Profile overview", profileHeading: "Profile / Overview",
-        profileSchoolLabel: "University", profileSchool: "Central University of Finance and Economics", profileMajorLabel: "Major", profileMajor: "Big Data Management & Application",
-        profileGraduationLabel: "Graduation", profileGraduation: "June 2027", profileFocusLabel: "Focus", profileFocus: "Data Engineering · Technical Products",
-        profileLocationLabel: "Location", profileLocation: "Beijing, China", profileStatusLabel: "Status", profileStatus: "Open to internships & collaboration",
-        capabilitiesLabel: "Core capabilities", capability1Title: "Data Pipelines & Engineering", capability1Body: "From raw data ingestion, cleaning, validation, and orchestration to warehouse delivery and downstream services.",
-        capability2Title: "Business Problems & Products", capability2Body: "Translating industry scenarios and user needs into system capabilities that can be implemented and validated.",
-        capability3Title: "Analytics & Intelligent Systems", capability3Body: "Applying machine learning, stream processing, and visualization to risk monitoring, forecasting, and decisions.",
-        experienceLabel: "01 / Experience", experienceHeading: "Building data capabilities in real business settings", beijing: "Beijing",
-        contextLabel: "Context", responsibilityLabel: "Role", solutionLabel: "Solution", valueLabel: "Value",
-        dcCompany: "Digital China", dcRole: "Data Development Intern",
-        dcContext: "Contributed to BeiGene's automated HTS data-processing project, supporting the flow of experimental data from raw files into the ELN system.",
-        dcResponsibility: "Worked on the ETL pipeline, including field extraction, format conversion, quality checks, batch processing, and cross-storage synchronization.",
-        dcSolution: "Orchestrated workflows with Azure Data Factory, processed data in Databricks, loaded it into Azure Synapse, and served the ELN through SQL views.",
-        dcValue: "Helped move experimental data processing from manual preparation to a structured, schedulable automated pipeline.",
-        qhCompany: "Qihou Capital", qhRole: "Quantitative Research Intern",
-        qhContext: "Built data and metric tools for day-to-day risk monitoring of private-fund holdings and net asset value data.",
-        qhResponsibility: "Used Python to automate data retrieval, cleaning, storage, and scheduled updates for NAV data.",
-        qhSolution: "Developed portfolio risk metrics including returns, maximum drawdown, and Sharpe ratio.",
-        qhValue: "Reduced manual reporting steps and delivered a stable, reusable tool for portfolio risk management.",
-        ventureKicker: "Featured Case · 2025—2027", ventureTitle: "Yaoxiang Technology | Intelligent Battery Management System",
-        ventureLead: "A battery safety, risk alerting, and station-control system for energy storage sites, connecting device data, business rules, and operational workflows.",
-        ventureAward: "First Prize & Champion, 2025 CUFE Student Innovation and Entrepreneurship Competition",
-        ventureContext: "Supported discovery and solution alignment for State Grid's Xiaoshan station and HyperStrong Energy's Gaoyou storage project.",
-        ventureResponsibility: "As a core member, developed key front-end and back-end features while helping clarify requirements and move the product forward.",
-        ventureSolution: "Structured capabilities around device data management, status monitoring, alert handling, and station-control integration.",
-        ventureValue: "Contributed to cell health evaluation and risk-alert rules, translating safety-monitoring requirements into usable system workflows.",
-        projectsLabel: "02 / Selected Work", projectsHeading: "From requirement discovery to working products", visitProject: "View project ↗",
-        tsingLinkAria: "Visit the TsingLink project", tsingRole: "Requirements · Django Backend",
-        tsingDescription: "An information exchange platform for Tsinghua EMBA/MBA alumni. Designed core models for users, wine resources, and business projects, with publishing, search, and management workflows.",
-        cryptoAria: "Visit the Crypto Dashboard project", cryptoRole: "Real-time Pipeline · Visualization",
-        cryptoDescription: "Connected to the Binance API for live pricing, processed streams with Kafka and Spark Streaming, and built a Highcharts market dashboard.",
-        aboutLabel: "03 / Foundation", aboutHeading: "Education and technical foundation", school: "Central University of Finance and Economics", major: "B.Mgt. in Big Data Management & Application",
-        courses: "Selected coursework: Machine Learning (97), Applied Stochastic Processes (95), Cloud Computing & Big Data, Multivariate Statistics & Data Mining",
-        toolkitLabel: "Toolkit / Capabilities", toolkitHeading: "Data processing, engineering delivery, and intelligent applications",
-        skillProgramming: "Programming", skillData: "Data Engineering", skillBigData: "Big Data", skillMethods: "Methods", skillMethodsValue: "Machine Learning · Data Mining · Data Visualization",
-        mathorTitle: "MathorCup Regional Third Prize", mathorDescription: "Forecasted multi-category sales with XGBoost and genetic algorithms, then used multi-objective optimization to solve product allocation across warehouses.",
-        contactLabel: "04 / Contact", contactHeading: "Let’s turn complex problems into usable systems.",
-        contactBody: "I am open to internships and collaborations in data engineering, technical products, and intelligent systems. Reach me by email or GitHub.",
-        footerNote: "Connecting business, data, and usable products."
+      "en": {
+        "documentTitle": "Dong Junye | Data Engineering & AI Applications",
+        "description": "Dong Junye, a Big Data Management and Application undergraduate at CUFE, exploring data engineering, energy storage safety, and traceable AI agents.",
+        "ogDescription": "From data pipelines to risk analysis: building AI applications grounded in business data and traceable evidence.",
+        "skip": "Skip to main content",
+        "navLabel": "Main navigation",
+        "homeLabel": "Back to top",
+        "languageLabel": "Language selector",
+        "navExperience": "Experience",
+        "navProjects": "Projects",
+        "navAbout": "About",
+        "navContact": "Contact",
+        "heroEyebrow": "Data Engineering · AI Applications",
+        "name": "Dong Junye",
+        "heroRole": "Turning data into grounded decisions.",
+        "heroSummary": "I study Big Data Management and Application at the Central University of Finance and Economics, graduating in 2027. From fund risk tools and experimental-data ETL to energy storage safety and AI agents, I explore how scattered data can become systems that answer practical questions.",
+        "emailMe": "Email me",
+        "profileLabel": "Profile overview",
+        "profileHeading": "Profile / Overview",
+        "profileSchoolLabel": "University",
+        "profileSchool": "Central University of Finance and Economics",
+        "profileMajorLabel": "Major",
+        "profileMajor": "Big Data Management & Application",
+        "profileGraduationLabel": "Expected graduation",
+        "profileGraduation": "June 2027",
+        "profileFocusLabel": "Focus",
+        "profileFocus": "Data Engineering · AI Agents",
+        "profileLocationLabel": "Location",
+        "profileLocation": "Beijing, China",
+        "profileStatusLabel": "Status",
+        "profileStatus": "Open to internships & projects",
+        "capabilitiesLabel": "Core capabilities",
+        "capability1Title": "Connect the data pipeline",
+        "capability1Body": "In fund risk tools and experimental-data ETL, I work on ingestion, cleaning, validation, storage, and downstream queries to make data usable for analysis.",
+        "capability2Title": "Understand the business problem",
+        "capability2Body": "Across alumni platforms and battery management, I translate requirements into data models, backend services, and interfaces that support specific workflows.",
+        "capability3Title": "Make AI analysis traceable",
+        "capability3Body": "In agent prototypes, I work with tool queries, structured evidence, conversation state, and evaluation so results can be traced to data and filters.",
+        "experienceLabel": "01 / Experience",
+        "experienceHeading": "Building data capabilities in real business settings",
+        "beijing": "Beijing",
+        "contextLabel": "Problem",
+        "responsibilityLabel": "My Work",
+        "solutionLabel": "Approach",
+        "valueLabel": "Practice & Results",
+        "dcCompany": "Digital China",
+        "dcRole": "Data Development Intern",
+        "dcContext": "Contributed to BeiGene's automated HTS data-processing project, supporting the flow of experimental data from raw files into the ELN system.",
+        "dcResponsibility": "Worked on the ETL pipeline, including field extraction, format conversion, quality checks, batch processing, and cross-storage synchronization.",
+        "dcSolution": "Orchestrated workflows with Azure Data Factory, processed data in Databricks, loaded it into Azure Synapse, and served the ELN through SQL views.",
+        "dcValue": "Helped move experimental data processing from manual preparation to a structured, schedulable automated pipeline.",
+        "qhCompany": "Qihou Capital",
+        "qhRole": "Quantitative Research Intern",
+        "qhContext": "Built data and metric tools for day-to-day risk monitoring of private-fund holdings and net asset value data.",
+        "qhResponsibility": "Used Python to process NAV text and files received by email, with cleaning, MySQL storage, and scheduled updates.",
+        "qhSolution": "Developed portfolio risk metrics including returns, maximum drawdown, and Sharpe ratio.",
+        "qhValue": "Automated recurring data preparation and metric calculations, and contributed to fund due diligence and risk reports.",
+        "ventureKicker": "Featured Case · Started May 2026 · AI Prototype",
+        "ventureTitle": "AnchorCell",
+        "ventureLead": "An AI agent prototype for energy storage safety analysis. Business facts come from tool queries, and analytical conclusions are linked to traceable evidence.",
+        "ventureAward": "Evaluation practice: built a test set covering 40+ business questions.",
+        "ventureContext": "Explore how to locate cell risks across container, rack, cell, and SOS data, and explain the evidence behind the analysis.",
+        "ventureResponsibility": "Built a state-graph agent with LangGraph and controlled, read-only data tools, defining the responsibilities of the model and its tools.",
+        "ventureSolution": "Recorded data versions, filters, and matching scope, and streamed KPIs, tables, and charts to the frontend via SSE while retaining links to evidence.",
+        "ventureValue": "Used SQLite Checkpointer for conversation state, added execution limits, timeouts, and error fallbacks, and evaluated behavior with business questions.",
+        "projectsLabel": "02 / Selected Work",
+        "projectsHeading": "Making problems concrete across different domains",
+        "visitProject": "View project ↗",
+        "tsingLinkAria": "Visit the TsingLink project",
+        "tsingRole": "Requirements · Django Backend",
+        "tsingDescription": "An information exchange platform for Tsinghua EMBA/MBA alumni. Designed core models for users, wine resources, and business projects, with publishing, search, and management workflows.",
+        "cryptoAria": "Visit the Crypto Dashboard project",
+        "cryptoRole": "Real-time Pipeline · Visualization",
+        "cryptoDescription": "Ingests Binance market data, processes streams with Kafka and Spark, and displays prices and alerts through Flask and Socket.IO. Evolving from a course prototype, the project covers collection, stream processing, and live visualization.",
+        "aboutLabel": "03 / About Me",
+        "aboutHeading": "Understanding data—and the problems behind it",
+        "school": "Central University of Finance and Economics",
+        "major": "B.Mgt. in Big Data Management & Application · Class of 2027",
+        "courses": "Course results: Machine Learning 97, Natural Language Processing 95, Applied Stochastic Processes 95. Interested in data engineering, statistical modeling, and sustainability applications.",
+        "toolkitLabel": "Toolkit / Capabilities",
+        "toolkitHeading": "Tools and methods I use in projects",
+        "skillProgramming": "Programming",
+        "skillData": "Data Engineering",
+        "skillBigData": "Big Data",
+        "skillMethods": "AI Applications",
+        "skillMethodsValue": "LangGraph · ReAct · Tool Use · Agent Evaluation",
+        "mathorTitle": "MathorCup Regional Third Prize",
+        "mathorDescription": "Handled Python data preparation, modeling, and paper typesetting. Used XGBoost and genetic algorithms for sales forecasting, and an optimization model to study warehouse allocation.",
+        "contactLabel": "04 / Contact",
+        "contactHeading": "Let’s talk about data, AI, and practical problems.",
+        "contactBody": "I am interested in internships and project collaborations in data engineering, AI applications, and data products, with a particular interest in energy storage safety and risk analysis. Get in touch to exchange ideas or discuss a project.",
+        "footerNote": "Starting with data. Keeping decisions grounded.",
+        "yaoxiangTitle": "Intelligent Battery Management",
+        "yaoxiangStatus": "Venture Project · Started May 2025",
+        "yaoxiangRole": "Yaoxiang Technology · Core Member",
+        "yaoxiangDescription": "Contributed to a battery safety and risk-warning project for energy storage stations, from discovery and solution discussions to core frontend and backend features, device hierarchies, alert handling, and cell health rules.",
+        "caraRole": "Multi-agent Architecture · Risk Research",
+        "caraDescription": "An event-driven A-share risk research assistant. Used ReAct to define agent responsibilities and conflict resolution, routed questions with an Intent Router, and refined prompts for structured evidence tracing.",
+        "behaviorTitle": "E-commerce Behavior Analytics",
+        "behaviorRole": "Project Lead · Distributed Analytics",
+        "behaviorDescription": "Built a three-node Hadoop, YARN, and Spark environment to analyze over a million Taobao behavior records. Configured the master node and wrote core PySpark and Spark SQL programs for activity, conversion, and segmentation analysis.",
+        "behaviorAria": "Visit the e-commerce behavior analytics project",
+        "paperRole": "Independent Developer · Reusable Writing Tools",
+        "paperDescription": "Created a LaTeX template for CUFE course papers, turning recurring formatting work into a reusable tool so writers can focus on content.",
+        "paperAria": "Visit the CUFEpaper project",
+        "aboutIntro": "Finance, laboratory data, and energy storage safety have brought me to a recurring question: data may already exist, but turning it into useful decisions takes clear rules, reliable workflows, and an understanding of the domain.",
+        "principle1Title": "Clarify the question first",
+        "principle1Body": "Requirements work on TsingLink and solution discussions in energy storage taught me to start with users: what information they need, how data should be organized, and how a feature supports their work.",
+        "principle2Title": "Follow the whole data journey",
+        "principle2Body": "I have worked on ingestion, metric calculation, backend APIs, and frontend displays. I care about whether the data remains useful at each step and reaches the people or systems that need it.",
+        "principle3Title": "Keep evidence behind conclusions",
+        "principle3Body": "In AnchorCell and cara, I brought tool queries, evidence tracing, and evaluation into the design. I want to explore time-series analysis, early risk warnings, and interpretable decisions for energy storage safety.",
+        "foundationLabel": "Education / Foundation",
+        "educationLanguage": "English: IELTS 7.0",
+        "careerNoteTitle": "Learning through teamwork, too",
+        "careerNoteBody": "As a student activities committee member and volleyball team manager, I helped plan events, coordinate training, and communicate with sponsors. These roles gave me practice in clear documentation and coordinating people and schedules.",
+        "caraStatus": "Mar — May 2026",
+        "viewProjects": "Explore projects"
       }
     };
 
