@@ -2,450 +2,235 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f2efe7">
-  <meta name="description" content="董俊叶，中央财经大学大数据管理与应用本科生。以数据工程为基础，探索储能安全、风险分析与可追溯的 AI Agent 应用。">
-  <meta property="og:title" content="董俊叶｜数据工程与 AI 应用">
-  <meta property="og:description" content="从数据处理到风险分析，探索有业务依据、结论可追溯的 AI 应用。">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#30261f">
+  <meta name="description" content="董俊叶，中央财经大学大数据管理与应用本科生。探索数据工程、储能安全与有据可查的 AI Agent。欢迎来到我的书房。">
+  <meta property="og:title" content="董俊叶的书房 · 数据工程与 AI">
+  <meta property="og:description" content="书架上的项目，桌面上的想法。走进董俊叶的数据与 AI 书房。">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://connerald.github.io/">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:image" content="https://connerald.github.io/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="董俊叶｜数据工程与 AI 应用">
-  <meta name="twitter:description" content="从数据处理到风险分析，探索有业务依据、结论可追溯的 AI 应用。">
+  <meta name="twitter:title" content="董俊叶的书房 · 数据工程与 AI">
+  <meta name="twitter:description" content="书架上的项目，桌面上的想法。走进董俊叶的数据与 AI 书房。">
   <meta name="twitter:image" content="https://connerald.github.io/og.png">
-  <title>董俊叶｜数据工程与 AI 应用</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --paper: #f2efe7;
-      --surface: #e7e2d7;
-      --ink: #25251f;
-      --muted: #58584f;
-      --text-body: 1rem;
-      --text-secondary: .875rem;
-      --text-caption: .75rem;
-      --accent: #b6412c;
-      --line: #c9c4b8;
-      --max: 1160px;
-      --serif: Georgia, "Noto Serif SC", "Songti SC", serif;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
-    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: var(--text-body); line-height: 1.85; -webkit-font-smoothing: antialiased; }
-    a { color: inherit; text-decoration: none; }
-    button { color: inherit; font: inherit; }
-    a, button, summary { -webkit-tap-highlight-color: transparent; }
-    ::selection { color: var(--paper); background: var(--accent); }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
-    .shell { width: min(calc(100% - 80px), var(--max)); margin-inline: auto; }
-    .skip-link { position: fixed; z-index: 50; left: 16px; top: 12px; padding: 8px 15px; color: var(--paper); background: var(--ink); transform: translateY(-180%); }
-    .skip-link:focus { transform: none; }
-    .nav { position: sticky; top: 0; z-index: 20; background: var(--paper); }
-    .nav-inner { display: flex; justify-content: space-between; align-items: center; gap: 28px; min-height: 86px; border-bottom: 1px solid var(--ink); }
-    .brand { font-family: Georgia, serif; font-size: 30px; letter-spacing: -1.5px; line-height: 1.2; }
-    .nav-actions, .nav-links { display: flex; align-items: center; gap: 30px; }
-    .nav-links a { font-size: var(--text-secondary); padding-block: 10px; }
-    .nav-links a:hover, .text-link:hover { color: var(--accent); }
-    .language-switch { display: flex; gap: 3px; border-left: 1px solid var(--line); padding-left: 22px; }
-    .language-switch button { min-width: 40px; min-height: 44px; padding: 4px; border: 0; background: transparent; color: var(--muted); font-size: var(--text-caption); cursor: pointer; }
-    .language-switch button[aria-pressed="true"] { color: var(--accent); text-decoration: underline; text-underline-offset: 6px; }
-    .edition { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; padding-block: 13px; border-bottom: 1px solid var(--line); font-size: var(--text-caption); letter-spacing: .12em; }
-    .hero { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(245px, .8fr); gap: 52px; padding: 62px 0 54px; }
-    .eyebrow { margin-bottom: 26px; color: var(--accent); font-size: var(--text-caption); letter-spacing: .14em; }
-    .hero h1 { margin: 0; font-family: var(--serif); font-size: clamp(42px, 5.45vw, 72px); line-height: 1.45; font-weight: 400; letter-spacing: -.06em; }
-    .hero h1 span, .hero h1 em { display: block; }
-    .hero h1 em { font-style: normal; color: var(--accent); }
-    .hero-byline { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; margin: 30px 0 0; font-size: var(--text-body); }
-    .hero-byline span + span { color: var(--muted); font-size: var(--text-secondary); }
-    .hero-actions { margin-top: 26px; }
-    .text-link { display: inline-flex; align-items: center; justify-content: space-between; gap: 26px; min-height: 44px; padding: 2px 0; border-bottom: 1px solid currentColor; font-size: var(--text-secondary); transition: color .2s; }
-    .profile-panel { border-left: 1px solid var(--line); padding: 21px 0 0 30px; display: flex; flex-direction: column; align-items: flex-start; }
-    .hero-summary { margin: 0 0 22px; color: var(--muted); font-size: var(--text-body); line-height: 1.9; }
-    .profile-list { margin: 0; width: 100%; }
-    .profile-row { margin-bottom: 15px; }
-    .profile-row dt { font-size: var(--text-caption); color: var(--muted); }
-    .profile-row dd { margin: 0; font-size: var(--text-secondary); }
-    .profile-panel .text-link { margin-top: auto; padding-top: 18px; width: 100%; }
-    .profile-status { margin: 15px 0 0; color: var(--accent); font-size: var(--text-secondary); }
-    section { padding: 82px 0; }
-    .section-label, .case-kicker, .card-label { color: var(--accent); font-size: var(--text-caption); font-weight: 500; letter-spacing: .12em; text-transform: uppercase; }
-    .section-heading { display: grid; grid-template-columns: 210px 1fr; align-items: baseline; gap: 34px; padding: 23px 0 28px; margin-bottom: 36px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
-    .section-heading h2 { margin: 0; font-family: var(--serif); font-size: clamp(28px, 3.15vw, 42px); font-weight: 400; line-height: 1.5; letter-spacing: -.045em; }
-    .case-study { padding: 0; }
-    .case-layout { border-block: 1px solid var(--ink); padding-block: 32px; }
-    .case-cover { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 38px; align-items: center; }
-    .case-figure { margin: 0; background: var(--surface); position: relative; min-height: 302px; display: grid; place-items: center; overflow: hidden; }
-    .orbit { width: 188px; height: 188px; border: 1px solid var(--accent); border-radius: 50%; position: relative; transform: rotate(-24deg); }
-    .orbit::before, .orbit::after { content: ""; position: absolute; inset: 20px -34px; border: 1px solid var(--accent); border-radius: 50%; }
-    .orbit::after { inset: 48px -56px; background: var(--accent); opacity: .85; }
-    .case-figure figcaption { position: absolute; bottom: 15px; left: 18px; right: 18px; font-size: var(--text-caption); letter-spacing: .08em; color: var(--muted); }
-    .case-intro h2 { margin: 8px 0 12px; font-family: Georgia, serif; font-size: clamp(42px, 5vw, 64px); font-weight: 400; line-height: 1.2; letter-spacing: -.045em; }
-    .case-question { margin: 0 0 12px; font-family: var(--serif); font-size: 21px; font-weight: 400; }
-    .case-lead { margin: 0; max-width: 560px; color: var(--muted); font-size: var(--text-body); }
-    .case-intro .text-link { margin-top: 20px; }
-    .case-notes { margin-top: 24px; }
-    .case-notes > summary { width: fit-content; padding-block: 8px; font-size: var(--text-secondary); cursor: pointer; }
-    .case-notes[open] > summary { color: var(--accent); }
-    .case-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 38px; margin-top: 20px; }
-    .case-detail { border-top: 1px solid var(--line); padding-top: 20px; }
-    .case-detail h3 { margin: 0 0 10px; color: var(--accent); font-size: var(--text-secondary); font-weight: 500; }
-    .case-detail p { margin: 0; color: var(--muted); font-size: var(--text-body); }
-    .case-award { margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--ink); font-size: var(--text-secondary); }
-    .capabilities { padding: 30px 0 0; }
-    .capability-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .capability { padding: 12px 28px 8px; border-right: 1px solid var(--line); }
-    .capability:first-child { padding-left: 0; }
-    .capability:last-child { padding-right: 0; border: 0; }
-    .capability-no { color: var(--accent); font-family: Georgia, serif; font-size: 14px; font-style: italic; }
-    .capability h2 { margin: 12px 0 10px; font-family: var(--serif); font-size: 21px; font-weight: 500; }
-    .capability p { margin: 0; color: var(--muted); font-size: var(--text-body); }
-    .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 54px; }
-    .project-card { display: flex; flex-direction: column; min-width: 0; padding: 32px 0 36px; border-bottom: 1px solid var(--line); }
-    .project-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 20px; font-size: var(--text-caption); }
-    .project-no { color: var(--accent); letter-spacing: .07em; }
-    .project-link { color: var(--muted); text-align: right; }
-    .project-card h3 { margin: 26px 0 10px; font-family: var(--serif); font-size: clamp(26px, 2.8vw, 36px); line-height: 1.4; font-weight: 400; letter-spacing: -.035em; transition: color .2s; }
-    a.project-card:hover h3, a.project-card:hover .project-link { color: var(--accent); }
-    a.project-card:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 7px; }
-    .project-role { margin: 0; color: var(--accent); font-size: var(--text-secondary); }
-    .project-description { margin: 20px 0 28px; line-height: 1.9; color: var(--muted); font-size: var(--text-body); }
-    .project-stack { margin-top: auto; padding-top: 8px; line-height: 1.65; font-size: var(--text-secondary); color: var(--muted); letter-spacing: .035em; }
-    #experience { padding-top: 0; }
-    .experience-item { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 34px; padding: 0 0 40px; margin-bottom: 36px; border-bottom: 1px solid var(--line); }
-    .experience-item:last-child { padding-bottom: 0; margin: 0; border: 0; }
-    .experience-date { padding-top: 8px; color: var(--muted); font-size: var(--text-secondary); }
-    .experience-title { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; }
-    .experience-title h3 { margin: 0; font-family: var(--serif); font-size: 30px; font-weight: 400; }
-    .experience-role { color: var(--accent); font-size: var(--text-secondary); }
-    .experience-points { display: grid; gap: 22px; margin-top: 24px; }
-    .evidence-row { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 20px; }
-    .evidence-label { padding-top: 3px; color: var(--muted); font-size: var(--text-caption); letter-spacing: .05em; }
-    .evidence-row p { margin: 0; font-size: var(--text-body); color: var(--muted); }
-    #about { padding-top: 0; }
-    .about-intro { max-width: 850px; margin: 0 0 36px 244px; font-family: var(--serif); font-size: 21px; line-height: 1.9; }
-    .principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin-bottom: 56px; }
-    .principle { border-top: 1px solid var(--line); padding-top: 22px; }
-    .principle h3 { margin: 14px 0 12px; font-family: var(--serif); font-size: 22px; font-weight: 500; }
-    .principle p { margin: 0; font-size: var(--text-body); color: var(--muted); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 54px; }
-    .about-card { border-top: 1px solid var(--ink); padding: 25px 0 36px; }
-    .education-dates { margin-top: 12px; color: var(--muted); font-size: var(--text-secondary); }
-    .school { margin: 30px 0 10px; font-family: var(--serif); font-size: 36px; line-height: 1.5; }
-    .major { color: var(--accent); font-size: var(--text-body); }
-    .education-meta { margin-top: 20px; color: var(--muted); font-size: var(--text-body); }
-    .skills-card h3 { margin: 30px 0 20px; font-family: var(--serif); font-size: 25px; font-weight: 400; }
-    .skill-group { display: grid; grid-template-columns: 125px minmax(0, 1fr); gap: 20px; padding: 14px 0; border-top: 1px solid var(--line); }
-    .skill-group strong { color: var(--muted); font-size: var(--text-secondary); font-weight: 500; }
-    .skill-group span { font-size: var(--text-secondary); }
-    .award-note { grid-column: 1 / -1; display: grid; grid-template-columns: 210px 1fr; gap: 34px; padding: 22px 0; border-top: 1px solid var(--line); }
-    .award-note strong { font-weight: 500; font-size: var(--text-body); }
-    .award-note p { margin: 0; color: var(--muted); font-size: var(--text-body); }
-    .contact { padding: 0 0 60px; }
-    .contact-box { display: grid; grid-template-columns: 1.5fr .65fr; gap: 80px; padding-block: 40px 0; border-top: 1px solid var(--ink); align-items: end; }
-    .contact-box h2 { margin: 20px 0; font-family: var(--serif); font-size: clamp(32px, 4vw, 50px); line-height: 1.5; font-weight: 400; letter-spacing: -.04em; }
-    .contact-box p { margin: 0; color: var(--muted); font-size: var(--text-body); }
-    .contact-links { display: grid; gap: 10px; }
-    .contact-link { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 15px 0; border-bottom: 1px solid var(--ink); font-family: Georgia, serif; font-size: 24px; transition: color .2s; }
-    .contact-link:hover { color: var(--accent); }
-    footer { display: flex; justify-content: space-between; gap: 25px; padding: 20px 0 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: var(--text-caption); }
-    html[lang="en"] .hero h1 { font-size: clamp(46px, 5.4vw, 72px); line-height: 1.2; letter-spacing: -.045em; }
-    html[lang="en"] .hero { grid-template-columns: minmax(0, 1.7fr) minmax(260px, .8fr); }
-    html[lang="en"] .section-heading h2 { line-height: 1.25; }
-    @media (max-width: 1000px) {
-      .hero, html[lang="en"] .hero { grid-template-columns: minmax(0, 1.5fr) minmax(220px, .8fr); gap: 30px; }
-      .hero h1 { font-size: clamp(36px, 5.2vw, 58px); }
-      .profile-panel { padding-left: 22px; }
-      .section-heading, .experience-item, .award-note { grid-template-columns: 160px minmax(0, 1fr); gap: 24px; }
-      .about-intro { margin-left: 184px; }
-      .project-grid, .about-grid { column-gap: 36px; }
-      .contact-box { gap: 40px; }
-    }
-    @media (max-width: 760px) {
-      html { scroll-padding-top: 130px; }
-      .shell { width: calc(100% - 40px); }
-      .nav-inner { min-height: 74px; gap: 16px; }
-      .brand { font-size: 26px; }
-      .nav-actions { gap: 18px; }
-      .nav-links { gap: 17px; }
-      .language-switch { padding-left: 12px; }
-      .hero, html[lang="en"] .hero { grid-template-columns: 1fr; padding: 42px 0 34px; gap: 28px; }
-      .hero h1 { font-size: clamp(34px, 7.7vw, 58px); }
-      html[lang="en"] .hero h1 { font-size: clamp(42px, 8vw, 60px); }
-      .eyebrow { margin-bottom: 20px; }
-      .hero-byline { margin-top: 22px; }
-      .hero-actions { margin-top: 15px; }
-      .profile-panel { border-left: 0; border-top: 1px solid var(--line); padding: 22px 0 0; display: block; }
-      .hero-summary { max-width: 600px; }
-      .profile-list { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-      .profile-row { margin: 0; }
-      .profile-panel .text-link { width: auto; padding-top: 0; margin-top: 12px; }
-      .profile-status { margin-top: 14px; }
-      .case-cover { grid-template-columns: 1fr; gap: 24px; }
-      .case-figure { min-height: 260px; }
-      .orbit { width: 120px; height: 120px; }
-      .orbit::before { inset: 12px -22px; }
-      .orbit::after { inset: 30px -36px; }
-      .case-figure figcaption { font-size: var(--text-caption); left: 12px; }
-      .case-intro h2 { font-size: 40px; }
-      .case-question { font-size: 18px; }
-      .capability-grid, .principles, .project-grid { grid-template-columns: 1fr; }
-      .capability, .capability:first-child, .capability:last-child { padding: 22px 0; border-right: 0; border-bottom: 1px solid var(--line); }
-      .case-details { grid-template-columns: 1fr; }
-      .project-top { gap: 8px 20px; }
-      .project-link { text-align: left; }
-      .capability h2 { font-size: 18px; }
-      section { padding: 60px 0; }
-      .section-heading { grid-template-columns: 1fr; gap: 12px; }
-      .experience-item { grid-template-columns: 1fr; gap: 15px; }
-      .experience-date br { display: none; }
-      .experience-date span + span { margin-left: 12px; }
-      .about-intro { margin-left: 0; }
-      .evidence-row { grid-template-columns: 1fr; gap: 5px; }
-      .principles { gap: 24px; }
-      .principle h3 { font-size: 20px; }
-      .about-grid, .contact-box { grid-template-columns: 1fr; }
-      .award-note { grid-template-columns: 1fr; gap: 10px; }
-      .contact-links { grid-template-columns: 1fr 1fr; gap: 28px; }
-    }
-    @media (max-width: 540px) {
-      .nav-inner { flex-wrap: wrap; padding-top: 17px; row-gap: 7px; }
-      .nav-actions { display: contents; }
-      .language-switch { margin-left: auto; border: 0; padding: 0; }
-      .nav-links { order: 3; flex: 0 0 100%; justify-content: space-between; }
-      .nav-links a { font-size: var(--text-secondary); }
-      .edition { font-size: var(--text-caption); letter-spacing: .04em; }
-      .hero h1 { font-size: clamp(29px, 7.7vw, 42px); }
-      .hero-byline { font-size: var(--text-body); }
-      .profile-list { grid-template-columns: 1fr; gap: 10px; }
-      .case-cover { grid-template-columns: 1fr; gap: 25px; }
-      .case-layout { padding-block: 24px; }
-      .case-figure { min-height: 225px; }
-      .orbit { width: 150px; height: 150px; }
-      .orbit::before { inset: 16px -28px; }
-      .orbit::after { inset: 38px -44px; }
-      .case-details, .capability-grid, .project-grid, .principles { grid-template-columns: 1fr; }
-      .capabilities { padding-top: 12px; }
-      .capability, .capability:first-child, .capability:last-child { padding: 20px 0; border-right: 0; border-bottom: 1px solid var(--line); }
-      .capability h2 { margin-top: 5px; font-size: 21px; }
-      .section-heading { margin-bottom: 12px; padding-block: 20px; }
-      .section-heading h2 { font-size: 28px; }
-      .project-card { padding-block: 25px; }
-      .project-card h3 { margin-top: 19px; font-size: 29px; }
-      .project-top { flex-wrap: wrap; gap: 5px 16px; }
-      .project-link { text-align: left; }
-      .evidence-row { grid-template-columns: 1fr; gap: 4px; }
-      .experience-list { padding-top: 12px; }
-      .about-intro { padding-top: 16px; font-size: 19px; }
-      .principles { gap: 26px; }
-      .school { font-size: 30px; }
-      .skill-group { grid-template-columns: 1fr; gap: 5px; }
-      .contact-box { gap: 25px; }
-      .contact-box h2 { font-size: 32px; }
-      .contact { padding-bottom: 35px; }
-      footer { flex-direction: column; gap: 6px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition: none !important; }
-    }
-    @media print {
-      :root { --paper: #fff; --surface: #eee; --ink: #000; --muted: #333; --accent: #333; --line: #aaa; }
-      .nav, .skip-link, .hero-actions, .profile-panel .text-link, .contact, footer, .case-figure { display: none !important; }
-      .shell { width: 100%; }
-      .hero { padding: 24px 0; }
-      .hero h1, html[lang="en"] .hero h1 { font-size: 36px; }
-      section { padding: 28px 0; }
-      .case-cover { display: block; }
-      .case-notes > summary { display: none; }
-      .case-details { display: grid !important; }
-      .section-heading { margin-bottom: 20px; }
-      .section-heading h2 { font-size: 26px; }
-      .project-card, .experience-item, .about-card, .principle { break-inside: avoid; }
-    }
-  </style>
+  <link rel="canonical" href="https://connerald.github.io/">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <script>
+    // Show the authored room poster immediately; keep the document available
+    // when scripts are disabled or the module cannot finish starting.
+    document.documentElement.classList.add('booting');
+    window.studyBootFail = function () {
+      if (!document.documentElement.classList.contains('enhanced')) {
+        document.documentElement.classList.remove('booting');
+      }
+    };
+    window.studyBootTimer = setTimeout(window.studyBootFail, 8000);
+  </script>
+  <link rel="stylesheet" href="assets/style.css">
+  <title>董俊叶的书房 · 数据工程与 AI</title>
 </head>
 <body>
-  <a class="skip-link" href="#main" data-i18n="skip">跳至主要内容</a>
-
-  <nav class="nav" data-i18n-aria="navLabel" aria-label="主导航">
-    <div class="nav-inner shell">
-      <a class="brand" href="#top" data-i18n-aria="homeLabel" aria-label="返回首页">
-        <span>Connerald.</span>
-      </a>
-      <div class="nav-actions">
-        <div class="nav-links">
-          <a href="#projects" data-i18n="navProjects">项目</a>
-          <a href="#experience" data-i18n="navExperience">经历</a>
-          <a href="#about" data-i18n="navAbout">关于</a>
-          <a href="#contact" data-i18n="navContact">联系</a>
+  <a class="skip-link" href="#directory" data-ui="skip">跳至内容目录</a>
+  <div class="experience-shell">
+    <main id="room-main" class="room-main" aria-label="董俊叶的书房">
+      <picture class="room-poster" aria-hidden="true"><source media="(max-width: 700px)" srcset="assets/room-portrait.webp"><img src="assets/room-landscape.webp" alt=""></picture>
+      <div id="scene" class="scene" aria-hidden="true"></div>
+      <div class="scene-shade" aria-hidden="true"></div>
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="回到书房"><span class="brand-mark" aria-hidden="true">d.</span><span>CONNERALD<span class="brand-caption" data-ui="brandCaption">一间关于数据与想法的书房</span></span></a>
+        <div class="header-actions">
+          <div class="language-switch" role="group" aria-label="语言 / Language"><button type="button" data-lang="zh" aria-pressed="true">中</button><span aria-hidden="true">/</span><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+          <button type="button" id="menu-toggle" class="pill menu-toggle" aria-controls="directory" aria-expanded="false"><span class="menu-icon" aria-hidden="true"><i></i><i></i></span><span data-ui="menu">内容目录</span></button>
         </div>
-        <div class="language-switch" role="group" data-i18n-aria="languageLabel" aria-label="语言选择">
-          <button type="button" data-lang="zh" aria-pressed="true">中</button>
-          <button type="button" data-lang="en" aria-pressed="false">EN</button>
-        </div>
-      </div>
-    </div>
-  </nav>
+      </header>
+      <div id="hotspots" class="hotspots" aria-label="书房里的物件"></div>
+      <section class="welcome" aria-labelledby="welcome-title">
+        <p class="eyebrow"><span class="status-dot"></span><span data-ui="welcomeEyebrow">DONG JUNYE · 北京</span></p>
+        <h1 id="welcome-title" data-ui="welcomeTitle">欢迎，<br>来书房坐坐。</h1>
+        <p class="welcome-summary" data-ui="welcomeSummary">我是董俊叶，探索数据工程与 AI 的实际用处。<br>这里收着我的项目、经历，和一些正在生长的想法。</p>
+        <p class="welcome-status"><span data-ui="welcomeStatus">中央财经大学 · 2027 届</span><span class="status-divider">/</span><span data-ui="openStatus">开放实习与合作</span></p>
+        <a class="start-link" href="#project/anchorcell"><span data-ui="start">从 AnchorCell 开始</span><span aria-hidden="true">↗</span></a>
+        <p class="discovery-note"><span id="discovery-progress">已探索 0 / 8</span><span class="discovery-hint" data-ui="discoveryHint">点击物件，翻开项目与经历。</span></p>
+      </section>
+      <div class="room-footer"><span class="room-caption"><span class="tiny-cross" aria-hidden="true">✳</span><span data-ui="roomCaption">每件物品，都有一个故事。</span></span><div class="room-controls"><button type="button" id="lamp-toggle" class="hint-button" aria-pressed="true" aria-label="台灯 / Desk lamp"><span aria-hidden="true">☼</span><span data-ui="lamp">台灯</span></button><button type="button" id="hints-toggle" class="hint-button" aria-pressed="false"><span aria-hidden="true">⌖</span><span data-ui="hints">显示可点击物件</span></button></div><span class="room-edition">PERSONAL COLLECTION · 2026</span></div>
+      <div class="loading-note" role="status"><span class="loading-spark" aria-hidden="true"></span><span data-ui="loading">正在点亮书房…</span></div>
+    </main>
+    <dialog id="directory" class="directory" aria-labelledby="directory-title">
+      <div class="directory-head"><span class="eyebrow">THE INDEX</span><button class="round-close" type="button" data-close-directory aria-label="关闭目录">×</button></div>
+      <h2 id="directory-title" data-ui="directoryTitle">随意翻翻。</h2><p class="directory-intro" data-ui="directoryIntro">也可以直接从这里，找到你感兴趣的内容。</p>
+      <nav id="directory-links" aria-label="内容目录"></nav>
+      <div class="directory-projects"><span class="eyebrow" data-ui="allProjects">全部项目</span><div id="directory-project-links"></div></div>
+      <a class="directory-email" href="mailto:connerald359@163.com">connerald359@163.com ↗</a>
+      <span class="directory-foot">DONG JUNYE / CONNERALD</span>
+    </dialog>
+    <dialog id="reader" class="reader" aria-labelledby="reader-title">
+      <div class="reader-toolbar"><button type="button" class="reader-index" id="reader-index"><span aria-hidden="true">☷</span><span data-ui="menu">内容目录</span></button><span class="reader-collection" data-ui="collection">书房藏册 / PERSONAL COLLECTION</span><button type="button" class="round-close" id="reader-close" aria-label="合上书册">×</button></div>
+      <div id="book" class="book"></div>
+      <div class="reader-bottom"><button type="button" id="previous-page" class="page-turn"><span aria-hidden="true">←</span><span data-ui="previous">上一页</span></button><span id="page-count" aria-live="polite"></span><button type="button" id="next-page" class="page-turn"><span data-ui="next">下一页</span><span aria-hidden="true">→</span></button></div>
+    </dialog>
+    <div id="toast" class="toast" role="status"></div>
+  </div>
+  <main id="fallback" class="fallback">
 
-  <main id="main">
-    <div class="edition shell" id="top">
+    <div id="top">
       <span data-i18n="editionTitle">董俊叶的个人主页</span>
       <span>DATA · SYSTEMS · PEOPLE</span>
     </div>
-    <header class="hero shell">
-      <div class="hero-copy">
-        <div class="eyebrow" data-i18n="heroEyebrow">从数据出发，向问题深处。</div>
+    <header>
+      <div>
+        <div data-i18n="heroEyebrow">从数据出发，向问题深处。</div>
         <h1><span data-i18n="headlineStart">让复杂的数据，</span><em data-i18n="headlineEnd">成为清晰的判断。</em></h1>
-        <p class="hero-byline"><span data-i18n="name">董俊叶</span><span data-i18n="authorSubtitle">/ Dong Junye · 数据工程与 AI 应用</span></p>
-        <div class="hero-actions"><a class="text-link" href="#projects"><span data-i18n="viewProjects">浏览项目选集</span><span aria-hidden="true">↓</span></a></div>
+        <p><span data-i18n="name">董俊叶</span><span data-i18n="authorSubtitle">/ Dong Junye · 数据工程与 AI 应用</span></p>
+        <div><a href="#projects"><span data-i18n="viewProjects">浏览项目选集</span><span aria-hidden="true">↓</span></a></div>
       </div>
-      <aside class="profile-panel" data-i18n-aria="profileLabel" aria-label="个人概览">
-        <p class="hero-summary" data-i18n="editorialIntro">在金融、实验数据与储能安全之间，探索数据工程与 AI 的实际用处。把分散的数据，变成能回答实际问题的系统。</p>
-        <dl class="profile-list">
-          <div class="profile-row"><dt data-i18n="profileSchoolLabel">院校</dt><dd data-i18n="profileSchool">中央财经大学</dd></div>
-          <div class="profile-row"><dt data-i18n="profileMajorLabel">专业</dt><dd data-i18n="profileMajor">大数据管理与应用</dd></div>
-          <div class="profile-row"><dt data-i18n="profileGraduationLabel">预计毕业</dt><dd data-i18n="profileGraduation">2027 年 6 月</dd></div>
+      <aside data-i18n-aria="profileLabel" aria-label="个人概览">
+        <p data-i18n="editorialIntro">在金融、实验数据与储能安全之间，探索数据工程与 AI 的实际用处。把分散的数据，变成能回答实际问题的系统。</p>
+        <dl>
+          <div><dt data-i18n="profileSchoolLabel">院校</dt><dd data-i18n="profileSchool">中央财经大学</dd></div>
+          <div><dt data-i18n="profileMajorLabel">专业</dt><dd data-i18n="profileMajor">大数据管理与应用</dd></div>
+          <div><dt data-i18n="profileGraduationLabel">预计毕业</dt><dd data-i18n="profileGraduation">2027 年 6 月</dd></div>
         </dl>
-        <p class="profile-status"><span data-i18n="beijing">北京</span> · <span data-i18n="profileStatus">开放实习与项目合作</span></p>
-        <a class="text-link" href="mailto:connerald359@163.com"><span data-i18n="emailMe">聊聊你的想法</span><span aria-hidden="true">↗</span></a>
+        <p><span data-i18n="beijing">北京</span> · <span data-i18n="profileStatus">开放实习与项目合作</span></p>
+        <a href="mailto:connerald359@163.com"><span data-i18n="emailMe">聊聊你的想法</span><span aria-hidden="true">↗</span></a>
       </aside>
     </header>
 
-    <section class="case-study" id="featured" aria-labelledby="venture-title">
-      <div class="case-layout shell">
-        <div class="case-cover">
-          <figure class="case-figure" aria-hidden="true"><div class="orbit"></div><figcaption>FIG. 01 — CONNECTING EVIDENCE</figcaption></figure>
-          <div class="case-intro">
-            <div class="case-kicker" data-i18n="ventureKicker">封面精选 · 2026.05 启动 · AI 原型</div>
+    <section id="featured" aria-labelledby="venture-title">
+      <div>
+        <div>
+          <figure aria-hidden="true"><div></div><figcaption>FIG. 01 — CONNECTING EVIDENCE</figcaption></figure>
+          <div>
+            <div data-i18n="ventureKicker">封面精选 · 2026.05 启动 · AI 原型</div>
             <h2 id="venture-title" data-i18n="ventureTitle">AnchorCell</h2>
-            <p class="case-question" data-i18n="caseQuestion">当 AI 给出风险判断时，依据在哪里？</p>
-            <p class="case-lead" data-i18n="ventureLead">储能电站安全运维 AI Agent。围绕电芯风险分析，让业务事实来自工具查询，让分析结论附带可追溯的证据。</p>
+            <p data-i18n="caseQuestion">当 AI 给出风险判断时，依据在哪里？</p>
+            <p data-i18n="ventureLead">储能电站安全运维 AI Agent。围绕电芯风险分析，让业务事实来自工具查询，让分析结论附带可追溯的证据。</p>
           </div>
         </div>
-        <details class="case-notes" id="case-notes">
+        <details id="case-notes">
           <summary data-i18n="readCase">阅读项目笔记</summary>
-          <div class="case-details">
-          <article class="case-detail"><h3 data-i18n="contextLabel">场景与问题</h3><p data-i18n="ventureContext">面对储能设备的多层级数据，探索如何从舱、Rack、电芯及 SOS 数据中定位风险，并向使用者解释分析依据。</p></article>
-          <article class="case-detail"><h3 data-i18n="responsibilityLabel">我的工作</h3><p data-i18n="ventureResponsibility">使用 LangGraph 构建状态图驱动的 Agent，以受控只读工具查询业务数据，明确模型与数据工具的职责。</p></article>
-          <article class="case-detail"><h3 data-i18n="solutionLabel">实现方法</h3><p data-i18n="ventureSolution">记录数据版本、筛选条件和匹配范围，通过 SSE 向前端流式返回 KPI、表格与图表，保留结果与证据的关联。</p></article>
-          <article class="case-detail"><h3 data-i18n="valueLabel">实践与结果</h3><p data-i18n="ventureValue">使用 SQLite Checkpointer 维护多轮上下文，设置执行步数、超时与异常回退，并用业务问题集检查 Agent 的表现。</p></article>
+          <div>
+          <article><h3 data-i18n="contextLabel">场景与问题</h3><p data-i18n="ventureContext">面对储能设备的多层级数据，探索如何从舱、Rack、电芯及 SOS 数据中定位风险，并向使用者解释分析依据。</p></article>
+          <article><h3 data-i18n="responsibilityLabel">我的工作</h3><p data-i18n="ventureResponsibility">使用 LangGraph 构建状态图驱动的 Agent，以受控只读工具查询业务数据，明确模型与数据工具的职责。</p></article>
+          <article><h3 data-i18n="solutionLabel">实现方法</h3><p data-i18n="ventureSolution">记录数据版本、筛选条件和匹配范围，通过 SSE 向前端流式返回 KPI、表格与图表，保留结果与证据的关联。</p></article>
+          <article><h3 data-i18n="valueLabel">实践与结果</h3><p data-i18n="ventureValue">使用 SQLite Checkpointer 维护多轮上下文，设置执行步数、超时与异常回退，并用业务问题集检查 Agent 的表现。</p></article>
           </div>
-          <div class="case-award" data-i18n="ventureAward">评测实践：构建覆盖 40+ 业务问题的 Agent 评测集。</div>
+          <div data-i18n="ventureAward">评测实践：构建覆盖 40+ 业务问题的 Agent 评测集。</div>
         </details>
       </div>
     </section>
 
-    <section class="capabilities" data-i18n-aria="capabilitiesLabel" aria-label="核心能力">
-      <div class="capability-grid shell">
-        <article class="capability">
-          <div class="capability-no">01</div>
+    <section data-i18n-aria="capabilitiesLabel" aria-label="核心能力">
+      <div>
+        <article>
+          <div>01</div>
           <h2 data-i18n="capability1Title">把数据链路打通</h2>
           <p data-i18n="capability1Body">在基金风险工具与实验数据 ETL 中，处理数据获取、清洗、校验、存储和下游查询，让分析建立在可用的数据上。</p>
         </article>
-        <article class="capability">
-          <div class="capability-no">02</div>
+        <article>
+          <div>02</div>
           <h2 data-i18n="capability2Title">把业务问题拆清</h2>
           <p data-i18n="capability2Body">从校友交流平台到储能电池管理，参与需求梳理、数据建模与前后端开发，将场景里的问题转化为具体功能。</p>
         </article>
-        <article class="capability">
-          <div class="capability-no">03</div>
+        <article>
+          <div>03</div>
           <h2 data-i18n="capability3Title">让 AI 分析有据可查</h2>
           <p data-i18n="capability3Body">在 Agent 原型中实践工具查询、结构化证据、多轮会话与评测，让分析结果能够回到数据和筛选条件。</p>
         </article>
       </div>
     </section>
 
-    <section class="projects" id="projects">
-      <div class="shell">
-        <div class="section-heading">
-          <div class="section-label" data-i18n="projectsLabel">01 / Selected Work</div>
+    <section id="projects">
+      <div>
+        <div>
+          <div data-i18n="projectsLabel">01 / Selected Work</div>
           <h2 data-i18n="projectsHeading">在不同场景里，把问题做具体</h2>
         </div>
-        <div class="project-grid">
-          <article class="project-card">
-            <div class="project-top"><span class="project-no">PROJECT 01</span><span class="project-link" data-i18n="yaoxiangStatus">创业项目 · 2025.05 启动</span></div>
+        <div>
+          <article>
+            <div><span>PROJECT 01</span><span data-i18n="yaoxiangStatus">创业项目 · 2025.05 启动</span></div>
             <h3 data-i18n="yaoxiangTitle">端末智能电池管理系统</h3>
-            <p class="project-role" data-i18n="yaoxiangRole">瑶想科技 · 核心成员</p>
-            <p class="project-description" data-i18n="yaoxiangDescription">参与储能电站电池安全监测与风险预警项目，开展需求调研和方案对接；负责前后端核心功能，参与设备层级展示、告警处置和电芯健康评估规则设计。</p>
-            <div class="project-stack">Data Modeling · Full Stack · Energy Storage</div>
+            <p data-i18n="yaoxiangRole">瑶想科技 · 核心成员</p>
+            <p data-i18n="yaoxiangDescription">参与储能电站电池安全监测与风险预警项目，开展需求调研和方案对接；负责前后端核心功能，参与设备层级展示、告警处置和电芯健康评估规则设计。</p>
+            <div>Data Modeling · Full Stack · Energy Storage</div>
           </article>
-          <article class="project-card">
-            <div class="project-top"><span class="project-no">PROJECT 02 · 2026</span><span class="project-link" data-i18n="caraStatus">2026.03 — 2026.05</span></div>
+          <article>
+            <div><span>PROJECT 02 · 2026</span><span data-i18n="caraStatus">2026.03 — 2026.05</span></div>
             <h3>cara</h3>
-            <p class="project-role" data-i18n="caraRole">多 Agent 架构 · 风控研究</p>
-            <p class="project-description" data-i18n="caraDescription">A 股事件驱动风控研究助手。基于 ReAct 设计 Agent 职责分工与冲突仲裁，通过 Intent Router 分类和分发问题，并调整提示词以支持结构化证据追溯。</p>
-            <div class="project-stack">ReAct · Intent Router · Multi-agent</div>
+            <p data-i18n="caraRole">多 Agent 架构 · 风控研究</p>
+            <p data-i18n="caraDescription">A 股事件驱动风控研究助手。基于 ReAct 设计 Agent 职责分工与冲突仲裁，通过 Intent Router 分类和分发问题，并调整提示词以支持结构化证据追溯。</p>
+            <div>ReAct · Intent Router · Multi-agent</div>
           </article>
-          <a class="project-card" href="https://gitee.com/oceanccc/tsing-link" target="_blank" rel="noreferrer" data-i18n-aria="tsingLinkAria" aria-label="访问 TsingLink 项目">
-            <div class="project-top"><span class="project-no">PROJECT 03 · 2025</span><span class="project-link" data-i18n="visitProject">访问项目 ↗</span></div>
+          <a href="https://gitee.com/oceanccc/tsing-link" target="_blank" rel="noreferrer" data-i18n-aria="tsingLinkAria" aria-label="访问 TsingLink 项目">
+            <div><span>PROJECT 03 · 2025</span><span data-i18n="visitProject">访问项目 ↗</span></div>
             <h3>TsingLink</h3>
-            <p class="project-role" data-i18n="tsingRole">需求分析 · Django 后端开发</p>
-            <p class="project-description" data-i18n="tsingDescription">面向清华大学 EMBA/MBA 校友的信息交流平台。设计用户、酒类资源、融创项目等核心模型，实现供需信息发布、查询与管理。</p>
-            <div class="project-stack">Django · Data Modeling · Backend</div>
+            <p data-i18n="tsingRole">需求分析 · Django 后端开发</p>
+            <p data-i18n="tsingDescription">面向清华大学 EMBA/MBA 校友的信息交流平台。设计用户、酒类资源、融创项目等核心模型，实现供需信息发布、查询与管理。</p>
+            <div>Django · Data Modeling · Backend</div>
           </a>
-          <a class="project-card" href="https://github.com/connerald/crypto-dashboard" target="_blank" rel="noreferrer" data-i18n-aria="cryptoAria" aria-label="访问 Crypto Dashboard 项目">
-            <div class="project-top"><span class="project-no">PROJECT 04 · 2025</span><span class="project-link" data-i18n="visitProject">访问项目 ↗</span></div>
+          <a href="https://github.com/connerald/crypto-dashboard" target="_blank" rel="noreferrer" data-i18n-aria="cryptoAria" aria-label="访问 Crypto Dashboard 项目">
+            <div><span>PROJECT 04 · 2025</span><span data-i18n="visitProject">访问项目 ↗</span></div>
             <h3>Crypto Dashboard</h3>
-            <p class="project-role" data-i18n="cryptoRole">实时数据链路 · 可视化界面</p>
-            <p class="project-description" data-i18n="cryptoDescription">从 Binance API 接入行情，以 Kafka 与 Spark 处理实时数据，并通过 Flask、Socket.IO 展示价格与告警。项目从课程原型持续演进，覆盖采集、流计算和实时展示。</p>
-            <div class="project-stack">Kafka · Spark · Flask · Socket.IO</div>
+            <p data-i18n="cryptoRole">实时数据链路 · 可视化界面</p>
+            <p data-i18n="cryptoDescription">从 Binance API 接入行情，以 Kafka 与 Spark 处理实时数据，并通过 Flask、Socket.IO 展示价格与告警。项目从课程原型持续演进，覆盖采集、流计算和实时展示。</p>
+            <div>Kafka · Spark · Flask · Socket.IO</div>
           </a>
-          <a class="project-card" href="https://github.com/connerald/cufe-bdmma2026s" target="_blank" rel="noreferrer" data-i18n-aria="behaviorAria" aria-label="访问电商用户行为分析项目">
-            <div class="project-top"><span class="project-no">PROJECT 05 · 2026</span><span class="project-link" data-i18n="visitProject">访问项目 ↗</span></div>
+          <a href="https://github.com/connerald/cufe-bdmma2026s" target="_blank" rel="noreferrer" data-i18n-aria="behaviorAria" aria-label="访问电商用户行为分析项目">
+            <div><span>PROJECT 05 · 2026</span><span data-i18n="visitProject">访问项目 ↗</span></div>
             <h3 data-i18n="behaviorTitle">电商用户行为分析</h3>
-            <p class="project-role" data-i18n="behaviorRole">项目负责人 · 分布式数据分析</p>
-            <p class="project-description" data-i18n="behaviorDescription">基于 Hadoop、YARN 与 Spark 搭建三节点环境，分析百万级淘宝用户行为数据；负责主节点配置与核心 PySpark、Spark SQL 程序，围绕活跃、转化和用户分群设计分析任务。</p>
-            <div class="project-stack">Hadoop · YARN · PySpark · Spark SQL</div>
+            <p data-i18n="behaviorRole">项目负责人 · 分布式数据分析</p>
+            <p data-i18n="behaviorDescription">基于 Hadoop、YARN 与 Spark 搭建三节点环境，分析百万级淘宝用户行为数据；负责主节点配置与核心 PySpark、Spark SQL 程序，围绕活跃、转化和用户分群设计分析任务。</p>
+            <div>Hadoop · YARN · PySpark · Spark SQL</div>
           </a>
-          <a class="project-card" href="https://github.com/connerald/CUFEpaper" target="_blank" rel="noreferrer" data-i18n-aria="paperAria" aria-label="访问 CUFEpaper 项目">
-            <div class="project-top"><span class="project-no">PROJECT 06 · 2025</span><span class="project-link" data-i18n="visitProject">访问项目 ↗</span></div>
+          <a href="https://github.com/connerald/CUFEpaper" target="_blank" rel="noreferrer" data-i18n-aria="paperAria" aria-label="访问 CUFEpaper 项目">
+            <div><span>PROJECT 06 · 2025</span><span data-i18n="visitProject">访问项目 ↗</span></div>
             <h3>CUFEpaper</h3>
-            <p class="project-role" data-i18n="paperRole">独立开发 · 可复用的写作工具</p>
-            <p class="project-description" data-i18n="paperDescription">为中央财经大学课程论文开发 LaTeX 模板，把重复的格式处理沉淀为可复用的工具，让写作更专注于内容。</p>
-            <div class="project-stack">LaTeX · Academic Writing</div>
+            <p data-i18n="paperRole">独立开发 · 可复用的写作工具</p>
+            <p data-i18n="paperDescription">为中央财经大学课程论文开发 LaTeX 模板，把重复的格式处理沉淀为可复用的工具，让写作更专注于内容。</p>
+            <div>LaTeX · Academic Writing</div>
           </a>
         </div>
       </div>
     </section>
 
     <section id="experience">
-      <div class="shell">
-        <div class="section-heading">
-          <div class="section-label" data-i18n="experienceLabel">02 / Experience</div>
+      <div>
+        <div>
+          <div data-i18n="experienceLabel">02 / Experience</div>
           <h2 data-i18n="experienceHeading">在真实业务中建设数据能力</h2>
         </div>
-        <div class="experience-list">
-          <article class="experience-item">
-            <div class="experience-date"><span>2025.09 — 2025.12</span><br><span data-i18n="beijing">北京</span></div>
-            <div class="experience-body">
-              <div class="experience-title">
+        <div>
+          <article>
+            <div><span>2025.09 — 2025.12</span><br><span data-i18n="beijing">北京</span></div>
+            <div>
+              <div>
                 <h3 data-i18n="dcCompany">神州数码</h3>
-                <div class="experience-role" data-i18n="dcRole">数据开发实习生</div>
+                <div data-i18n="dcRole">数据开发实习生</div>
               </div>
-              <div class="experience-points">
-                <div class="evidence-row"><div class="evidence-label" data-i18n="contextLabel">场景与问题</div><p data-i18n="dcContext">参与百济神州 HTS 高通量筛选实验数据自动化处理项目，支持实验数据从原始文件进入 ELN 系统。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="responsibilityLabel">我的工作</div><p data-i18n="dcResponsibility">参与 ETL 链路建设，负责字段抽取、格式转换、质量校验、批量处理及跨存储同步逻辑。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="solutionLabel">实现方法</div><p data-i18n="dcSolution">通过 Azure Data Factory 编排流程，调用 Databricks 处理数据，写入 Azure Synapse，并以 SQL 视图服务 ELN。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="valueLabel">实践与结果</div><p data-i18n="dcValue">推动实验数据处理由人工整理转向结构化、可调度的自动化 Pipeline。</p></div>
+              <div>
+                <div><div data-i18n="contextLabel">场景与问题</div><p data-i18n="dcContext">参与百济神州 HTS 高通量筛选实验数据自动化处理项目，支持实验数据从原始文件进入 ELN 系统。</p></div>
+                <div><div data-i18n="responsibilityLabel">我的工作</div><p data-i18n="dcResponsibility">参与 ETL 链路建设，负责字段抽取、格式转换、质量校验、批量处理及跨存储同步逻辑。</p></div>
+                <div><div data-i18n="solutionLabel">实现方法</div><p data-i18n="dcSolution">通过 Azure Data Factory 编排流程，调用 Databricks 处理数据，写入 Azure Synapse，并以 SQL 视图服务 ELN。</p></div>
+                <div><div data-i18n="valueLabel">实践与结果</div><p data-i18n="dcValue">推动实验数据处理由人工整理转向结构化、可调度的自动化 Pipeline。</p></div>
               </div>
             </div>
           </article>
 
-          <article class="experience-item">
-            <div class="experience-date"><span>2025.01 — 2025.05</span><br><span data-i18n="beijing">北京</span></div>
-            <div class="experience-body">
-              <div class="experience-title">
+          <article>
+            <div><span>2025.01 — 2025.05</span><br><span data-i18n="beijing">北京</span></div>
+            <div>
+              <div>
                 <h3 data-i18n="qhCompany">启后资本</h3>
-                <div class="experience-role" data-i18n="qhRole">量化实习生</div>
+                <div data-i18n="qhRole">量化实习生</div>
               </div>
-              <div class="experience-points">
-                <div class="evidence-row"><div class="evidence-label" data-i18n="contextLabel">场景与问题</div><p data-i18n="qhContext">面向私募基金持仓与净值数据，建设日常风险监控所需的数据和指标工具。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="responsibilityLabel">我的工作</div><p data-i18n="qhResponsibility">用 Python 处理邮件中的净值文本与文件，完成清洗、MySQL 存储和定期更新。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="solutionLabel">实现方法</div><p data-i18n="qhSolution">构建收益率、最大回撤、夏普比率等投资组合风险指标模块。</p></div>
-                <div class="evidence-row"><div class="evidence-label" data-i18n="valueLabel">实践与结果</div><p data-i18n="qhValue">将重复的数据整理与指标计算自动化，并参与基金尽职调查与风控报告整理。</p></div>
+              <div>
+                <div><div data-i18n="contextLabel">场景与问题</div><p data-i18n="qhContext">面向私募基金持仓与净值数据，建设日常风险监控所需的数据和指标工具。</p></div>
+                <div><div data-i18n="responsibilityLabel">我的工作</div><p data-i18n="qhResponsibility">用 Python 处理邮件中的净值文本与文件，完成清洗、MySQL 存储和定期更新。</p></div>
+                <div><div data-i18n="solutionLabel">实现方法</div><p data-i18n="qhSolution">构建收益率、最大回撤、夏普比率等投资组合风险指标模块。</p></div>
+                <div><div data-i18n="valueLabel">实践与结果</div><p data-i18n="qhValue">将重复的数据整理与指标计算自动化，并参与基金尽职调查与风控报告整理。</p></div>
               </div>
             </div>
           </article>
@@ -454,41 +239,41 @@
     </section>
 
     <section id="about">
-      <div class="shell">
-        <div class="section-heading">
-          <div class="section-label" data-i18n="aboutLabel">03 / About Me</div>
+      <div>
+        <div>
+          <div data-i18n="aboutLabel">03 / About Me</div>
           <h2 data-i18n="aboutHeading">从理解数据，到理解数据背后的问题</h2>
         </div>
-        <p class="about-intro" data-i18n="aboutIntro">金融、实验数据和储能安全，看起来是不同的领域。我在其中反复遇到同一个问题：数据已经存在，但把它变成可用的判断，还需要清晰的规则、可靠的流程和对业务的理解。</p>
-        <div class="principles">
-          <article class="principle"><span class="capability-no">01</span><h3 data-i18n="principle1Title">先把问题问清楚</h3><p data-i18n="principle1Body">TsingLink 的需求分析和储能项目的方案对接，让我开始从使用场景出发：谁需要什么信息，数据如何组织，功能怎样支持实际操作。</p></article>
-          <article class="principle"><span class="capability-no">02</span><h3 data-i18n="principle2Title">沿着整条链路做事</h3><p data-i18n="principle2Body">我做过数据接入、指标计算、后端接口和前端展示。比起只看某个技术点，我更关心数据经过每一步之后，能否被下游真正使用。</p></article>
-          <article class="principle"><span class="capability-no">03</span><h3 data-i18n="principle3Title">给结论留下依据</h3><p data-i18n="principle3Body">在 AnchorCell 与 cara 中，我把工具查询、证据追溯和 Agent 评测放进设计。接下来，我想继续探索储能安全中的时间序列分析、风险预警与可解释决策。</p></article>
+        <p data-i18n="aboutIntro">金融、实验数据和储能安全，看起来是不同的领域。我在其中反复遇到同一个问题：数据已经存在，但把它变成可用的判断，还需要清晰的规则、可靠的流程和对业务的理解。</p>
+        <div>
+          <article><span>01</span><h3 data-i18n="principle1Title">先把问题问清楚</h3><p data-i18n="principle1Body">TsingLink 的需求分析和储能项目的方案对接，让我开始从使用场景出发：谁需要什么信息，数据如何组织，功能怎样支持实际操作。</p></article>
+          <article><span>02</span><h3 data-i18n="principle2Title">沿着整条链路做事</h3><p data-i18n="principle2Body">我做过数据接入、指标计算、后端接口和前端展示。比起只看某个技术点，我更关心数据经过每一步之后，能否被下游真正使用。</p></article>
+          <article><span>03</span><h3 data-i18n="principle3Title">给结论留下依据</h3><p data-i18n="principle3Body">在 AnchorCell 与 cara 中，我把工具查询、证据追溯和 Agent 评测放进设计。接下来，我想继续探索储能安全中的时间序列分析、风险预警与可解释决策。</p></article>
         </div>
-        <div class="about-grid">
-          <article class="about-card">
-            <div class="card-label" data-i18n="foundationLabel">Education / 教育背景</div>
-            <div class="education-dates">2023.09 — 2027.06</div>
-            <div class="school" data-i18n="school">中央财经大学</div>
-            <div class="major" data-i18n="major">大数据管理与应用 · 本科（2027 届）</div>
-            <div class="education-meta" data-i18n="courses">课程成绩：机器学习 97、自然语言处理 95、应用随机过程 95。关注数据工程、统计建模与可持续发展场景中的分析应用。</div>
-            <div class="education-meta" data-i18n="educationLanguage">英语：IELTS 7.0</div>
+        <div>
+          <article>
+            <div data-i18n="foundationLabel">Education / 教育背景</div>
+            <div>2023.09 — 2027.06</div>
+            <div data-i18n="school">中央财经大学</div>
+            <div data-i18n="major">大数据管理与应用 · 本科（2027 届）</div>
+            <div data-i18n="courses">课程成绩：机器学习 97、自然语言处理 95、应用随机过程 95。关注数据工程、统计建模与可持续发展场景中的分析应用。</div>
+            <div data-i18n="educationLanguage">英语：IELTS 7.0</div>
           </article>
-          <article class="about-card skills-card">
-            <div class="card-label" data-i18n="toolkitLabel">Toolkit / 技术能力</div>
+          <article>
+            <div data-i18n="toolkitLabel">Toolkit / 技术能力</div>
             <h3 data-i18n="toolkitHeading">在项目中使用的工具与方法</h3>
-            <div class="skill-groups">
-              <div class="skill-group"><strong data-i18n="skillProgramming">编程</strong><span>Python · SQL · Django</span></div>
-              <div class="skill-group"><strong data-i18n="skillData">数据工程</strong><span>Azure Data Factory · Databricks · Synapse · MySQL</span></div>
-              <div class="skill-group"><strong data-i18n="skillBigData">大数据</strong><span>Hadoop · Spark · Kafka</span></div>
-              <div class="skill-group"><strong data-i18n="skillMethods">AI 应用</strong><span data-i18n="skillMethodsValue">LangGraph · ReAct · 工具调用 · Agent 评测</span></div>
+            <div>
+              <div><strong data-i18n="skillProgramming">编程</strong><span>Python · SQL · Django</span></div>
+              <div><strong data-i18n="skillData">数据工程</strong><span>Azure Data Factory · Databricks · Synapse · MySQL</span></div>
+              <div><strong data-i18n="skillBigData">大数据</strong><span>Hadoop · Spark · Kafka</span></div>
+              <div><strong data-i18n="skillMethods">AI 应用</strong><span data-i18n="skillMethodsValue">LangGraph · ReAct · 工具调用 · Agent 评测</span></div>
             </div>
           </article>
-          <article class="award-note">
+          <article>
             <strong data-i18n="mathorTitle">MathorCup 赛区三等奖</strong>
             <p data-i18n="mathorDescription">负责 Python 数据处理、建模与论文排版；基于 XGBoost、遗传算法开展多品类销量预测，并通过规划模型研究商品分仓策略。</p>
           </article>
-          <article class="award-note">
+          <article>
             <strong data-i18n="careerNoteTitle">也在团队协作中学习</strong>
             <p data-i18n="careerNoteBody">曾任学院文体部干事、排球队经理，参与赛事策划、活动执行、赞助沟通与训练协调。这些经历让我练习把方案写清楚，也把人与时间协调好。</p>
           </article>
@@ -496,345 +281,20 @@
       </div>
     </section>
 
-    <section class="contact" id="contact">
-      <div class="contact-box shell">
+    <section id="contact">
+      <div>
         <div>
-          <div class="section-label" data-i18n="contactLabel">04 / Contact</div>
+          <div data-i18n="contactLabel">04 / Contact</div>
           <h2 data-i18n="contactHeading">聊聊数据、AI 与实际问题。</h2>
           <p data-i18n="contactBody">关注数据工程、AI 应用与数据产品方向的实习及合作机会，尤其希望继续探索储能安全与风险分析场景。欢迎通过邮件交流项目与想法。</p>
         </div>
-        <div class="contact-links">
-          <a class="contact-link" href="mailto:connerald359@163.com"><span>Email</span><span aria-hidden="true">↗</span></a>
-          <a class="contact-link" href="https://github.com/connerald" target="_blank" rel="noreferrer"><span>GitHub</span><span aria-hidden="true">↗</span></a>
+        <div>
+          <a href="mailto:connerald359@163.com"><span>Email</span><span aria-hidden="true">↗</span></a>
+          <a href="https://github.com/connerald" target="_blank" rel="noreferrer"><span>GitHub</span><span aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>
-  </main>
-
-  <footer class="shell">
-    <span>© <span id="year"></span> 董俊叶 · Connerald</span>
-    <span data-i18n="footerNote">从数据出发，让判断有据可依。</span>
-  </footer>
-
-  <script>
-    const translations = {
-      "zh": {
-        "editionTitle": "董俊叶的个人主页",
-        "headlineStart": "让复杂的数据，",
-        "headlineEnd": "成为清晰的判断。",
-        "authorSubtitle": "/ Dong Junye · 数据工程与 AI 应用",
-        "editorialIntro": "在金融、实验数据与储能安全之间，探索数据工程与 AI 的实际用处。把分散的数据，变成能回答实际问题的系统。",
-        "caseQuestion": "当 AI 给出风险判断时，依据在哪里？",
-        "readCase": "阅读项目笔记",
-        "documentTitle": "董俊叶｜数据工程与 AI 应用",
-        "description": "董俊叶，中央财经大学大数据管理与应用本科生。以数据工程为基础，探索储能安全、风险分析与可追溯的 AI Agent 应用。",
-        "ogDescription": "从数据处理到风险分析，探索有业务依据、结论可追溯的 AI 应用。",
-        "skip": "跳至主要内容",
-        "navLabel": "主导航",
-        "homeLabel": "返回首页",
-        "languageLabel": "语言选择",
-        "navExperience": "经历",
-        "navProjects": "项目",
-        "navAbout": "关于",
-        "navContact": "联系",
-        "heroEyebrow": "从数据出发，向问题深处。",
-        "name": "董俊叶",
-        "heroRole": "让数据成为有依据的判断。",
-        "heroSummary": "我是中央财经大学大数据管理与应用专业的本科生，预计 2027 年毕业。从基金风险工具、实验数据 ETL，到储能安全与 AI Agent，我一直在探索：怎样把分散的数据，变成能回答实际问题的系统。",
-        "emailMe": "聊聊你的想法",
-        "profileLabel": "个人概览",
-        "profileHeading": "Profile / 概览",
-        "profileSchoolLabel": "院校",
-        "profileSchool": "中央财经大学",
-        "profileMajorLabel": "专业",
-        "profileMajor": "大数据管理与应用",
-        "profileGraduationLabel": "预计毕业",
-        "profileGraduation": "2027 年 6 月",
-        "profileFocusLabel": "方向",
-        "profileFocus": "数据工程 · AI Agent",
-        "profileLocationLabel": "所在地",
-        "profileLocation": "北京 · 中国",
-        "profileStatusLabel": "当前状态",
-        "profileStatus": "开放实习与项目合作",
-        "capabilitiesLabel": "核心能力",
-        "capability1Title": "把数据链路打通",
-        "capability1Body": "在基金风险工具与实验数据 ETL 中，处理数据获取、清洗、校验、存储和下游查询，让分析建立在可用的数据上。",
-        "capability2Title": "把业务问题拆清",
-        "capability2Body": "从校友交流平台到储能电池管理，参与需求梳理、数据建模与前后端开发，将场景里的问题转化为具体功能。",
-        "capability3Title": "让 AI 分析有据可查",
-        "capability3Body": "在 Agent 原型中实践工具查询、结构化证据、多轮会话与评测，让分析结果能够回到数据和筛选条件。",
-        "experienceLabel": "02 / Experience",
-        "experienceHeading": "在真实业务中建设数据能力",
-        "beijing": "北京",
-        "contextLabel": "场景与问题",
-        "responsibilityLabel": "我的工作",
-        "solutionLabel": "实现方法",
-        "valueLabel": "实践与结果",
-        "dcCompany": "神州数码",
-        "dcRole": "数据开发实习生",
-        "dcContext": "参与百济神州 HTS 高通量筛选实验数据自动化处理项目，支持实验数据从原始文件进入 ELN 系统。",
-        "dcResponsibility": "参与 ETL 链路建设，负责字段抽取、格式转换、质量校验、批量处理及跨存储同步逻辑。",
-        "dcSolution": "通过 Azure Data Factory 编排流程，调用 Databricks 处理数据，写入 Azure Synapse，并以 SQL 视图服务 ELN。",
-        "dcValue": "推动实验数据处理由人工整理转向结构化、可调度的自动化 Pipeline。",
-        "qhCompany": "启后资本",
-        "qhRole": "量化实习生",
-        "qhContext": "面向私募基金持仓与净值数据，建设日常风险监控所需的数据和指标工具。",
-        "qhResponsibility": "用 Python 处理邮件中的净值文本与文件，完成清洗、MySQL 存储和定期更新。",
-        "qhSolution": "构建收益率、最大回撤、夏普比率等投资组合风险指标模块。",
-        "qhValue": "将重复的数据整理与指标计算自动化，并参与基金尽职调查与风控报告整理。",
-        "ventureKicker": "封面精选 · 2026.05 启动 · AI 原型",
-        "ventureTitle": "AnchorCell",
-        "ventureLead": "储能电站安全运维 AI Agent。围绕电芯风险分析，让业务事实来自工具查询，让分析结论附带可追溯的证据。",
-        "ventureAward": "评测实践：构建覆盖 40+ 业务问题的 Agent 评测集。",
-        "ventureContext": "面对储能设备的多层级数据，探索如何从舱、Rack、电芯及 SOS 数据中定位风险，并向使用者解释分析依据。",
-        "ventureResponsibility": "使用 LangGraph 构建状态图驱动的 Agent，以受控只读工具查询业务数据，明确模型与数据工具的职责。",
-        "ventureSolution": "记录数据版本、筛选条件和匹配范围，通过 SSE 向前端流式返回 KPI、表格与图表，保留结果与证据的关联。",
-        "ventureValue": "使用 SQLite Checkpointer 维护多轮上下文，设置执行步数、超时与异常回退，并用业务问题集检查 Agent 的表现。",
-        "projectsLabel": "01 / Selected Work",
-        "projectsHeading": "在不同场景里，把问题做具体",
-        "visitProject": "访问项目 ↗",
-        "tsingLinkAria": "访问 TsingLink 项目",
-        "tsingRole": "需求分析 · Django 后端开发",
-        "tsingDescription": "面向清华大学 EMBA/MBA 校友的信息交流平台。设计用户、酒类资源、融创项目等核心模型，实现供需信息发布、查询与管理。",
-        "cryptoAria": "访问 Crypto Dashboard 项目",
-        "cryptoRole": "实时数据链路 · 可视化界面",
-        "cryptoDescription": "从 Binance API 接入行情，以 Kafka 与 Spark 处理实时数据，并通过 Flask、Socket.IO 展示价格与告警。项目从课程原型持续演进，覆盖采集、流计算和实时展示。",
-        "aboutLabel": "03 / About Me",
-        "aboutHeading": "从理解数据，到理解数据背后的问题",
-        "school": "中央财经大学",
-        "major": "大数据管理与应用 · 本科（2027 届）",
-        "courses": "课程成绩：机器学习 97、自然语言处理 95、应用随机过程 95。关注数据工程、统计建模与可持续发展场景中的分析应用。",
-        "toolkitLabel": "Toolkit / 技术能力",
-        "toolkitHeading": "在项目中使用的工具与方法",
-        "skillProgramming": "编程",
-        "skillData": "数据工程",
-        "skillBigData": "大数据",
-        "skillMethods": "AI 应用",
-        "skillMethodsValue": "LangGraph · ReAct · 工具调用 · Agent 评测",
-        "mathorTitle": "MathorCup 赛区三等奖",
-        "mathorDescription": "负责 Python 数据处理、建模与论文排版；基于 XGBoost、遗传算法开展多品类销量预测，并通过规划模型研究商品分仓策略。",
-        "contactLabel": "04 / Contact",
-        "contactHeading": "聊聊数据、AI 与实际问题。",
-        "contactBody": "关注数据工程、AI 应用与数据产品方向的实习及合作机会，尤其希望继续探索储能安全与风险分析场景。欢迎通过邮件交流项目与想法。",
-        "footerNote": "从数据出发，让判断有据可依。",
-        "yaoxiangTitle": "端末智能电池管理系统",
-        "yaoxiangStatus": "创业项目 · 2025.05 启动",
-        "yaoxiangRole": "瑶想科技 · 核心成员",
-        "yaoxiangDescription": "参与储能电站电池安全监测与风险预警项目，开展需求调研和方案对接；负责前后端核心功能，参与设备层级展示、告警处置和电芯健康评估规则设计。",
-        "caraRole": "多 Agent 架构 · 风控研究",
-        "caraDescription": "A 股事件驱动风控研究助手。基于 ReAct 设计 Agent 职责分工与冲突仲裁，通过 Intent Router 分类和分发问题，并调整提示词以支持结构化证据追溯。",
-        "behaviorTitle": "电商用户行为分析",
-        "behaviorRole": "项目负责人 · 分布式数据分析",
-        "behaviorDescription": "基于 Hadoop、YARN 与 Spark 搭建三节点环境，分析百万级淘宝用户行为数据；负责主节点配置与核心 PySpark、Spark SQL 程序，围绕活跃、转化和用户分群设计分析任务。",
-        "behaviorAria": "访问电商用户行为分析项目",
-        "paperRole": "独立开发 · 可复用的写作工具",
-        "paperDescription": "为中央财经大学课程论文开发 LaTeX 模板，把重复的格式处理沉淀为可复用的工具，让写作更专注于内容。",
-        "paperAria": "访问 CUFEpaper 项目",
-        "aboutIntro": "金融、实验数据和储能安全，看起来是不同的领域。我在其中反复遇到同一个问题：数据已经存在，但把它变成可用的判断，还需要清晰的规则、可靠的流程和对业务的理解。",
-        "principle1Title": "先把问题问清楚",
-        "principle1Body": "TsingLink 的需求分析和储能项目的方案对接，让我开始从使用场景出发：谁需要什么信息，数据如何组织，功能怎样支持实际操作。",
-        "principle2Title": "沿着整条链路做事",
-        "principle2Body": "我做过数据接入、指标计算、后端接口和前端展示。比起只看某个技术点，我更关心数据经过每一步之后，能否被下游真正使用。",
-        "principle3Title": "给结论留下依据",
-        "principle3Body": "在 AnchorCell 与 cara 中，我把工具查询、证据追溯和 Agent 评测放进设计。接下来，我想继续探索储能安全中的时间序列分析、风险预警与可解释决策。",
-        "foundationLabel": "Education / 教育背景",
-        "educationLanguage": "英语：IELTS 7.0",
-        "careerNoteTitle": "也在团队协作中学习",
-        "careerNoteBody": "曾任学院文体部干事、排球队经理，参与赛事策划、活动执行、赞助沟通与训练协调。这些经历让我练习把方案写清楚，也把人与时间协调好。",
-        "caraStatus": "2026.03 — 2026.05",
-        "viewProjects": "浏览项目选集"
-      },
-      "en": {
-        "editionTitle": "The portfolio of Dong Junye",
-        "headlineStart": "From complex data",
-        "headlineEnd": "to clear decisions.",
-        "authorSubtitle": "/ Connerald · Data Engineering & AI",
-        "editorialIntro": "Exploring the practical uses of data engineering and AI across finance, laboratory data, and energy storage safety. Turning scattered data into systems that answer real questions.",
-        "caseQuestion": "When AI identifies a risk, where is the evidence?",
-        "readCase": "Read the project notes",
-        "documentTitle": "Dong Junye | Data Engineering & AI Applications",
-        "description": "Dong Junye, a Big Data Management and Application undergraduate at CUFE, exploring data engineering, energy storage safety, and traceable AI agents.",
-        "ogDescription": "From data pipelines to risk analysis: building AI applications grounded in business data and traceable evidence.",
-        "skip": "Skip to main content",
-        "navLabel": "Main navigation",
-        "homeLabel": "Back to top",
-        "languageLabel": "Language selector",
-        "navExperience": "Experience",
-        "navProjects": "Projects",
-        "navAbout": "About",
-        "navContact": "Contact",
-        "heroEyebrow": "START WITH DATA. FOLLOW THE QUESTION.",
-        "name": "Dong Junye",
-        "heroRole": "Turning data into grounded decisions.",
-        "heroSummary": "I study Big Data Management and Application at the Central University of Finance and Economics, graduating in 2027. From fund risk tools and experimental-data ETL to energy storage safety and AI agents, I explore how scattered data can become systems that answer practical questions.",
-        "emailMe": "Exchange ideas",
-        "profileLabel": "Profile overview",
-        "profileHeading": "Profile / Overview",
-        "profileSchoolLabel": "University",
-        "profileSchool": "Central University of Finance and Economics",
-        "profileMajorLabel": "Major",
-        "profileMajor": "Big Data Management & Application",
-        "profileGraduationLabel": "Expected graduation",
-        "profileGraduation": "June 2027",
-        "profileFocusLabel": "Focus",
-        "profileFocus": "Data Engineering · AI Agents",
-        "profileLocationLabel": "Location",
-        "profileLocation": "Beijing, China",
-        "profileStatusLabel": "Status",
-        "profileStatus": "Open to internships & projects",
-        "capabilitiesLabel": "Core capabilities",
-        "capability1Title": "Connect the data pipeline",
-        "capability1Body": "In fund risk tools and experimental-data ETL, I work on ingestion, cleaning, validation, storage, and downstream queries to make data usable for analysis.",
-        "capability2Title": "Understand the business problem",
-        "capability2Body": "Across alumni platforms and battery management, I translate requirements into data models, backend services, and interfaces that support specific workflows.",
-        "capability3Title": "Make AI analysis traceable",
-        "capability3Body": "In agent prototypes, I work with tool queries, structured evidence, conversation state, and evaluation so results can be traced to data and filters.",
-        "experienceLabel": "02 / Experience",
-        "experienceHeading": "Building data capabilities in real business settings",
-        "beijing": "Beijing",
-        "contextLabel": "Problem",
-        "responsibilityLabel": "My Work",
-        "solutionLabel": "Approach",
-        "valueLabel": "Practice & Results",
-        "dcCompany": "Digital China",
-        "dcRole": "Data Development Intern",
-        "dcContext": "Contributed to BeiGene's automated HTS data-processing project, supporting the flow of experimental data from raw files into the ELN system.",
-        "dcResponsibility": "Worked on the ETL pipeline, including field extraction, format conversion, quality checks, batch processing, and cross-storage synchronization.",
-        "dcSolution": "Orchestrated workflows with Azure Data Factory, processed data in Databricks, loaded it into Azure Synapse, and served the ELN through SQL views.",
-        "dcValue": "Helped move experimental data processing from manual preparation to a structured, schedulable automated pipeline.",
-        "qhCompany": "Qihou Capital",
-        "qhRole": "Quantitative Research Intern",
-        "qhContext": "Built data and metric tools for day-to-day risk monitoring of private-fund holdings and net asset value data.",
-        "qhResponsibility": "Used Python to process NAV text and files received by email, with cleaning, MySQL storage, and scheduled updates.",
-        "qhSolution": "Developed portfolio risk metrics including returns, maximum drawdown, and Sharpe ratio.",
-        "qhValue": "Automated recurring data preparation and metric calculations, and contributed to fund due diligence and risk reports.",
-        "ventureKicker": "Featured Case · Started May 2026 · AI Prototype",
-        "ventureTitle": "AnchorCell",
-        "ventureLead": "An AI agent prototype for energy storage safety analysis. Business facts come from tool queries, and analytical conclusions are linked to traceable evidence.",
-        "ventureAward": "Evaluation practice: built a test set covering 40+ business questions.",
-        "ventureContext": "Explore how to locate cell risks across container, rack, cell, and SOS data, and explain the evidence behind the analysis.",
-        "ventureResponsibility": "Built a state-graph agent with LangGraph and controlled, read-only data tools, defining the responsibilities of the model and its tools.",
-        "ventureSolution": "Recorded data versions, filters, and matching scope, and streamed KPIs, tables, and charts to the frontend via SSE while retaining links to evidence.",
-        "ventureValue": "Used SQLite Checkpointer for conversation state, added execution limits, timeouts, and error fallbacks, and evaluated behavior with business questions.",
-        "projectsLabel": "01 / Selected Work",
-        "projectsHeading": "Making problems concrete across different domains",
-        "visitProject": "View project ↗",
-        "tsingLinkAria": "Visit the TsingLink project",
-        "tsingRole": "Requirements · Django Backend",
-        "tsingDescription": "An information exchange platform for Tsinghua EMBA/MBA alumni. Designed core models for users, wine resources, and business projects, with publishing, search, and management workflows.",
-        "cryptoAria": "Visit the Crypto Dashboard project",
-        "cryptoRole": "Real-time Pipeline · Visualization",
-        "cryptoDescription": "Ingests Binance market data, processes streams with Kafka and Spark, and displays prices and alerts through Flask and Socket.IO. Evolving from a course prototype, the project covers collection, stream processing, and live visualization.",
-        "aboutLabel": "03 / About Me",
-        "aboutHeading": "Understanding data—and the problems behind it",
-        "school": "Central University of Finance and Economics",
-        "major": "B.Mgt. in Big Data Management & Application · Class of 2027",
-        "courses": "Course results: Machine Learning 97, Natural Language Processing 95, Applied Stochastic Processes 95. Interested in data engineering, statistical modeling, and sustainability applications.",
-        "toolkitLabel": "Toolkit / Capabilities",
-        "toolkitHeading": "Tools and methods I use in projects",
-        "skillProgramming": "Programming",
-        "skillData": "Data Engineering",
-        "skillBigData": "Big Data",
-        "skillMethods": "AI Applications",
-        "skillMethodsValue": "LangGraph · ReAct · Tool Use · Agent Evaluation",
-        "mathorTitle": "MathorCup Regional Third Prize",
-        "mathorDescription": "Handled Python data preparation, modeling, and paper typesetting. Used XGBoost and genetic algorithms for sales forecasting, and an optimization model to study warehouse allocation.",
-        "contactLabel": "04 / Contact",
-        "contactHeading": "Let’s talk about data, AI, and practical problems.",
-        "contactBody": "I am interested in internships and project collaborations in data engineering, AI applications, and data products, with a particular interest in energy storage safety and risk analysis. Get in touch to exchange ideas or discuss a project.",
-        "footerNote": "Starting with data. Keeping decisions grounded.",
-        "yaoxiangTitle": "Intelligent Battery Management",
-        "yaoxiangStatus": "Venture Project · Started May 2025",
-        "yaoxiangRole": "Yaoxiang Technology · Core Member",
-        "yaoxiangDescription": "Contributed to a battery safety and risk-warning project for energy storage stations, from discovery and solution discussions to core frontend and backend features, device hierarchies, alert handling, and cell health rules.",
-        "caraRole": "Multi-agent Architecture · Risk Research",
-        "caraDescription": "An event-driven A-share risk research assistant. Used ReAct to define agent responsibilities and conflict resolution, routed questions with an Intent Router, and refined prompts for structured evidence tracing.",
-        "behaviorTitle": "E-commerce Behavior Analytics",
-        "behaviorRole": "Project Lead · Distributed Analytics",
-        "behaviorDescription": "Built a three-node Hadoop, YARN, and Spark environment to analyze over a million Taobao behavior records. Configured the master node and wrote core PySpark and Spark SQL programs for activity, conversion, and segmentation analysis.",
-        "behaviorAria": "Visit the e-commerce behavior analytics project",
-        "paperRole": "Independent Developer · Reusable Writing Tools",
-        "paperDescription": "Created a LaTeX template for CUFE course papers, turning recurring formatting work into a reusable tool so writers can focus on content.",
-        "paperAria": "Visit the CUFEpaper project",
-        "aboutIntro": "Finance, laboratory data, and energy storage safety have brought me to a recurring question: data may already exist, but turning it into useful decisions takes clear rules, reliable workflows, and an understanding of the domain.",
-        "principle1Title": "Clarify the question first",
-        "principle1Body": "Requirements work on TsingLink and solution discussions in energy storage taught me to start with users: what information they need, how data should be organized, and how a feature supports their work.",
-        "principle2Title": "Follow the whole data journey",
-        "principle2Body": "I have worked on ingestion, metric calculation, backend APIs, and frontend displays. I care about whether the data remains useful at each step and reaches the people or systems that need it.",
-        "principle3Title": "Keep evidence behind conclusions",
-        "principle3Body": "In AnchorCell and cara, I brought tool queries, evidence tracing, and evaluation into the design. I want to explore time-series analysis, early risk warnings, and interpretable decisions for energy storage safety.",
-        "foundationLabel": "Education / Foundation",
-        "educationLanguage": "English: IELTS 7.0",
-        "careerNoteTitle": "Learning through teamwork, too",
-        "careerNoteBody": "As a student activities committee member and volleyball team manager, I helped plan events, coordinate training, and communicate with sponsors. These roles gave me practice in clear documentation and coordinating people and schedules.",
-        "caraStatus": "Mar — May 2026",
-        "viewProjects": "Explore projects"
-      }
-    };
-
-    const metaDescription = document.querySelector('meta[name="description"]');
-    const ogTitle = document.querySelector('meta[property="og:title"]');
-    const ogDescription = document.querySelector('meta[property="og:description"]');
-    const ogLocale = document.querySelector('meta[property="og:locale"]');
-    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
-    const twitterDescription = document.querySelector('meta[name="twitter:description"]');
-    const languageButtons = document.querySelectorAll("[data-lang]");
-
-    function getInitialLanguage() {
-      const queryLanguage = new URLSearchParams(window.location.search).get("lang");
-      if (queryLanguage === "zh" || queryLanguage === "en") return queryLanguage;
-      try {
-        return localStorage.getItem("site-language") === "en" ? "en" : "zh";
-      } catch {
-        return "zh";
-      }
-    }
-
-    function setLanguage(language, updateUrl = true) {
-      const copy = translations[language];
-      document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
-      document.title = copy.documentTitle;
-      metaDescription.content = copy.description;
-      ogTitle.content = copy.documentTitle;
-      ogDescription.content = copy.ogDescription;
-      ogLocale.content = language === "zh" ? "zh_CN" : "en_US";
-      twitterTitle.content = copy.documentTitle;
-      twitterDescription.content = copy.ogDescription;
-
-      document.querySelectorAll("[data-i18n]").forEach((element) => {
-        const value = copy[element.dataset.i18n];
-        if (value) element.textContent = value;
-      });
-      document.querySelectorAll("[data-i18n-aria]").forEach((element) => {
-        const value = copy[element.dataset.i18nAria];
-        if (value) element.setAttribute("aria-label", value);
-      });
-      languageButtons.forEach((button) => {
-        button.setAttribute("aria-pressed", String(button.dataset.lang === language));
-      });
-
-      try { localStorage.setItem("site-language", language); } catch { /* Storage is optional. */ }
-      if (updateUrl) {
-        const url = new URL(window.location.href);
-        url.searchParams.set("lang", language);
-        history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
-      }
-    }
-
-    languageButtons.forEach((button) => {
-      button.addEventListener("click", () => setLanguage(button.dataset.lang));
-    });
-
-    document.getElementById("year").textContent = new Date().getFullYear();
-    setLanguage(getInitialLanguage(), false);
-
-    const caseNotes = document.getElementById("case-notes");
-    let caseWasOpen = false;
-    window.addEventListener("beforeprint", () => {
-      caseWasOpen = caseNotes.open;
-      caseNotes.open = true;
-    });
-    window.addEventListener("afterprint", () => { caseNotes.open = caseWasOpen; });
-  </script>
+    </main>
+  <script type="module" src="assets/app.js" onerror="window.studyBootFail()"></script>
 </body>
 </html>
