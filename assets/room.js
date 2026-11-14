@@ -8,7 +8,9 @@ export async function createRoom({
 }) {
   let renderer;
   try {
-    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+    // Capture explicitly renders in the same task, so the drawing buffer need not
+    // remain allocated between frames.
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   } catch (error) {
     onError(error);
     throw error;
@@ -17,7 +19,7 @@ export async function createRoom({
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.65));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.2;
+  renderer.toneMappingExposure = 1.05;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.domElement.setAttribute('aria-hidden', 'true');
@@ -26,8 +28,8 @@ export async function createRoom({
   container.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color('#352d24');
-  scene.fog = new THREE.Fog('#352d24', 18, 35);
+  scene.background = new THREE.Color('#f5f3ec');
+  scene.fog = new THREE.Fog('#f5f3ec', 18, 35);
   const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 60);
   // Hit targets stay at the resting composition. Animating the object or the
   // parallax camera must never move a button out from under a stationary mouse.
@@ -42,15 +44,14 @@ export async function createRoom({
   const targets = new Map();
   const pickables = [];
   const textures = [];
+  const localizedDraws = [];
   const disposables = new Set();
   let width = 1, height = 1, portrait = false, disposed = false, paused = false;
   let frame = 0, lastTime = 0, activeId = null, hints = false, language = 'zh';
   let lampOn = true, pointerDown = null, hoveredId = null;
 
   const palette = {
-    mustard: '#c1af35', gold: '#d0aa36', edge: '#d4ad35', ochre: '#9b791b',
-    ink: '#273b3c', paper: '#e8dbbe', cream: '#f3e7cb', coral: '#b75b47',
-    moss: '#536b4c', blue: '#40636e', burgundy: '#71404a', walnut: '#6c4d34',
+    oak: '#c6ad87', brass: '#b8a079', paper: '#eee9dd', cream: '#fbf9f3',
   };
 
   function material(color, options = {}) {
@@ -69,6 +70,19 @@ export async function createRoom({
     textures.push(texture);
     return texture;
   }
+  function localizedTexture(w, h, draw) {
+    const texture = canvasTexture(w, h, (ctx, width, height) => draw(ctx, width, height, false));
+    localizedDraws.push(neutral => {
+      const ctx = texture.image.getContext('2d');
+      ctx.clearRect(0, 0, w, h);
+      draw(ctx, w, h, neutral);
+      texture.needsUpdate = true;
+    });
+    return texture;
+  }
+  function redrawLabels(neutral = false) {
+    for (const draw of localizedDraws) draw(neutral);
+  }
   function grain(color, vertical = false) {
     return canvasTexture(256, 256, (ctx, w, h) => {
       ctx.fillStyle = color; ctx.fillRect(0, 0, w, h);
@@ -76,7 +90,7 @@ export async function createRoom({
       const random = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
       for (let i = 0; i < 190; i++) {
         const start = random() * 256;
-        ctx.strokeStyle = `rgba(${random() > .5 ? '240,214,173' : '40,25,15'},${random() * .07})`;
+        ctx.strokeStyle = `rgba(${random() > .5 ? '240,214,173' : '40,25,15'},${random() * .035})`;
         ctx.lineWidth = random() * 2 + .3;
         ctx.beginPath();
         if (vertical) {
@@ -149,37 +163,36 @@ export async function createRoom({
     return entry;
   }
 
-  const gold = material(palette.gold);
-  const mustard = material(palette.mustard, { map: grain('#dfd175') });
-  const shelfBack = material('#a9982c');
-  const darkWood = material('#735336', { map: grain('#ad8055') });
-  const deskWood = material('#866442', { map: grain('#bd966b') });
-  const paleWood = material('#bd9a6e');
+  const oak = material('#ffffff', { map: grain(palette.oak) });
+  const shelfBack = material('#bda98d');
+  const darkWood = material('#ffffff', { map: grain('#ae9478') });
+  const deskWood = material('#ffffff', { map: grain('#c3aa88') });
+  const paleWood = material('#d8c8af');
   const paper = material(palette.paper);
   const cream = material(palette.cream);
-  const brass = material('#ad8b45', { metalness: .55, roughness: .4 });
+  const brass = material(palette.brass, { metalness: .35, roughness: .65 });
   const dark = material('#253030');
 
-  scene.add(new THREE.HemisphereLight('#fff1d8', '#66543b', 2.55));
-  const sunlight = new THREE.DirectionalLight('#ffe8b3', 3.4);
+  scene.add(new THREE.HemisphereLight('#fffdf8', '#c8c6ba', 2.7));
+  const sunlight = new THREE.DirectionalLight('#fff8ed', 2.0);
   sunlight.position.set(-4.5, 9, 7);
   sunlight.castShadow = true;
   sunlight.shadow.mapSize.set(2048, 2048);
   Object.assign(sunlight.shadow.camera, { left: -8, right: 8, top: 9, bottom: -3, near: .1, far: 24 });
   sunlight.shadow.bias = -.0003; sunlight.shadow.normalBias = .025;
-  sunlight.shadow.radius = 3;
+  sunlight.shadow.radius = 4;
   scene.add(sunlight);
   sunlight.target.position.set(1, 2, -1); scene.add(sunlight.target);
-  const fillLight = new THREE.DirectionalLight('#aab9b1', .45);
+  const fillLight = new THREE.DirectionalLight('#e4ebee', .9);
   fillLight.position.set(6, 3, 5); scene.add(fillLight);
 
   // Room shell: a little depth in the wall and individual floorboards makes the
   // scene feel like a place, while keeping the geometry inexpensive.
-  box(22, 10, .16, material('#897859', { map: grain('#8f7c60') }), scene, [0, 4.8, -1.7], 0);
-  const baseboard = box(22, .16, .12, material('#8b795b'), scene, [0, .15, -1.54], .015);
+  box(22, 10, .16, material('#ffffff', { map: grain('#f5f3ec') }), scene, [0, 4.8, -1.7], 0);
+  const baseboard = box(22, .16, .12, material('#ddd6c8'), scene, [0, .15, -1.54], .015);
   const baseboardTrim = box(22, .045, .16, paleWood, scene, [0, .25, -1.49], .01);
   const floorBoards = new THREE.Group(); scene.add(floorBoards);
-  const floorMats = ['#705036', '#79563a', '#806044', '#6c4e37', '#886347'].map(color => material(color, { map: grain('#ad815a') }));
+  const floorMats = ['#d3c3aa', '#d9cab3', '#dfd1bc', '#d6c7b0', '#e2d5c0'].map(color => material('#ffffff', { map: grain(color) }));
   for (let row = 0; row < 12; row++) {
     for (let column = -4; column <= 4; column++) {
       box(2.77, .06, .67, floorMats[(row * 3 + column + 12) % floorMats.length], floorBoards,
@@ -210,7 +223,7 @@ export async function createRoom({
   // Adjacent bays share one upright. Duplicate coplanar faces shimmer when the
   // camera moves, even when both copies use the same material.
   for (const [x, height] of uprights) {
-    const upright = box(.105, height + .13, .72, mustard, shelf, [x, height / 2 + .1, -.03], .02);
+    const upright = box(.105, height + .13, .72, oak, shelf, [x, height / 2 + .1, -.03], .02);
     upright.name = `shelf-upright-${x}`;
   }
   for (const [y, intervals] of boardLevels) {
@@ -226,26 +239,27 @@ export async function createRoom({
     // Merge overlapping boards into one slab. Its front remains .05 ahead of
     // the uprights, so the joints do not introduce another coplanar front face.
     spans.forEach(([left, right], index) => {
-      const board = box(right - left, .11, .76, mustard, shelf, [(left + right) / 2, y, 0], .02);
+      const board = box(right - left, .11, .76, oak, shelf, [(left + right) / 2, y, 0], .02);
       board.name = `shelf-board-${y}-${index}`;
     });
   }
-  for (const x of [-1.5, -.55, .55, 1.5]) box(.13, .16, .55, material('#8c6b1a'), shelf, [x, .05, -.02]);
+  for (const x of [-1.5, -.55, .55, 1.5]) box(.13, .16, .55, material('#b5a084'), shelf, [x, .05, -.02]);
 
-  const bookColors = ['#75815b', '#974c43', '#4d6870', '#d2b36f', '#63516c', '#b77d48', '#455c55'];
-  function spineTexture(title, color, small = 'CONNERALD', accent = '#ebd9b0') {
-    return canvasTexture(256, 1024, (ctx, w, h) => {
+  const bookColors = ['#8d9a82', '#ad8b82', '#7c9296', '#d2c3a4', '#9a8e9e', '#b7a08a', '#789087'];
+  function spineTexture(title, color, accent = '#f2ecdf') {
+    const makeTexture = typeof title === 'string' ? canvasTexture : localizedTexture;
+    return makeTexture(256, 1024, (ctx, w, h, neutral) => {
+      const text = typeof title === 'string' ? title : neutral ? '' : title[language];
       ctx.fillStyle = color; ctx.fillRect(0, 0, w, h);
       const fade = ctx.createLinearGradient(0, 0, w, 0);
       fade.addColorStop(0, 'rgba(0,0,0,.18)'); fade.addColorStop(.16, 'rgba(255,255,255,.08)'); fade.addColorStop(1, 'rgba(0,0,0,.13)');
       ctx.fillStyle = fade; ctx.fillRect(0, 0, w, h);
       ctx.strokeStyle = accent; ctx.lineWidth = 3;
-      for (const y of [48, 65, h - 65, h - 48]) { ctx.beginPath(); ctx.moveTo(30, y); ctx.lineTo(w - 30, y); ctx.stroke(); }
+      for (const y of [54, h - 54]) { ctx.beginPath(); ctx.moveTo(30, y); ctx.lineTo(w - 30, y); ctx.stroke(); }
       ctx.save(); ctx.translate(w / 2, h * .49); ctx.rotate(-Math.PI / 2);
       ctx.fillStyle = accent; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.font = `${title.length > 12 ? 46 : 58}px Georgia, serif`; ctx.fillText(title, 0, 0, 720);
+      ctx.font = `${text.length > 12 ? 46 : 58}px Georgia, 'Songti SC', serif`; ctx.fillText(text, 0, 0, 720);
       ctx.restore();
-      ctx.fillStyle = accent; ctx.font = '20px sans-serif'; ctx.textAlign = 'center'; ctx.fillText(small, w / 2, h - 100, 200);
     });
   }
   function book(parent, x, bottom, title, color, w = .2, h = .92, id = null, tilt = 0) {
@@ -268,18 +282,18 @@ export async function createRoom({
   }
 
   // Three larger, distinct volumes are the primary project entrances.
-  rowBooks(shelf, -1.48, 2.63, ['NOTES', 'DATA'], ['#617b5a', '#b77b46'], .92);
-  book(shelf, -1.02, 2.63, 'AnchorCell', '#355c58', .31, 1.07, 'project/anchorcell');
-  book(shelf, -.71, 2.63, 'FIELD WORK', '#a78b54', .17, .92, null, -.07);
-  rowBooks(shelf, -.44, 2.63, ['SYSTEMS'], ['#a65c44'], .92);
-  book(shelf, -.02, 2.63, 'BATTERY', '#bd803f', .34, 1.04, 'project/battery');
-  book(shelf, .28, 2.63, 'RESEARCH', '#76614b', .19, .89, null, -.07);
-  rowBooks(shelf, .63, 2.63, ['RISK'], ['#688079'], 1.02);
-  book(shelf, 1.04, 2.63, 'cara', '#964e48', .36, 1.15, 'project/cara');
-  book(shelf, 1.38, 2.63, 'METHODS', '#b9a678', .18, 1.03, null, -.09);
-  rowBooks(shelf, -1.47, .26, ['PYTHON', 'SPARK', 'KAFKA', 'SQL'], bookColors, .9);
-  rowBooks(shelf, .65, .26, ['IDEAS', 'MODELS', '2026', 'PAPER'], ['#9e6b47', '#405b59', '#b99464', '#7b5142'], .83);
-  rowBooks(shelf, .64, 1.47, ['RESEARCH', 'FIELD NOTES', 'ENGINEERING', 'SYSTEMS'], ['#65795c', '#a17550', '#9b4b43', '#7f8775'], .94);
+  rowBooks(shelf, -1.48, 2.63, ['', ''], ['#8d9a82', '#b7a08a'], .92);
+  book(shelf, -1.02, 2.63, 'AnchorCell', '#587971', .31, 1.07, 'project/anchorcell');
+  book(shelf, -.71, 2.63, '', '#c3b59a', .17, .92, null, -.07);
+  rowBooks(shelf, -.44, 2.63, [''], ['#b68f80'], .92);
+  book(shelf, -.02, 2.63, { zh: '电池管理', en: 'Battery' }, '#af9877', .34, 1.04, 'project/battery');
+  book(shelf, .28, 2.63, '', '#9c9784', .19, .89, null, -.07);
+  rowBooks(shelf, .63, 2.63, [''], ['#8a9d92'], 1.02);
+  book(shelf, 1.04, 2.63, 'cara', '#a37976', .36, 1.15, 'project/cara');
+  book(shelf, 1.38, 2.63, '', '#ccbea5', .18, 1.03, null, -.09);
+  rowBooks(shelf, -1.47, .26, ['Python', 'Spark', 'Kafka', 'SQL'], bookColors, .9);
+  rowBooks(shelf, .65, .26, ['', '', '2026', ''], ['#b7a08a', '#789087', '#d2c3a4', '#ad8b82'], .83);
+  rowBooks(shelf, .64, 1.47, ['', '', '', ''], ['#8d9a82', '#b7a08a', '#ad8b82', '#9ca493'], .94);
 
   // A small ceramic vessel, bookend, and sculptural brass clock soften the shelf.
   const vaseMat = material('#b6bda0');
@@ -319,7 +333,7 @@ export async function createRoom({
   });
   const notebook = box(.7, .035, .49, material('#c4aa6d'), learning, [0, .39, -.015]); notebook.rotation.y = -.08;
   tube([[-.2, .42, .12], [.12, .42, .11]], .017, dark, learning);
-  target('learning', learning, [0, .22, .28], { forward: .1, lift: .02 });
+  target('learning', learning, [0, .36, .28], { forward: .1, lift: .02 });
 
   const desk = new THREE.Group(); scene.add(desk);
   box(3.55, .16, 1.43, deskWood, desk, [0, 1.63, .3], .045);
@@ -336,13 +350,12 @@ export async function createRoom({
   box(.94, .58, .02, dark, monitor, [0, .075, .09], .045);
   const screenTexture = canvasTexture(768, 480, (ctx, w, h) => {
     ctx.fillStyle = '#213e3c'; ctx.fillRect(0, 0, w, h);
-    ctx.fillStyle = '#a4c9a7'; ctx.font = '25px monospace'; ctx.fillText('CONNERALD / LAB', 46, 54);
-    ctx.fillStyle = '#6d9a83'; ctx.font = '15px monospace'; ctx.fillText('DATA → EVIDENCE → INSIGHT', 46, 86);
+    ctx.fillStyle = '#a4c9a7'; ctx.font = '25px monospace'; ctx.fillText('Connerald', 46, 54);
     ctx.strokeStyle = '#3d5b4e'; ctx.lineWidth = 1;
     for (let y = 140; y < 390; y += 50) { ctx.beginPath(); ctx.moveTo(45, y); ctx.lineTo(720, y); ctx.stroke(); }
     ctx.strokeStyle = '#b8c78d'; ctx.lineWidth = 5; ctx.beginPath();
     [310, 312, 287, 298, 262, 275, 205, 218, 194, 206, 149, 163, 125].forEach((v, i) => i ? ctx.lineTo(47 + i * 55, v) : ctx.moveTo(47, v)); ctx.stroke();
-    ctx.fillStyle = '#d5c28c'; ctx.fillRect(47, 409, 7, 7); ctx.font = '16px monospace'; ctx.fillText('making sense of complexity', 70, 419);
+    ctx.fillStyle = '#d5c28c'; ctx.fillRect(47, 409, 7, 7);
   });
   plane(.89, .53, screenTexture, monitor, [0, .075, .105], { emissive: '#3f6657', emissiveIntensity: .28 });
   box(.12, .31, .13, dark, monitor, [0, -.42, -.025]);
@@ -353,12 +366,16 @@ export async function createRoom({
   const indexBook = new THREE.Group(); desk.add(indexBook); indexBook.position.set(-.86, 1.94, .83); indexBook.rotation.set(-.22, -.13, -.04);
   box(.67, .47, .09, material('#436067'), indexBook, [0, 0, 0], .02);
   box(.63, .42, .075, paper, indexBook, [0, 0, -.025], .005);
-  const indexTexture = canvasTexture(640, 448, (ctx, w, h) => {
+  const indexTexture = localizedTexture(640, 448, (ctx, w, h, neutral) => {
     ctx.fillStyle = '#3e5b61'; ctx.fillRect(0, 0, w, h);
     ctx.strokeStyle = '#bfa575'; ctx.lineWidth = 2; ctx.strokeRect(27, 27, w - 54, h - 54);
     ctx.fillStyle = '#e7d8b6'; ctx.textAlign = 'center'; ctx.font = '22px sans-serif'; ctx.fillText('CONNERALD', w / 2, 86);
-    ctx.font = '68px Georgia, serif'; ctx.fillText('Selected', w / 2, 208); ctx.fillText('work', w / 2, 283);
-    ctx.font = '20px sans-serif'; ctx.fillText('IDEAS, BUILT.', w / 2, 363);
+    ctx.font = '72px Georgia, "Songti SC", serif';
+    if (!neutral) ctx.fillText(language === 'zh' ? '项目' : 'Projects', w / 2, 260);
+    else {
+      ctx.lineWidth = 3; ctx.strokeRect(w / 2 - 64, 174, 128, 130);
+      ctx.beginPath(); ctx.moveTo(w / 2, 174); ctx.lineTo(w / 2, 304); ctx.stroke();
+    }
   });
   plane(.65, .45, indexTexture, indexBook, [0, 0, .055]);
   target('projects', indexBook, [0, 0, .1], { forward: .08, lift: .05 });
@@ -369,8 +386,10 @@ export async function createRoom({
     box(.58, .54, .045, folderMat, files, [-i * .035, i * .035, -.10 + i * .07], .012);
     box(.2, .075, .04, folderMat, files, [-.13 - i * .035, .28 + i * .035, -.1 + i * .07], .012);
   }
-  const fileLabel = canvasTexture(300, 100, (ctx, w, h) => {
-    ctx.fillStyle = '#e6d9bb'; ctx.fillRect(0, 0, w, h); ctx.fillStyle = '#5e5c49'; ctx.textAlign = 'center'; ctx.font = '31px Georgia, serif'; ctx.fillText('Experience', w / 2, 62);
+  const fileLabel = localizedTexture(300, 100, (ctx, w, h, neutral) => {
+    ctx.fillStyle = '#f1eddf'; ctx.fillRect(0, 0, w, h); ctx.fillStyle = '#56604f'; ctx.textAlign = 'center'; ctx.font = '31px Georgia, "Songti SC", serif';
+    if (!neutral) ctx.fillText(language === 'zh' ? '实习' : 'Experience', w / 2, 62);
+    else { ctx.fillRect(85, 36, 130, 3); ctx.fillRect(85, 57, 86, 3); }
   });
   plane(.43, .14, fileLabel, files, [-.07, .02, .072]);
   box(.71, .1, .45, darkWood, files, [-.04, -.3, -.06]);
@@ -382,12 +401,12 @@ export async function createRoom({
   mesh(new THREE.TorusGeometry(.073, .022, 8, 18), material('#b76b4c'), mug, [.105, .015, 0]);
 
   const lamp = new THREE.Group(); desk.add(lamp); lamp.position.set(-1.36, 1.78, -.07);
-  cylinder(.25, .28, .09, material('#b79a48'), lamp, [0, 0, 0]);
+  cylinder(.25, .28, .09, material('#c5c6af'), lamp, [0, 0, 0]);
   tube([[0, .03, 0], [-.08, .65, -.04], [.08, 1.1, -.04], [.32, 1.15, -.02]], .037, brass, lamp);
-  const lampShade = cylinder(.12, .32, .33, material('#c5a442', { side: THREE.DoubleSide }), lamp, [.32, 1.03, -.02]);
-  const bulbMat = material('#fff0bb', { emissive: '#ffd879', emissiveIntensity: 1.8 });
+  const lampShade = cylinder(.12, .32, .33, material('#d6d6be', { side: THREE.DoubleSide }), lamp, [.32, 1.03, -.02]);
+  const bulbMat = material('#fff7df', { emissive: '#ffeac1', emissiveIntensity: 1.2 });
   sphere(.12, bulbMat, lamp, [.32, .88, -.02]);
-  const lampLight = new THREE.PointLight('#ffc977', 2.4, 3, 2); lampLight.position.set(.32, .83, .04); lamp.add(lampLight);
+  const lampLight = new THREE.PointLight('#ffe6b7', 1.1, 3, 2); lampLight.position.set(.32, .83, .04); lamp.add(lampLight);
   lamp.traverse(node => { if (node.isMesh) { node.userData.contentId = '__lamp'; pickables.push(node); } });
   lampShade.userData.contentId = '__lamp';
 
@@ -395,27 +414,18 @@ export async function createRoom({
   const frameGroup = new THREE.Group(); wallThings.add(frameGroup); frameGroup.position.set(-.35, .15, 0); frameGroup.rotation.z = -.025;
   box(1.37, 1.66, .1, darkWood, frameGroup, [0, 0, 0], .015);
   box(1.24, 1.53, .04, paleWood, frameGroup, [0, 0, .06], .008);
-  const nameCanvas = document.createElement('canvas'); nameCanvas.width = 720; nameCanvas.height = 900;
-  const nameTexture = new THREE.CanvasTexture(nameCanvas); nameTexture.colorSpace = THREE.SRGBColorSpace; textures.push(nameTexture);
-  const nameContext = nameCanvas.getContext('2d');
-  function drawName() {
-    const ctx = nameContext;
-    ctx.fillStyle = '#d8c69f'; ctx.fillRect(0, 0, 720, 900);
-    ctx.strokeStyle = '#8b7855'; ctx.lineWidth = 2; ctx.strokeRect(34, 34, 652, 832);
-    ctx.fillStyle = '#73623f'; ctx.font = '24px sans-serif'; ctx.textAlign = 'center'; ctx.fillText('A WORK IN PROGRESS', 360, 105);
-    ctx.save(); ctx.translate(360, 322); ctx.rotate(-.1);
-    ctx.fillStyle = '#6b7956'; ctx.beginPath(); ctx.arc(0, 0, 141, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = '#d8c69f'; ctx.lineWidth = 3;
+  const nameTexture = localizedTexture(720, 900, (ctx, w, h, neutral) => {
+    ctx.fillStyle = '#f5f0e3'; ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = '#c3b9a5'; ctx.lineWidth = 2; ctx.strokeRect(34, 34, w - 68, h - 68);
+    ctx.save(); ctx.translate(360, 338); ctx.rotate(-.1);
+    ctx.fillStyle = '#81917b'; ctx.beginPath(); ctx.arc(0, 0, 141, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#f5f0e3'; ctx.lineWidth = 3;
     for (let i = -3; i <= 3; i++) { ctx.beginPath(); ctx.ellipse(0, 0, 18 + Math.abs(i) * 34, 141, .23, 0, Math.PI * 2); ctx.stroke(); }
     ctx.restore();
-    ctx.fillStyle = '#3a392b'; ctx.font = language === 'zh' ? '64px "Songti SC", "Noto Serif SC", serif' : '57px Georgia, serif';
-    ctx.fillText(language === 'zh' ? '董俊叶' : 'Dong Junye', 360, 586, 610);
-    ctx.font = '29px Georgia, serif'; ctx.fillText('Connerald', 360, 641);
-    ctx.font = '22px sans-serif'; ctx.fillText('DATA · SYSTEMS · AI', 360, 738);
-    ctx.font = '19px sans-serif'; ctx.fillText('BEIJING / CHINA', 360, 789);
-    nameTexture.needsUpdate = true;
-  }
-  drawName();
+    ctx.fillStyle = '#414a3f'; ctx.textAlign = 'center';
+    ctx.font = language === 'zh' && !neutral ? '64px "Songti SC", "Noto Serif SC", serif' : '57px Georgia, serif';
+    ctx.fillText(neutral ? 'Connerald' : language === 'zh' ? '董俊叶' : 'Dong Junye', 360, 632, 610);
+  });
   plane(1.13, 1.42, nameTexture, frameGroup, [0, 0, .085]);
   target('about', frameGroup, [0, -.15, .15], { forward: .045, lift: .015 });
 
@@ -428,8 +438,9 @@ export async function createRoom({
   });
   plane(1.32, 1.1, corkTexture, pinboard, [0, 0, .046]);
   const noteTexture = canvasTexture(320, 280, (ctx, w, h) => {
-    ctx.fillStyle = '#e8d29a'; ctx.fillRect(0, 0, w, h); ctx.fillStyle = '#625138'; ctx.font = '28px Georgia, serif'; ctx.textAlign = 'center';
-    ctx.fillText('Stay curious.', 160, 108); ctx.font = '19px Georgia, serif'; ctx.fillText('Follow the evidence.', 160, 153);
+    ctx.fillStyle = '#eee4c8'; ctx.fillRect(0, 0, w, h); ctx.strokeStyle = '#83917a'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.moveTo(48, 205); ctx.lineTo(127, 99); ctx.lineTo(177, 160); ctx.lineTo(221, 112); ctx.lineTo(278, 205); ctx.stroke();
+    ctx.beginPath(); ctx.arc(235, 62, 17, 0, Math.PI * 2); ctx.stroke();
   });
   const note = plane(.59, .52, noteTexture, pinboard, [-.25, .22, .067]); note.rotation.z = -.09;
   sphere(.026, material('#984d3d'), pinboard, [-.28, .46, .09]);
@@ -446,7 +457,7 @@ export async function createRoom({
   target('contact', envelope, [0, 0, .1], { forward: .05, lift: .015 });
 
   const floatingShelf = new THREE.Group(); scene.add(floatingShelf);
-  box(3.25, .13, .58, mustard, floatingShelf, [0, 0, 0]);
+  box(3.25, .13, .58, oak, floatingShelf, [0, 0, 0]);
   for (const x of [-1.1, 1.1]) box(.065, .38, .065, brass, floatingShelf, [x, -.22, -.18]);
   const plant = new THREE.Group(); floatingShelf.add(plant); plant.position.set(-1.06, .29, 0);
   cylinder(.24, .19, .44, material('#8c754b'), plant, [0, 0, 0], 24);
@@ -478,21 +489,24 @@ export async function createRoom({
 
   // A ground rug adds a soft visual base, with no animated or photographic assets.
   const rugTexture = canvasTexture(768, 512, (ctx, w, h) => {
-    ctx.fillStyle = '#8b694b'; ctx.fillRect(0, 0, w, h); ctx.strokeStyle = '#a98961'; ctx.lineWidth = 16;
+    ctx.fillStyle = '#d9d1bd'; ctx.fillRect(0, 0, w, h); ctx.strokeStyle = '#bfb6a0'; ctx.lineWidth = 16;
     ctx.strokeRect(25, 25, w - 50, h - 50); ctx.lineWidth = 3; ctx.strokeRect(46, 46, w - 92, h - 92);
-    ctx.globalAlpha = .18; ctx.strokeStyle = '#d2b48b';
+    ctx.globalAlpha = .18; ctx.strokeStyle = '#f8f4e9';
     for (let x = -512; x < 1000; x += 18) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + 512, 512); ctx.stroke(); }
   });
   const rug = plane(5.8, 3.1, rugTexture, scene, [.4, .009, 2.0]); rug.rotation.x = -Math.PI / 2; rug.receiveShadow = true;
 
   function layout() {
+    if (disposed) return;
     const bounds = container.getBoundingClientRect();
     width = Math.max(1, bounds.width); height = Math.max(1, bounds.height);
-    portrait = width <= 700 || width / height < .87;
+    portrait = width < 1024 || width / height < .87;
     camera.aspect = width / height;
     if (portrait) {
-      camera.fov = Math.min(52, Math.max(36, THREE.MathUtils.radToDeg(2 * Math.atan(3.9 / (camera.aspect * 19.4)))));
-      cameraHome.set(.05, 3.26, 9.65); cameraLook.set(.0, 2.49, -.04);
+      // A scene-only frame: keep the full shelf and desk above the introduction.
+      // Fit both axes instead of assuming a tall, full-screen phone canvas.
+      camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(Math.max(6.2, 4.35 / camera.aspect) / 19.4));
+      cameraHome.set(.05, 3.8, 9.65); cameraLook.set(0, 3.15, -.04);
       shelf.position.set(.61, .61, -.13); shelf.scale.setScalar(.77);
       desk.position.set(-.65, .61, .18); desk.scale.setScalar(.64);
       wallThings.position.set(-.82, 4.27, -1.49); wallThings.scale.setScalar(.57);
@@ -501,12 +515,13 @@ export async function createRoom({
       floorBoards.position.y = .61; baseboard.position.y = .76; baseboardTrim.position.y = .86;
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     } else {
-      camera.fov = width / height > 1.9 ? 31 : 35;
-      cameraHome.set(.1, 3.5, 11.65); cameraLook.set(0, 2.69, -.15);
-      shelf.position.set(2.12, .02, -.48); shelf.scale.setScalar(1);
-      desk.position.set(-1.3, 0, .13); desk.scale.setScalar(.85);
-      wallThings.position.set(-2.53, 3.75, -1.49); wallThings.scale.setScalar(.83);
-      floatingShelf.position.set(-2.43, 5.11, -1.18); floatingShelf.scale.setScalar(1);
+      camera.fov = width / height > 1.9 ? 32 : 35;
+      cameraHome.set(.1, 3.7, 12.3); cameraLook.set(.1, 2.9, -.15);
+      // The lower-left column belongs to the introduction, not to scene targets.
+      shelf.position.set(2.7, .02, -.48); shelf.scale.setScalar(1);
+      desk.position.set(.4, 0, .33); desk.scale.setScalar(.85);
+      wallThings.position.set(-1.3, 3.95, -1.49); wallThings.scale.setScalar(.83);
+      floatingShelf.position.set(-1.3, 5.38, -1.18); floatingShelf.scale.setScalar(1);
       rug.scale.set(1, 1, 1); rug.position.set(.4, .009, 2);
       floorBoards.position.y = 0; baseboard.position.y = .15; baseboardTrim.position.y = .25;
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.65));
@@ -527,8 +542,9 @@ export async function createRoom({
       const point = entry.anchor.clone().applyMatrix4(restMatrix);
       entry.object.parent.localToWorld(point);
       point.project(hotspotCamera);
-      result.push({ id: entry.id, x: (point.x + 1) * width / 2, y: (1 - point.y) * height / 2,
-        visible: point.z > -1 && point.z < 1 && point.x > -1.1 && point.x < 1.1 && point.y > -1.1 && point.y < 1.1 });
+      const x = (point.x + 1) * width / 2, y = (1 - point.y) * height / 2;
+      result.push({ id: entry.id, x, y,
+        visible: point.z > -1 && point.z < 1 && x >= 22 && x <= width - 22 && y >= 22 && y <= height - 22 });
     }
     onPositions(result);
   }
@@ -559,7 +575,7 @@ export async function createRoom({
       for (const original of entry.materials.values()) {
         const intensity = (hints ? .12 : 0) + entry.hover * .17;
         if (intensity > .001) {
-          original.material.emissive.set('#ba8c32');
+          original.material.emissive.set('#819f88');
           original.material.emissiveIntensity = intensity;
         } else {
           original.material.emissive.copy(original.emissive);
@@ -592,8 +608,8 @@ export async function createRoom({
   function down(event) { pointerDown = { x: event.clientX, y: event.clientY, id: pick(event) }; }
   function toggleLamp() {
     lampOn = !lampOn;
-    lampLight.intensity = lampOn ? 2.4 : 0;
-    bulbMat.emissiveIntensity = lampOn ? 1.8 : .05;
+    lampLight.intensity = lampOn ? 1.1 : 0;
+    bulbMat.emissiveIntensity = lampOn ? 1.2 : .05;
     invalidate();
     onLampChange(lampOn);
     return lampOn;
@@ -622,7 +638,8 @@ export async function createRoom({
   interactionSurface.addEventListener('pointerleave', leave);
   canvas.addEventListener('pointerdown', down);
   canvas.addEventListener('pointerup', up);
-  canvas.addEventListener('pointercancel', () => { pointerDown = null; });
+  function cancelPointer() { pointerDown = null; }
+  canvas.addEventListener('pointercancel', cancelPointer);
   canvas.addEventListener('webglcontextlost', contextLost);
   const observer = new ResizeObserver(layout); observer.observe(container);
 
@@ -630,14 +647,25 @@ export async function createRoom({
     toggleLamp,
     setHints(value) { hints = Boolean(value); container.dataset.hints = String(hints); invalidate(); },
     setActive(id) { activeId = targets.has(id) ? id : null; invalidate(); },
-    setLanguage(value) { language = value === 'en' ? 'en' : 'zh'; drawName(); invalidate(); },
+    setLanguage(value) { language = value === 'en' ? 'en' : 'zh'; redrawLabels(); invalidate(); },
     setReducedMotion(value) { reducedMotion = Boolean(value); pointerAim.set(0, 0); invalidate(); },
     setPaused(value) { paused = Boolean(value); if (paused && frame) { cancelAnimationFrame(frame); frame = 0; } if (!paused) { lastTime = 0; invalidate(); } },
-    capture() { renderer.render(scene, camera); return canvas.toDataURL('image/png'); },
+    capture({ neutral = false, type = 'image/png', quality = .9 } = {}) {
+      if (disposed) return null;
+      if (neutral) redrawLabels(true);
+      try {
+        renderer.render(scene, camera);
+        return canvas.toDataURL(type, quality);
+      } finally {
+        if (neutral) { redrawLabels(); renderer.render(scene, camera); }
+      }
+    },
     dispose() {
+      if (disposed) return;
       disposed = true; if (frame) cancelAnimationFrame(frame); observer.disconnect();
       interactionSurface.removeEventListener('pointermove', move); interactionSurface.removeEventListener('pointerleave', leave);
       canvas.removeEventListener('pointerdown', down); canvas.removeEventListener('pointerup', up);
+      canvas.removeEventListener('pointercancel', cancelPointer);
       canvas.removeEventListener('webglcontextlost', contextLost);
       for (const texture of textures) texture.dispose();
       for (const disposable of disposables) disposable.dispose();

@@ -1,155 +1,446 @@
-import {translations,ui,projects,entryIds} from './content.js';
+import {translations, ui, projects, entryIds} from './content.js';
+import {posterAnchors} from './poster-anchors.js';
+import {renderFallback} from './fallback.js';
 
-const $ = s => document.querySelector(s);
-const esc = value => String(value ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const lines = value => esc(value).replace(/\n/g,'<br>');
-let language = initialLanguage(), page = 0, currentId = '', room = null, hints = false, returnFocus = null, directoryNavigation = false;
-const reader=$('#reader'), directory=$('#directory'), motion=matchMedia('(prefers-reduced-motion: reduce)');
-const seen=new Set();
-let finishTurn = null;
-function cancelTurn(){finishTurn?.();}
-function updateDiscovery(){const count=entryIds.filter(id=>seen.has(id)).length;$('#discovery-progress').textContent=u().discoveryProgress.replace('{count}',count).replace('{total}',entryIds.length);}
-const colors=['#526b54','#a2773d','#956249','#547270','#6c735d','#9a7949','#77628a'];
-function initialLanguage(){const q=new URLSearchParams(location.search).get('lang');if(q==='zh'||q==='en')return q;try{return localStorage.getItem('site-language')==='en'?'en':'zh'}catch{return 'zh'}}
-const t=()=>translations[language], u=()=>ui[language];
-const title=p=>p.titleKey?t()[p.titleKey]:p.title;
-const label=id=>u().entryLabels[id]??id;
-const projectLink=p=>`<a href="#project/${esc(p.id)}"><span class="list-num">${String(projects.indexOf(p)+1).padStart(2,'0')}</span><span>${esc(title(p))}<small>${esc(t()[p.roleKey])}</small></span><span aria-hidden="true">↗</span></a>`;
-function configureDirectory(){
-  const ids=['projects','about','experience','learning','contact'];
-  $('#directory-links').innerHTML=ids.map((id,i)=>`<a href="#${id}"><span>${String(i+1).padStart(2,'0')}</span>${esc(label(id))}<span aria-hidden="true">↗</span></a>`).join('');
-  $('#directory-project-links').innerHTML=projects.map(p=>`<a href="#project/${p.id}">${esc(title(p))}</a>`).join('');
-  if(!$('#hotspots').children.length)$('#hotspots').innerHTML=entryIds.map(id=>`<button type="button" class="hotspot${seen.has(id)?' visited':''}" data-entry="${id}" aria-label="${esc(label(id))}" style="left:50%;top:45%;visibility:hidden"><span class="hotspot-label">${esc(label(id))}</span></button>`).join('');
-  $('#hotspots').querySelectorAll('button').forEach(b=>{
-    b.setAttribute('aria-label',label(b.dataset.entry));b.querySelector('.hotspot-label').textContent=label(b.dataset.entry);
-    if(b.dataset.bound)return;b.dataset.bound='true';
-    b.addEventListener('pointerenter',()=>room?.setActive(b.dataset.entry));b.addEventListener('pointerleave',()=>room?.setActive(null));
-    b.addEventListener('focus',()=>room?.setActive(b.dataset.entry));b.addEventListener('blur',()=>room?.setActive(null));
-    b.addEventListener('click',()=>navigate(b.dataset.entry,b));
+const $ = selector => document.querySelector(selector);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
+const lines = value => esc(value).replace(/\n/g, '<br>');
+const reader = $('#reader'), directory = $('#directory');
+const motion = matchMedia('(prefers-reduced-motion: reduce)');
+const readingLayout = matchMedia('(min-width: 1024px) and (min-height: 720px)');
+let language = initialLanguage(), page = 0, currentId = '', room = null, hints = false;
+let roomReturnFocus = null, directoryReturnFocus = null, directoryFromReader = false, directoryNavigation = false;
+let spreadMode = readingLayout.matches, readingPosition = null, finishTurn = null, resizeFrame = 0;
+const seen = new Set();
+const t = () => translations[language], u = () => ui[language];
+const title = project => project.titleKey ? t()[project.titleKey] : project.title;
+const label = id => u().entryLabels[id] ?? id;
+const text = (value, cls = '') => `<p${cls ? ` class="${cls}"` : ''}>${esc(value)}</p>`;
+const ptext = (key, cls = '') => text(t()[key], cls);
+const heading = value => `<h2>${esc(value)}</h2>`;
+const subheading = value => `<h3>${esc(value)}</h3>`;
+const list = values => `<ul class="contributions">${values.map(value => `<li>${esc(value)}</li>`).join('')}</ul>`;
+const spread = (left, right) => `<div class="spread"><section class="paper-page">${left}</section><section class="paper-page">${right}</section></div>`;
+
+function initialLanguage() {
+  const value = new URLSearchParams(location.search).get('lang');
+  if (value === 'zh' || value === 'en') return value;
+  try { return localStorage.getItem('site-language') === 'en' ? 'en' : 'zh'; } catch { return 'zh'; }
+}
+function cancelTurn() { finishTurn?.(); }
+function currentTitle() {
+  return currentId.startsWith('project/') ? title(projects.find(project => `project/${project.id}` === currentId)) : label(currentId);
+}
+function projectLink(project) {
+  return `<a href="#project/${project.id}"><span class="list-num">${String(projects.indexOf(project)+1).padStart(2,'0')}</span><span>${esc(title(project))}<small>${esc(t()[project.roleKey])}</small></span><span aria-hidden="true">↗</span></a>`;
+}
+function configureDirectory() {
+  const ids = ['projects', 'about', 'experience', 'learning', 'contact'];
+  $('#directory-links').innerHTML = ids.map((id, i) => `<a href="#${id}"><span>${String(i+1).padStart(2,'0')}</span>${esc(label(id))}<span aria-hidden="true">↗</span></a>`).join('');
+  $('#directory-project-links').innerHTML = projects.map(project => `<a href="#project/${project.id}">${esc(title(project))}</a>`).join('');
+  if (!$('#hotspots').children.length) {
+    $('#hotspots').innerHTML = entryIds.map(id => `<button type="button" class="hotspot" data-entry="${id}" style="visibility:hidden"><span class="hotspot-label"></span></button>`).join('');
+    for (const button of $('#hotspots').children) {
+      button.addEventListener('pointerenter', () => room?.setActive(button.dataset.entry));
+      button.addEventListener('pointerleave', () => room?.setActive(null));
+      button.addEventListener('focus', () => room?.setActive(button.dataset.entry));
+      button.addEventListener('blur', () => room?.setActive(null));
+      button.addEventListener('click', () => navigate(button.dataset.entry, button));
+    }
+  }
+  for (const button of $('#hotspots').children) {
+    button.setAttribute('aria-label', label(button.dataset.entry));
+    button.querySelector('.hotspot-label').textContent = label(button.dataset.entry);
+    button.classList.toggle('visited', seen.has(button.dataset.entry));
+  }
+}
+function applyLanguage(updateUrl = false) {
+  const position = reader.open ? capturePosition() : readingPosition;
+  document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+  document.title = u().roomTitle + (language === 'zh' ? ' · 数据工程与 AI' : ' · Data & AI');
+  document.querySelectorAll('[data-ui]').forEach(element => {
+    const value = u()[element.dataset.ui];
+    if (value !== undefined) element.innerHTML = lines(value);
   });
+  document.querySelectorAll('[data-i18n]').forEach(element => {
+    const value = t()[element.dataset.i18n];
+    if (value !== undefined) element.textContent = value;
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(element => {
+    const value = t()[element.dataset.i18nAria];
+    if (value) element.setAttribute('aria-label', value);
+  });
+  document.querySelectorAll('[data-lang]').forEach(element => element.setAttribute('aria-pressed', String(element.dataset.lang === language)));
+  document.querySelectorAll('.language-switch').forEach(element => element.setAttribute('aria-label', u().language));
+  for (const selector of ['meta[name="description"]','meta[property="og:description"]','meta[name="twitter:description"]']) $(selector).content = t().description;
+  for (const selector of ['meta[property="og:title"]','meta[name="twitter:title"]']) $(selector).content = document.title;
+  $('meta[property="og:locale"]').content = language === 'zh' ? 'zh_CN' : 'en_US';
+  $('#room-main').setAttribute('aria-label', u().roomTitle);
+  $('#hotspots').setAttribute('aria-label', u().hotspotLabel);
+  $('.brand').setAttribute('aria-label', u().brandHome);
+  $('#lamp-toggle').setAttribute('aria-label', u().lampLabel);
+  $('#reader-close').setAttribute('aria-label', u().closeReader);
+  $('[data-close-directory]').setAttribute('aria-label', u().closeMenu);
+  $('#directory-links').setAttribute('aria-label', u().menu);
+  configureDirectory();
+  if (room) { room.setLanguage(language); roomPositions(lastPositions); } else fallbackPositions();
+  if (reader.open || directoryFromReader) renderReader(position);
+  renderFallback(language);
+  try { localStorage.setItem('site-language', language); } catch { /* Preference storage is optional. */ }
+  if (updateUrl) {
+    const url = new URL(location.href);
+    url.searchParams.set('lang', language);
+    history.replaceState(history.state, '', url);
+  }
 }
-function applyLanguage(updateUrl=false){
-  document.documentElement.lang=language==='zh'?'zh-CN':'en';
-  document.title=language==='zh'?'董俊叶的书房 · 数据工程与 AI':'Dong Junye’s Study · Data & AI';
-  document.querySelectorAll('[data-ui]').forEach(el=>{const value=el.dataset.ui==='welcomeSummary'&&innerWidth<=700?u().mobileIntro:u()[el.dataset.ui];if(value!==undefined)el.innerHTML=lines(value)});
-  document.querySelectorAll('[data-i18n]').forEach(el=>{if(t()[el.dataset.i18n])el.textContent=t()[el.dataset.i18n]});
-  document.querySelectorAll('[data-lang]').forEach(el=>el.setAttribute('aria-pressed',String(el.dataset.lang===language)));
-  for(const selector of ['meta[name="description"]','meta[property="og:description"]','meta[name="twitter:description"]'])$(selector).content=t().description;
-  for(const selector of ['meta[property="og:title"]','meta[name="twitter:title"]'])$(selector).content=document.title;
-  $('meta[property="og:locale"]').content=language==='zh'?'zh_CN':'en_US';
-  $('#room-main').setAttribute('aria-label',u().roomTitle);$('#hotspots').setAttribute('aria-label',u().hotspotLabel);
-  $('#reader-close').setAttribute('aria-label',u().closeReader);$('[data-close-directory]').setAttribute('aria-label',u().closeMenu);
-  $('#directory-links').setAttribute('aria-label',u().menu);$('.language-switch').setAttribute('aria-label',u().language);
-  configureDirectory();if(room){room.setLanguage(language);roomPositions(lastPositions)}else{fallbackPositions()}
-  if(returnFocus?.dataset.entry)returnFocus=document.querySelector(`[data-entry="${returnFocus.dataset.entry}"]`);if(reader.open)renderReader();updateDiscovery();
-  try{localStorage.setItem('site-language',language)}catch{/* Optional preference storage. */}
-  if(updateUrl){const url=new URL(location.href);url.searchParams.set('lang',language);history.replaceState(history.state,'',url)}
+function tags(values) {
+  return `<div class="tags">${values.map(value => `<span>${esc(u().techLabels[value] || value)}</span>`).join('')}</div>`;
 }
-function ptext(key,cls=''){return `<p${cls?` class="${cls}"`:''}>${esc(t()[key])}</p>`}
-function head(kicker,heading){return `<p class="eyebrow">${esc(kicker)}</p><h2${heading===currentTitle()?' id="reader-title"':''}>${esc(heading)}</h2>`}
-function currentTitle(){if(currentId.startsWith('project/')){const p=projects.find(p=>p.id===currentId.split('/')[1]);return p?title(p):''}return label(currentId)}
-function spread(left,right){return `<div class="spread"><section class="paper-page">${left}<span class="paper-number">DONG JUNYE / PERSONAL COLLECTION</span></section><section class="paper-page">${right}<span class="paper-number">${language==='zh'?'从数据出发，让判断有据可依。':'START WITH DATA. KEEP THE EVIDENCE.'}</span></section></div>`}
-function tags(p){return `<div class="tags">${p.tech.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`}
-function diagram(id){
- const z=language==='zh';
- const flows={anchorcell:z?['业务问题','只读工具','数据与证据']:['Question','Read-only tools','Data & evidence'],battery:z?['设备层级','安全监测','风险预警']:['Device hierarchy','Monitoring','Risk warnings'],cara:['Intent Router','ReAct Agents',z?'证据追溯':'Evidence'],tsinglink:z?['需求与模型','Django','发布与查询']:['Requirements','Django','Publish & search'],crypto:['Binance','Kafka / Spark','Flask / Socket.IO'],behavior:['Hadoop / YARN','PySpark / SQL',z?'分析与分群':'Analytics'],paper:[z?'论文内容':'Content','LaTeX',z?'规范排版':'Typesetting']};
- return `<figure class="diagram"><figcaption class="diagram-label">${esc(u().diagram)}</figcaption>${['anchorcell','battery'].includes(id)?'<div class="battery-art" aria-hidden="true"><i></i><i></i><i></i></div>':''}<div class="flow">${flows[id].map((x,i)=>`${i?'<span class="flow-arrow" aria-hidden="true">→</span>':''}<span class="flow-node">${esc(x)}</span>`).join('')}</div><p class="diagram-caption">${z?'依据项目方法绘制的流程示意':'A schematic of the project approach'}</p></figure>`;
+function diagram(id) {
+  return `<figure class="diagram"><figcaption>${esc(u().methodTitle)}</figcaption><div class="flow">${u().flows[id].map((value, i) => `${i ? '<span class="flow-arrow" aria-hidden="true">→</span>' : ''}<span class="flow-node">${esc(value)}</span>`).join('')}</div></figure>`;
 }
-function projectSpreads(project){
- const i=projects.indexOf(project);reader.style.setProperty('--book-accent',colors[i]);
- const left=head(`${u().projectNotes} / ${String(i+1).padStart(2,'0')}`,title(project))+`<p class="project-role">${esc(project.date)}<br>${esc(t()[project.roleKey])}</p>`+ptext(project.descriptionKey,'lead')+tags(project)+`<a class="paper-link" href="#projects">${esc(u().backToProjects)} <span aria-hidden="true">↗</span></a>`;
- let right;
- if(project.id==='anchorcell'){
-  right=`<p class="eyebrow">01 / ${esc(u().projectOverview)}</p><p class="big-quote">${esc(t().caseQuestion)}</p>`+ptext('ventureContext')+diagram('anchorcell');
-  return [spread(left,right),spread(head(`02 / ${u().myWork}`,language==='zh'?'让判断，回到证据。':'Keep the evidence close.')+ptext('ventureResponsibility','lead')+`<h3>${esc(t().solutionLabel)}</h3>`+ptext('ventureSolution'),head(u().approach,language==='zh'?'可靠运行，也认真评测。':'Reliability, tested.')+ptext('ventureValue')+`<div class="data-stamp"><strong>40+</strong><span>${esc(t().ventureAward)}</span></div>`+tags(project))];
- }
- right=head(u().approach,u().projectHeadings[project.id])+diagram(project.id)+`<p>${esc(u().projectCaptions[project.id])}</p>`;
- if(project.href)right+=`<a class="paper-link" href="${esc(project.href)}" target="_blank" rel="noopener noreferrer">${esc(u().viewProject)} <span aria-hidden="true">↗</span></a>`;
- else if(project.statusKey)right+=`<p class="page-note">${esc(t()[project.statusKey])}</p>`;
- return [spread(left,right)];
+function projectSpreads(project) {
+  const details = u().projectContributions[project.id];
+  const overview = `<p class="eyebrow">${esc(u().projectNotes)} ${String(projects.indexOf(project)+1).padStart(2,'0')}</p>` +
+    heading(title(project)) + `<p class="project-role"><span>${esc(project.date)}</span><span>${esc(t()[project.roleKey])}</span></p>` +
+    text(u().projectSummaries[project.id], 'lead');
+  const back = `<a class="paper-link back-projects" href="#projects"><span aria-hidden="true">←</span> ${esc(u().backToProjects)}</a>`;
+  if (project.id === 'anchorcell') {
+    return [
+      spread(overview + tags(project.tech) + back,
+        heading(u().projectOverview) + ptext('ventureContext') + diagram(project.id)),
+      spread(heading(u().anchorWorkTitle) + list(details),
+        heading(u().anchorReliabilityTitle) + ptext('ventureValue') +
+        `<div class="evaluation"><strong>40+</strong><span>${esc(u().anchorEvaluationLabel)}</span></div>`)
+    ];
+  }
+  const source = project.href ? `<a class="paper-link" href="${esc(project.href)}" target="_blank" rel="noopener noreferrer">${esc(u().viewProject)} <span aria-hidden="true">↗</span></a>` : '';
+  return [spread(overview + subheading(u().contributionTitle) + list(details) + back,
+    diagram(project.id) + (u().projectOutcomes[project.id] ? text(u().projectOutcomes[project.id]) : '') + tags(project.tech) + source)];
 }
-function buildSpreads(){
- reader.style.setProperty('--book-accent','#6c7254');
- if(currentId.startsWith('project/'))return projectSpreads(projects.find(p=>p.id===currentId.split('/')[1]));
- if(currentId==='projects')return [spread(head('THE PROJECT INDEX',label('projects'))+`<p class="lead">${esc(t().projectsHeading)}</p><p>${esc(u().projectCount)}</p><div class="folio-rule"></div><p class="big-quote">${esc(t().heroRole)}</p><p class="page-note">${esc(u().navigationHint)}</p>`,`<ol class="project-list">${projects.map(p=>`<li>${projectLink(p)}</li>`).join('')}</ol>`)];
- if(currentId==='about')return [spread(head('A LITTLE ABOUT ME',label('about'))+`<div class="profile-initials" aria-hidden="true">dj.</div><p class="lead">${esc(t().heroSummary)}</p>`+ptext('aboutIntro')+`<p class="page-note">${esc(t().profileLocation)} / ${esc(t().profileStatus)}</p>`,[1,2,3].map(n=>`<h3>${esc(t()[`principle${n}Title`])}</h3>${ptext(`principle${n}Body`)}`).join('')+`<h3>${esc(t().careerNoteTitle)}</h3>${ptext('careerNoteBody')}`)];
- if(currentId==='experience')return ['dc','qh'].map((key,i)=>spread(head(`EXPERIENCE / 0${i+1}`,i===0?label('experience'):t()[`${key}Company`])+`<h3>${esc(t()[`${key}Company`])}</h3><p class="project-role">${esc(t()[`${key}Role`])}<br>${esc(t()[`${key}Dates`])} / ${esc(t().beijing)}</p>`+ptext(`${key}Context`,'lead')+`<h3>${esc(t().responsibilityLabel)}</h3>`+ptext(`${key}Responsibility`),head(u().approach,i===0?(language==='zh'?'连起实验数据的链路':'Connecting laboratory data'):(language==='zh'?'把重复计算，变成工具':'Turning routines into tools'))+`<h3>${esc(t().solutionLabel)}</h3>`+ptext(`${key}Solution`)+`<h3>${esc(t().valueLabel)}</h3>`+ptext(`${key}Value`)+`<div class="tags">${(i===0?['Azure Data Factory','Databricks','Synapse','SQL']:['Python','MySQL','Risk Metrics']).map(v=>`<span>${v}</span>`).join('')}</div>`));
- if(currentId==='learning')return [spread(head('LEARNING / ALWAYS IN PROGRESS',label('learning'))+`<h3>${esc(t().school)}</h3><p class="project-role">${esc(t().major)}<br>${esc(t().educationDates)}</p>`+ptext('courses')+ptext('educationLanguage')+`<h3>${esc(t().mathorTitle)}</h3>`+ptext('mathorDescription'),head('THE TOOLKIT',u().toolkit)+[['skillProgramming','skillProgrammingValue'],['skillData','skillDataValue'],['skillBigData','skillBigDataValue'],['skillMethods','skillMethodsValue']].map(([a,b])=>`<div class="skill-row"><strong>${esc(t()[a])}</strong>${esc(t()[b])}</div>`).join('')+`<h3>${esc(t().capability1Title)}</h3>`+ptext('capability1Body')+`<h3>${esc(t().capability3Title)}</h3>`+ptext('capability3Body'))];
- return [spread(head('A NOTE TO SAY HELLO',label('contact'))+`<p class="big-quote">${esc(t().contactHeading)}</p>`+ptext('contactBody')+`<div class="contact-seal" aria-hidden="true">dj.</div><p class="page-note">${esc(t().profileLocation)} · ${esc(t().profileStatus)}</p>`,`<p class="eyebrow">${esc(u().sendEmail)}</p><a class="contact-email" href="mailto:connerald359@163.com">connerald359@163.com</a><div class="contact-actions"><a class="paper-link" href="mailto:connerald359@163.com">${esc(u().sendEmail)} ↗</a><button type="button" class="paper-link" id="copy-email">${esc(u().copyEmail)}</button></div><div class="folio-rule"></div><h3>GitHub</h3><p>github.com/connerald</p><a class="paper-link" href="https://github.com/connerald" target="_blank" rel="noopener noreferrer">${esc(u().visitGithub)} ↗</a>`)];
+function buildSpreads() {
+  if (currentId.startsWith('project/')) return projectSpreads(projects.find(project => `project/${project.id}` === currentId));
+  if (currentId === 'projects') return [spread(
+    heading(label('projects')) + text(u().projectIndexIntro, 'lead') + `<div class="index-art" aria-hidden="true"><i></i><i></i><i></i></div>`,
+    `<ol class="project-list">${projects.map(project => `<li>${projectLink(project)}</li>`).join('')}</ol>`
+  )];
+  if (currentId === 'about') return [spread(
+    heading(label('about')) + text(u().aboutIntro, 'lead') + subheading(t().careerNoteTitle) + text(u().aboutTeam),
+    `<ol class="growth-list">${u().aboutSteps.map(step => `<li>${subheading(step.title)}${text(step.body)}</li>`).join('')}</ol>`
+  )];
+  if (currentId === 'experience') return ['dc','qh'].map(key => spread(
+    `<p class="eyebrow">${esc(label('experience'))}</p>` + heading(t()[`${key}Company`]) +
+    `<p class="project-role"><span>${esc(t()[`${key}Dates`])}</span><span>${esc(t()[`${key}Role`])} · ${esc(t().beijing)}</span></p>` +
+    ptext(`${key}Context`, 'lead') + subheading(u().contributionTitle) + ptext(`${key}Responsibility`),
+    heading(u().experienceMethods[key]) + ptext(`${key}Solution`) + ptext(`${key}Value`) +
+    tags(key === 'dc' ? ['Azure Data Factory','Databricks','Synapse','SQL'] : ['Python','MySQL','Risk Metrics'])
+  ));
+  if (currentId === 'learning') return [spread(
+    heading(label('learning')) + subheading(t().school) +
+    `<p class="project-role"><span>${esc(t().major)}</span><span>${esc(t().educationDates)}</span></p>` +
+    ptext('courses') + ptext('educationLanguage') + subheading(t().mathorTitle) + ptext('mathorDescription'),
+    heading(u().toolkit) + `<dl class="skill-list">${[['skillProgramming','skillProgrammingValue'],['skillData','skillDataValue'],['skillBigData','skillBigDataValue'],['skillMethods','skillMethodsValue']].map(([a,b]) => `<div><dt>${esc(t()[a])}</dt><dd>${esc(t()[b])}</dd></div>`).join('')}</dl>`
+  )];
+  return [spread(
+    heading(label('contact')) + ptext('contactBody', 'lead') + `<p class="contact-status"><span class="status-dot" aria-hidden="true"></span>${esc(t().profileStatus)}</p>`,
+    `<div class="contact-details"><span class="eyebrow">${esc(u().emailLabel)}</span><a class="contact-email" href="mailto:${esc(t().emailAddress)}">${esc(t().emailAddress)}</a><div class="contact-actions"><button type="button" class="paper-link" id="copy-email">${esc(u().copyEmail)}</button><a class="paper-link" href="https://github.com/connerald" target="_blank" rel="noopener noreferrer">${esc(u().visitGithub)} <span aria-hidden="true">↗</span></a></div></div>`
+  )];
 }
-function renderReader(){
- cancelTurn();
- const spreads=buildSpreads();page=Math.min(page,spreads.length-1);
- $('#book').innerHTML=spreads[page]+`<div class="mobile-continuation">${spreads.filter((_,i)=>i!==page).join('')}</div>`;
- // The first visible heading always labels the dialog, including non-project entries.
- const headings=$('#book').querySelectorAll('h2');headings.forEach(h=>h.removeAttribute('id'));if(headings[0])headings[0].id='reader-title';
- $('#page-count').textContent=`${String(page+1).padStart(2,'0')} / ${String(spreads.length).padStart(2,'0')}`;
- $('#previous-page').disabled=page===0;$('#next-page').disabled=page===spreads.length-1;
- $('#copy-email')?.addEventListener('click',copyEmail);
+
+// Positions refer to semantic chapter/leaf indexes, so a locale or layout change
+// does not send a reader back to the start of a long article.
+function capturePosition() {
+  if (!reader.open) return readingPosition;
+  if (spreadMode) {
+    const pages = [...$('#book').querySelectorAll(':scope > .spread > .paper-page')];
+    const focused = pages.indexOf(document.activeElement?.closest('.paper-page'));
+    const leaf = focused >= 0 ? focused : (readingPosition?.leaf || 0);
+    return {chapter:page, leaf, fraction:pages[leaf]?.scrollTop / Math.max(1,pages[leaf]?.scrollHeight) || 0,
+      scrolls:pages.map(node => node.scrollTop / Math.max(1,node.scrollHeight-node.clientHeight))};
+  }
+  const top = $('.reader-toolbar').getBoundingClientRect().bottom + 1;
+  const pages = [...$('#book').querySelectorAll('.paper-page')];
+  const active = pages.find(node => node.getBoundingClientRect().bottom > top) || pages.at(-1);
+  if (!active) return {chapter:page,leaf:0,fraction:0,scrolls:[0,0]};
+  const rect = active.getBoundingClientRect();
+  return {
+    chapter:Number(active.parentElement.dataset.chapter),
+    leaf:[...active.parentElement.children].indexOf(active),
+    fraction:Math.max(0, Math.min(1, (top-rect.top)/rect.height)),
+    scrolls:[0,0]
+  };
 }
-function normaliseHash(){let h;try{h=decodeURIComponent(location.hash.slice(1))}catch{return ''}if(h==='featured'||h==='case-notes')h='project/anchorcell';if(h==='education')h='learning';return entryIds.includes(h)||projects.some(p=>h===`project/${p.id}`)?h:''}
-function renderRoute(){const id=normaliseHash();if(!id){cancelTurn();if(reader.open)reader.close();currentId='';room?.setPaused(directory.open);return}if(currentId!==id)page=0;currentId=id;seen.add(id);updateDiscovery();document.querySelector(`[data-entry="${id}"]`)?.classList.add('visited');if(directory.open){directoryNavigation=true;directory.close()}renderReader();if(!reader.open){reader.showModal();$('#reader-close').focus({preventScroll:true})}room?.setActive(null);room?.setPaused(true)}
-function navigate(id,source){returnFocus=source&&!directory.contains(source)?source:(document.querySelector(`[data-entry="${id}"]`)||$('#menu-toggle'));if(normaliseHash()===id){renderRoute();return}history.pushState({study:true},'',`#${id}`);renderRoute()}
-function closeReader(){if(!normaliseHash())return;history.pushState({study:true},'',`${location.pathname}${location.search}#top`);renderRoute()}
-function openDirectory(){if(directory.open)return;returnFocus=document.activeElement;if(reader.open)reader.close();directoryNavigation=false;directory.showModal();$('#menu-toggle').setAttribute('aria-expanded','true');room?.setPaused(true)}
-function closeDirectory(){directory.close()}
-function turn(delta){
- if(finishTurn)return;
- const max=buildSpreads().length-1;if(page+delta<0||page+delta>max)return;
- const oldSpreadPages=[...$('#book').querySelectorAll(':scope>.spread>.paper-page')].map(el=>el.cloneNode(true));
- page+=delta;renderReader();if(motion.matches||innerWidth<=700)return;
- const book=$('#book'),newPages=[...book.querySelectorAll(':scope>.spread>.paper-page')];
- const fixed=document.createElement('div');fixed.className=`fixed-page ${delta>0?'left':'right'}`;
- fixed.append(oldSpreadPages[delta>0?0:1]);fixed.setAttribute('aria-hidden','true');fixed.inert=true;
- const leaf=document.createElement('div');leaf.className=`turning-leaf ${delta>0?'forward':'backward'}`;leaf.setAttribute('aria-hidden','true');leaf.inert=true;
- const front=document.createElement('div'),back=document.createElement('div');front.className='leaf-face leaf-front';back.className='leaf-face leaf-back';
- front.append(oldSpreadPages[delta>0?1:0]);back.append(newPages[delta>0?0:1].cloneNode(true));leaf.append(front,back);
- for(const layer of [fixed,leaf])layer.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
- book.append(fixed,leaf);book.setAttribute('aria-busy','true');
- $('#previous-page').disabled=true;$('#next-page').disabled=true;
- let timeout, completed=false;
- const finish=()=>{if(completed)return;completed=true;clearTimeout(timeout);leaf.remove();fixed.remove();book.removeAttribute('aria-busy');finishTurn=null;$('#previous-page').disabled=page===0;$('#next-page').disabled=page===max;};
- finishTurn=finish;
- leaf.addEventListener('animationend',finish,{once:true});leaf.addEventListener('animationcancel',finish,{once:true});
- timeout=setTimeout(finish,850);
+function restorePosition(position) {
+  if (!position || !reader.open) return;
+  if (spreadMode) {
+    $('#book').querySelectorAll(':scope > .spread > .paper-page').forEach((node,i) => {
+      const progress = position.scrolls?.[i] || (i === position.leaf ? position.fraction : 0);
+      node.scrollTop = progress * Math.max(0,node.scrollHeight-node.clientHeight);
+    });
+  } else {
+    const chapter = $('#book').querySelector(`[data-chapter="${position.chapter}"]`);
+    const node = chapter?.children[position.leaf || 0];
+    if (node) {
+      const top = $('.reader-toolbar').getBoundingClientRect().bottom;
+      const rect = node.getBoundingClientRect();
+      reader.scrollTop += rect.top - top + (position.fraction || 0) * rect.height;
+    }
+  }
+  readingPosition = capturePosition();
 }
-async function copyEmail(){try{await navigator.clipboard.writeText('connerald359@163.com');toast(u().emailCopied)}catch{toast(u().emailCopyFailed)}}
-let toastTimeout;function toast(message){$('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>$('#toast').classList.remove('visible'),3000)}
-let lastPositions=[];
-function roomPositions(positions){lastPositions=positions;for(const {id,x,y,visible}of positions){const b=document.querySelector(`[data-entry="${id}"]`);if(!b)continue;b.style.left=`${x}px`;b.style.top=`${y}px`;b.style.visibility=visible===false?'hidden':'visible'}}
-// Pixel anchors exported from the same original scene as each poster.
-const posterAnchors={landscape:{width:1440,height:900,points:[[855,391],[977,393],[1108,386],[450,594],[411,325],[682,568],[980,532],[579,349]]},portrait:{width:390,height:844,points:[[177,367],[256,368],[341,364],[64,496],[105,255],[206,481],[259,459],[199,268]]}};
-function fallbackPositions(){const rect=$('#scene').getBoundingClientRect(), poster=posterAnchors[innerWidth<=700?'portrait':'landscape'];const scale=Math.max(rect.width/poster.width,rect.height/poster.height),dx=(rect.width-poster.width*scale)/2,dy=(rect.height-poster.height*scale)/2;roomPositions(entryIds.map((id,i)=>{const [px,py]=poster.points[i],x=px*scale+dx,y=py*scale+dy;return {id,x,y,visible:x>=22&&x<=rect.width-22&&y>=22&&y<=rect.height-22}}))}
-function failScene(){room?.dispose();room=null;$('#room-main').classList.add('room-fallback','is-ready');$('#lamp-toggle').hidden=true;fallbackPositions()}
-// Register native controls before enabling the immersive layout.
-for(const host of [document])host.addEventListener('click',event=>{
- const button=event.target.closest('[data-lang]');if(button){language=button.dataset.lang;applyLanguage(true);return}
- const link=event.target.closest('a[href^="#"]');if(!link||link.classList.contains('skip-link'))return;
- const hash=link.getAttribute('href').slice(1);if(!hash)return;event.preventDefault();if(hash==='top'){closeReader();return}navigate(hash,link);
+function renderReader(position = null) {
+  cancelTurn();
+  const spreads = buildSpreads().map((html, index) => html.replace('class="spread"', `class="spread" data-chapter="${index}"`));
+  page = Math.max(0, Math.min(position?.chapter ?? page, spreads.length-1));
+  reader.dataset.mode = spreadMode ? 'spread' : 'continuous';
+  $('#book').innerHTML = spreadMode ? spreads[page] : spreads.join('');
+  const firstHeading = $('#book').querySelector('h2');
+  if (firstHeading) firstHeading.id = 'reader-title';
+  $('#page-count').textContent = `${String(page+1).padStart(2,'0')} / ${String(spreads.length).padStart(2,'0')}`;
+  $('.reader-bottom').hidden = !spreadMode || spreads.length === 1;
+  $('#previous-page').disabled = page === 0;
+  $('#next-page').disabled = page === spreads.length-1;
+  $('#copy-email')?.addEventListener('click', copyEmail);
+  readingPosition = position || {chapter:page,leaf:0,fraction:0,scrolls:[0,0]};
+  restorePosition(readingPosition);
+}
+function normaliseHash() {
+  let hash;
+  try { hash = decodeURIComponent(location.hash.slice(1)); } catch { return ''; }
+  if (hash === 'featured' || hash === 'case-notes') hash = 'project/anchorcell';
+  if (hash === 'education') hash = 'learning';
+  return entryIds.includes(hash) || projects.some(project => hash === `project/${project.id}`) ? hash : '';
+}
+function restoreRoomFocus() {
+  const element = roomReturnFocus;
+  if (element?.isConnected && !element.closest('dialog') && element.getClientRects().length && getComputedStyle(element).visibility !== 'hidden') {
+    element.focus({preventScroll:true});
+  } else $('#menu-toggle').focus({preventScroll:true});
+}
+function pauseRoom() { room?.setPaused(document.hidden || reader.open || directory.open); }
+function renderRoute() {
+  const id = normaliseHash();
+  if (!id) {
+    cancelTurn();
+    currentId = '';
+    directoryFromReader = false;
+    if (directory.open) { directoryNavigation = true; directory.close(); }
+    if (reader.open) reader.close();
+    pauseRoom();
+    return;
+  }
+  const changed = currentId !== id;
+  const position = !changed ? capturePosition() : null;
+  if (changed) { page = 0; readingPosition = null; }
+  currentId = id;
+  seen.add(id);
+  document.querySelector(`[data-entry="${id}"]`)?.classList.add('visited');
+  if (directory.open) { directoryNavigation = true; directory.close(); }
+  renderReader(position);
+  if (!reader.open) {
+    reader.showModal();
+    restorePosition(readingPosition);
+    $('#reader-close').focus({preventScroll:true});
+  }
+  room?.setActive(null);
+  pauseRoom();
+}
+function navigate(id, source) {
+  if (source && !source.closest('dialog')) roomReturnFocus = source;
+  else if (!roomReturnFocus) roomReturnFocus = document.querySelector(`[data-entry="${id}"]`) || $('#menu-toggle');
+  if (normaliseHash() !== id) history.pushState({study:true}, '', `#${id}`);
+  renderRoute();
+}
+function closeReader() {
+  cancelTurn();
+  history.pushState({study:true}, '', `${location.pathname}${location.search}#top`);
+  renderRoute();
+}
+function openDirectory() {
+  if (directory.open) return;
+  cancelTurn();
+  directoryReturnFocus = document.activeElement;
+  directoryFromReader = reader.open;
+  directoryNavigation = false;
+  if (reader.open) { readingPosition = capturePosition(); reader.close(); }
+  else roomReturnFocus = document.activeElement;
+  directory.showModal();
+  $('#menu-toggle').setAttribute('aria-expanded', 'true');
+  $('[data-close-directory]').focus({preventScroll:true});
+  pauseRoom();
+}
+function closeDirectory() { directory.close(); }
+function turn(delta) {
+  if (!spreadMode || finishTurn) return;
+  const max = buildSpreads().length-1;
+  if (page+delta < 0 || page+delta > max) return;
+  const oldPages = [...$('#book').querySelectorAll(':scope > .spread > .paper-page')].map(node => ({node:node.cloneNode(true),scroll:node.scrollTop}));
+  page += delta;
+  renderReader();
+  if (motion.matches) return;
+  const book = $('#book'), newPages = [...book.querySelectorAll(':scope > .spread > .paper-page')];
+  const fixed = document.createElement('div'), leaf = document.createElement('div');
+  fixed.className = `fixed-page ${delta > 0 ? 'left' : 'right'}`;
+  fixed.append(oldPages[delta > 0 ? 0 : 1].node);
+  leaf.className = `turning-leaf ${delta > 0 ? 'forward' : 'backward'}`;
+  const front = document.createElement('div'), back = document.createElement('div');
+  front.className = 'leaf-face leaf-front'; back.className = 'leaf-face leaf-back';
+  front.append(oldPages[delta > 0 ? 1 : 0].node);
+  back.append(newPages[delta > 0 ? 0 : 1].cloneNode(true));
+  leaf.append(front,back);
+  for (const layer of [fixed,leaf]) {
+    layer.setAttribute('aria-hidden','true'); layer.inert = true;
+    layer.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
+  }
+  book.append(fixed,leaf);
+  oldPages.forEach(({node,scroll}) => { node.scrollTop = scroll; });
+  book.setAttribute('aria-busy','true');
+  $('#previous-page').disabled = true; $('#next-page').disabled = true;
+  let timeout, completed = false;
+  const finish = () => {
+    if (completed) return;
+    completed = true; clearTimeout(timeout);
+    leaf.remove(); fixed.remove(); book.removeAttribute('aria-busy'); finishTurn = null;
+    $('#previous-page').disabled = page === 0; $('#next-page').disabled = page === max;
+  };
+  finishTurn = finish;
+  leaf.addEventListener('animationend',finish,{once:true});
+  leaf.addEventListener('animationcancel',finish,{once:true});
+  timeout = setTimeout(finish,850);
+}
+async function copyEmail() {
+  try { await navigator.clipboard.writeText(t().emailAddress); toast(u().emailCopied); }
+  catch { toast(u().emailCopyFailed); }
+}
+let toastTimeout;
+function toast(message) {
+  $('#toast').textContent = message;
+  $('#toast').classList.add('visible');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => $('#toast').classList.remove('visible'),3000);
+}
+let lastPositions = [];
+function roomPositions(positions) {
+  lastPositions = positions;
+  const rect = $('#scene').getBoundingClientRect();
+  for (const {id,x,y,visible} of positions) {
+    const button = document.querySelector(`[data-entry="${id}"]`);
+    if (!button) continue;
+    button.style.left = `${x}px`; button.style.top = `${y}px`;
+    button.style.visibility = visible !== false && x >= 22 && x <= rect.width-22 && y >= 22 && y <= rect.height-22 ? 'visible' : 'hidden';
+    const labelWidth = Math.min(220,rect.width-24);
+    button.style.setProperty('--label-shift', `${Math.max(labelWidth/2+12-x, Math.min(0,rect.width-12-labelWidth/2-x))}px`);
+    button.classList.toggle('label-below',y < 80);
+  }
+}
+function fallbackPositions() {
+  const rect = $('#scene').getBoundingClientRect();
+  const poster = posterAnchors[innerWidth < 1024 ? 'portrait' : 'landscape'];
+  const scale = Math.min(rect.width/poster.width,rect.height/poster.height);
+  const dx = (rect.width-poster.width*scale)/2, dy = (rect.height-poster.height*scale)/2;
+  roomPositions(entryIds.map((id,i) => ({id,x:poster.points[i][0]*scale+dx,y:poster.points[i][1]*scale+dy,visible:true})));
+}
+function failScene() {
+  room?.dispose(); room = null; window.studyRoom = null;
+  $('#room-main').classList.add('room-fallback','is-ready');
+  $('#lamp-toggle').hidden = true;
+  fallbackPositions();
+}
+
+document.addEventListener('click', event => {
+  const button = event.target.closest('[data-lang]');
+  if (button) { if(language !== button.dataset.lang) { language = button.dataset.lang; applyLanguage(true); } return; }
+  const link = event.target.closest('a[href^="#"]');
+  if (!link || link.classList.contains('skip-link') || !document.documentElement.classList.contains('enhanced')) return;
+  const hash = link.getAttribute('href').slice(1);
+  if (!hash) return;
+  event.preventDefault();
+  if (hash === 'top') closeReader(); else navigate(hash,link);
 });
-$('#menu-toggle').addEventListener('click',openDirectory);$('[data-close-directory]').addEventListener('click',closeDirectory);
-$('.skip-link').addEventListener('click',event=>{event.preventDefault();openDirectory()});
-$('#reader-close').addEventListener('click',closeReader);$('#reader-index').addEventListener('click',openDirectory);
-$('#previous-page').addEventListener('click',()=>turn(-1));$('#next-page').addEventListener('click',()=>turn(1));
-reader.addEventListener('cancel',event=>{event.preventDefault();closeReader()});
-reader.addEventListener('close',()=>{room?.setPaused(directory.open);if(!directory.open&&returnFocus?.isConnected)returnFocus.focus({preventScroll:true})});
-reader.addEventListener('keydown',event=>{if(innerWidth<=700)return;if(event.key==='ArrowRight'){event.preventDefault();turn(1)}if(event.key==='ArrowLeft'){event.preventDefault();turn(-1)}});
-directory.addEventListener('close',()=>{$('#menu-toggle').setAttribute('aria-expanded','false');if(normaliseHash()&&!directoryNavigation)renderRoute();room?.setPaused(reader.open);if(!reader.open)$('#menu-toggle').focus({preventScroll:true})});
-directory.addEventListener('click',event=>{if(event.target===directory&&event.clientX<directory.getBoundingClientRect().left)closeDirectory()});
-function onLampChange(isOn){$('#lamp-toggle').setAttribute('aria-pressed',String(isOn))}
-$('#lamp-toggle').addEventListener('click',()=>{if(room)onLampChange(room.toggleLamp())});
-$('#hints-toggle').addEventListener('click',()=>{hints=!hints;$('#hints-toggle').setAttribute('aria-pressed',hints);$('#hotspots').classList.toggle('show-hints',hints);room?.setHints(hints)});
-window.addEventListener('popstate',()=>{language=initialLanguage();applyLanguage();renderRoute()});
+$('#menu-toggle').addEventListener('click',openDirectory);
+$('[data-close-directory]').addEventListener('click',closeDirectory);
+$('.skip-link').addEventListener('click', event => {
+  if (!document.documentElement.classList.contains('enhanced')) return;
+  event.preventDefault(); openDirectory();
+});
+$('#reader-close').addEventListener('click',closeReader);
+$('#reader-index').addEventListener('click',openDirectory);
+$('#previous-page').addEventListener('click',() => turn(-1));
+$('#next-page').addEventListener('click',() => turn(1));
+reader.addEventListener('cancel',event => {event.preventDefault(); closeReader();});
+reader.addEventListener('close',() => {
+  if (reader.open || directory.open || directoryFromReader) return;
+  pauseRoom(); restoreRoomFocus();
+});
+reader.addEventListener('scroll',event => {
+  if (!reader.open) return;
+  if (spreadMode && event.target.classList?.contains('paper-page')) {
+    const leaf = [...event.target.parentElement.children].indexOf(event.target);
+    readingPosition = {...readingPosition,leaf};
+  }
+  readingPosition = capturePosition();
+},{capture:true,passive:true});
+reader.addEventListener('keydown',event => {
+  if (!spreadMode || event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.key === 'ArrowRight') { event.preventDefault(); turn(1); }
+  if (event.key === 'ArrowLeft') { event.preventDefault(); turn(-1); }
+});
+directory.addEventListener('close',() => {
+  $('#menu-toggle').setAttribute('aria-expanded','false');
+  const resume = directoryFromReader && !directoryNavigation && !!normaliseHash();
+  directoryFromReader = false;
+  if (resume) {
+    reader.showModal();
+    restorePosition(readingPosition);
+    const target = directoryReturnFocus?.isConnected && reader.contains(directoryReturnFocus) ? directoryReturnFocus : $('#reader-index');
+    target.focus({preventScroll:true});
+  } else if (!reader.open) restoreRoomFocus();
+  pauseRoom();
+});
+directory.addEventListener('click',event => {
+  if (event.target === directory && event.clientX < directory.getBoundingClientRect().left) closeDirectory();
+});
+function onLampChange(value) { $('#lamp-toggle').setAttribute('aria-pressed',String(value)); }
+$('#lamp-toggle').addEventListener('click',() => {if(room)onLampChange(room.toggleLamp());});
+$('#hints-toggle').addEventListener('click',() => {
+  hints = !hints;
+  $('#hints-toggle').setAttribute('aria-pressed',String(hints));
+  $('#hotspots').classList.toggle('show-hints',hints); room?.setHints(hints);
+});
+window.addEventListener('popstate',() => {language=initialLanguage(); applyLanguage(); renderRoute();});
 window.addEventListener('hashchange',renderRoute);
-window.addEventListener('resize',()=>{cancelTurn();$('.welcome-summary').innerHTML=lines(innerWidth<=700?u().mobileIntro:u().welcomeSummary);if(!room)fallbackPositions();if(innerWidth<=700&&page!==0&&reader.open){page=0;renderReader()}});
-motion.addEventListener('change',()=>{cancelTurn();room?.setReducedMotion(motion.matches)});
-document.addEventListener('visibilitychange',()=>room?.setPaused(document.hidden||reader.open||directory.open));
-// Reader and directory can each change language without leaving the current content.
-for(const host of [$('#directory'),$('.reader-toolbar')]){const div=document.createElement('div');div.className='language-switch reader-languages';div.setAttribute('role','group');div.setAttribute('aria-label','语言 / Language');div.innerHTML='<button type="button" data-lang="zh">中</button><span aria-hidden="true">/</span><button type="button" data-lang="en">EN</button>';host.append(div)}
-reader.append($('#toast'));applyLanguage();document.documentElement.classList.add('enhanced');document.documentElement.classList.remove('booting');clearTimeout(window.studyBootTimer);renderRoute();
-let startupTimer=setTimeout(()=>{$('#room-main').classList.add('is-ready')},9000);
-import('./room.js').then(async({createRoom})=>{
- room=await createRoom({container:$('#scene'),onSelect:id=>navigate(id),onPositions:roomPositions,onReady:()=>{$('#room-main').classList.add('is-ready');clearTimeout(startupTimer)},onError:failScene,onLampChange:onLampChange,reducedMotion:motion.matches});
- room.setLanguage(language);room.setHints(hints);room.setPaused(document.hidden||reader.open||directory.open);
- window.studyRoom=room;
-}).catch(error=>{console.warn('Room unavailable; keeping the illustrated study.',error);failScene()});
+window.addEventListener('resize',() => {
+  cancelTurn(); cancelAnimationFrame(resizeFrame);
+  const position = readingPosition;
+  resizeFrame = requestAnimationFrame(() => {
+    if (!room) fallbackPositions();
+    if (spreadMode !== readingLayout.matches) {
+      spreadMode = readingLayout.matches;
+      if (reader.open || directoryFromReader) renderReader(position);
+    } else if (reader.open) restorePosition(position);
+  });
+});
+motion.addEventListener('change',() => {cancelTurn(); room?.setReducedMotion(motion.matches);});
+document.addEventListener('visibilitychange',pauseRoom);
+for (const host of [directory,$('.reader-toolbar')]) {
+  const group = document.createElement('div');
+  group.className='language-switch reader-languages'; group.setAttribute('role','group');
+  group.innerHTML='<button type="button" data-lang="zh">中</button><span aria-hidden="true">/</span><button type="button" data-lang="en">EN</button>';
+  host.append(group);
+}
+reader.append($('#toast'));
+applyLanguage();
+document.documentElement.classList.add('enhanced');
+document.documentElement.classList.remove('booting');
+clearTimeout(window.studyBootTimer);
+renderRoute();
+const startupTimer = setTimeout(() => $('#room-main').classList.add('is-ready'),9000);
+import('./room.js').then(async ({createRoom}) => {
+  room = await createRoom({
+    container:$('#scene'), onSelect:id => navigate(id,document.querySelector(`[data-entry="${id}"]`)), onPositions:roomPositions,
+    onReady:() => {$('#room-main').classList.add('is-ready'); clearTimeout(startupTimer);},
+    onError:failScene, onLampChange, reducedMotion:motion.matches
+  });
+  room.setLanguage(language); room.setHints(hints); pauseRoom();
+  window.studyRoom = room;
+}).catch(error => {console.warn('Room unavailable; keeping the illustrated study.',error); failScene();});

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#30261f">
+  <meta name="theme-color" content="#F5F3EC">
   <meta name="description" content="董俊叶，中央财经大学大数据管理与应用本科生。探索数据工程、储能安全与有据可查的 AI Agent。欢迎来到我的书房。">
   <meta property="og:title" content="董俊叶的书房 · 数据工程与 AI">
   <meta property="og:description" content="书架上的项目，桌面上的想法。走进董俊叶的数据与 AI 书房。">
@@ -34,267 +34,154 @@
   <title>董俊叶的书房 · 数据工程与 AI</title>
 </head>
 <body>
-  <a class="skip-link" href="#directory" data-ui="skip">跳至内容目录</a>
+  <a class="skip-link" href="#projects" data-ui="skip">跳至内容目录</a>
   <div class="experience-shell">
     <main id="room-main" class="room-main" aria-label="董俊叶的书房">
-      <picture class="room-poster" aria-hidden="true"><source media="(max-width: 700px)" srcset="assets/room-portrait.webp"><img src="assets/room-landscape.webp" alt=""></picture>
-      <div id="scene" class="scene" aria-hidden="true"></div>
-      <div class="scene-shade" aria-hidden="true"></div>
       <header class="site-header">
-        <a class="brand" href="#top" aria-label="回到书房"><span class="brand-mark" aria-hidden="true">d.</span><span>CONNERALD<span class="brand-caption" data-ui="brandCaption">一间关于数据与想法的书房</span></span></a>
+        <a class="brand" href="#top" aria-label="回到书房"><span class="brand-mark" aria-hidden="true">d.</span><span>Connerald</span></a>
         <div class="header-actions">
-          <div class="language-switch" role="group" aria-label="语言 / Language"><button type="button" data-lang="zh" aria-pressed="true">中</button><span aria-hidden="true">/</span><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+          <div class="language-switch" role="group" aria-label="语言"><button type="button" data-lang="zh" aria-pressed="true">中</button><span aria-hidden="true">/</span><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
           <button type="button" id="menu-toggle" class="pill menu-toggle" aria-controls="directory" aria-expanded="false"><span class="menu-icon" aria-hidden="true"><i></i><i></i></span><span data-ui="menu">内容目录</span></button>
         </div>
       </header>
-      <div id="hotspots" class="hotspots" aria-label="书房里的物件"></div>
+      <div class="room-stage">
+      <picture class="room-poster" aria-hidden="true"><source media="(max-width: 1023px)" srcset="assets/room-portrait.webp"><img src="assets/room-landscape.webp" alt=""></picture>
+      <div id="scene" class="scene" aria-hidden="true"></div>
+      <div class="scene-shade" aria-hidden="true"></div>
+      <div id="hotspots" class="hotspots" aria-label="书房内容入口"></div>
+      </div>
       <section class="welcome" aria-labelledby="welcome-title">
-        <p class="eyebrow"><span class="status-dot"></span><span data-ui="welcomeEyebrow">DONG JUNYE · 北京</span></p>
         <h1 id="welcome-title" data-ui="welcomeTitle">欢迎，<br>来书房坐坐。</h1>
-        <p class="welcome-summary" data-ui="welcomeSummary">我是董俊叶，探索数据工程与 AI 的实际用处。<br>这里收着我的项目、经历，和一些正在生长的想法。</p>
-        <p class="welcome-status"><span data-ui="welcomeStatus">中央财经大学 · 2027 届</span><span class="status-divider">/</span><span data-ui="openStatus">开放实习与合作</span></p>
-        <a class="start-link" href="#project/anchorcell"><span data-ui="start">从 AnchorCell 开始</span><span aria-hidden="true">↗</span></a>
-        <p class="discovery-note"><span id="discovery-progress">已探索 0 / 8</span><span class="discovery-hint" data-ui="discoveryHint">点击物件，翻开项目与经历。</span></p>
+        <p class="welcome-summary" data-ui="welcomeSummary">我是董俊叶，关注数据工程与 AI 应用。</p>
+        <p class="welcome-status" data-ui="welcomeStatus">中央财经大学 · 2027 届</p>
+        <a class="start-link" href="#projects"><span data-ui="start">浏览项目</span><span aria-hidden="true">↗</span></a>
       </section>
-      <div class="room-footer"><span class="room-caption"><span class="tiny-cross" aria-hidden="true">✳</span><span data-ui="roomCaption">每件物品，都有一个故事。</span></span><div class="room-controls"><button type="button" id="lamp-toggle" class="hint-button" aria-pressed="true" aria-label="台灯 / Desk lamp"><span aria-hidden="true">☼</span><span data-ui="lamp">台灯</span></button><button type="button" id="hints-toggle" class="hint-button" aria-pressed="false"><span aria-hidden="true">⌖</span><span data-ui="hints">显示可点击物件</span></button></div><span class="room-edition">PERSONAL COLLECTION · 2026</span></div>
+      <div class="room-footer"><div class="room-controls"><button type="button" id="lamp-toggle" class="hint-button" aria-pressed="true" aria-label="台灯"><span aria-hidden="true">☼</span><span data-ui="lamp">台灯</span></button><button type="button" id="hints-toggle" class="hint-button" aria-pressed="false"><span aria-hidden="true">⌖</span><span data-ui="hints">探索提示</span></button></div></div>
       <div class="loading-note" role="status"><span class="loading-spark" aria-hidden="true"></span><span data-ui="loading">正在点亮书房…</span></div>
     </main>
     <dialog id="directory" class="directory" aria-labelledby="directory-title">
-      <div class="directory-head"><span class="eyebrow">THE INDEX</span><button class="round-close" type="button" data-close-directory aria-label="关闭目录">×</button></div>
-      <h2 id="directory-title" data-ui="directoryTitle">随意翻翻。</h2><p class="directory-intro" data-ui="directoryIntro">也可以直接从这里，找到你感兴趣的内容。</p>
+      <div class="directory-head"><button class="round-close" type="button" data-close-directory aria-label="关闭目录">×</button></div>
+      <h2 id="directory-title" data-ui="directoryTitle">目录</h2>
       <nav id="directory-links" aria-label="内容目录"></nav>
       <div class="directory-projects"><span class="eyebrow" data-ui="allProjects">全部项目</span><div id="directory-project-links"></div></div>
       <a class="directory-email" href="mailto:connerald359@163.com">connerald359@163.com ↗</a>
-      <span class="directory-foot">DONG JUNYE / CONNERALD</span>
     </dialog>
     <dialog id="reader" class="reader" aria-labelledby="reader-title">
-      <div class="reader-toolbar"><button type="button" class="reader-index" id="reader-index"><span aria-hidden="true">☷</span><span data-ui="menu">内容目录</span></button><span class="reader-collection" data-ui="collection">书房藏册 / PERSONAL COLLECTION</span><button type="button" class="round-close" id="reader-close" aria-label="合上书册">×</button></div>
+      <div class="reader-toolbar"><button type="button" class="reader-index" id="reader-index"><span aria-hidden="true">☷</span><span data-ui="menu">内容目录</span></button><button type="button" class="round-close" id="reader-close" aria-label="合上书册">×</button></div>
       <div id="book" class="book"></div>
       <div class="reader-bottom"><button type="button" id="previous-page" class="page-turn"><span aria-hidden="true">←</span><span data-ui="previous">上一页</span></button><span id="page-count" aria-live="polite"></span><button type="button" id="next-page" class="page-turn"><span data-ui="next">下一页</span><span aria-hidden="true">→</span></button></div>
     </dialog>
     <div id="toast" class="toast" role="status"></div>
   </div>
   <main id="fallback" class="fallback">
-
-    <div id="top">
-      <span data-i18n="editionTitle">董俊叶的个人主页</span>
-      <span>DATA · SYSTEMS · PEOPLE</span>
-    </div>
-    <header>
-      <div>
-        <div data-i18n="heroEyebrow">从数据出发，向问题深处。</div>
-        <h1><span data-i18n="headlineStart">让复杂的数据，</span><em data-i18n="headlineEnd">成为清晰的判断。</em></h1>
-        <p><span data-i18n="name">董俊叶</span><span data-i18n="authorSubtitle">/ Dong Junye · 数据工程与 AI 应用</span></p>
-        <div><a href="#projects"><span data-i18n="viewProjects">浏览项目选集</span><span aria-hidden="true">↓</span></a></div>
-      </div>
-      <aside data-i18n-aria="profileLabel" aria-label="个人概览">
-        <p data-i18n="editorialIntro">在金融、实验数据与储能安全之间，探索数据工程与 AI 的实际用处。把分散的数据，变成能回答实际问题的系统。</p>
-        <dl>
-          <div><dt data-i18n="profileSchoolLabel">院校</dt><dd data-i18n="profileSchool">中央财经大学</dd></div>
-          <div><dt data-i18n="profileMajorLabel">专业</dt><dd data-i18n="profileMajor">大数据管理与应用</dd></div>
-          <div><dt data-i18n="profileGraduationLabel">预计毕业</dt><dd data-i18n="profileGraduation">2027 年 6 月</dd></div>
-        </dl>
-        <p><span data-i18n="beijing">北京</span> · <span data-i18n="profileStatus">开放实习与项目合作</span></p>
-        <a href="mailto:connerald359@163.com"><span data-i18n="emailMe">聊聊你的想法</span><span aria-hidden="true">↗</span></a>
-      </aside>
+    <header id="top">
+      <p><span data-i18n="editionTitle">董俊叶的个人主页</span></p>
+      <h1><span data-i18n="name">董俊叶</span></h1>
+      <p data-i18n="heroSummary">我是董俊叶，中央财经大学大数据管理与应用本科生，预计 2027 年毕业。关注数据工程、储能安全与 AI 应用。</p>
+      <p><span data-i18n="profileLocation">北京 · 中国</span> · <span data-i18n="profileStatus">开放实习与项目合作</span></p>
+      <nav aria-label="内容目录"><a href="#projects">项目</a> · <a href="#experience">实习</a> · <a href="#about">关于</a> · <a href="#learning">学习</a> · <a href="#contact">联系</a></nav>
     </header>
-
-    <section id="featured" aria-labelledby="venture-title">
-      <div>
-        <div>
-          <figure aria-hidden="true"><div></div><figcaption>FIG. 01 — CONNECTING EVIDENCE</figcaption></figure>
-          <div>
-            <div data-i18n="ventureKicker">封面精选 · 2026.05 启动 · AI 原型</div>
-            <h2 id="venture-title" data-i18n="ventureTitle">AnchorCell</h2>
-            <p data-i18n="caseQuestion">当 AI 给出风险判断时，依据在哪里？</p>
-            <p data-i18n="ventureLead">储能电站安全运维 AI Agent。围绕电芯风险分析，让业务事实来自工具查询，让分析结论附带可追溯的证据。</p>
-          </div>
-        </div>
-        <details id="case-notes">
-          <summary data-i18n="readCase">阅读项目笔记</summary>
-          <div>
-          <article><h3 data-i18n="contextLabel">场景与问题</h3><p data-i18n="ventureContext">面对储能设备的多层级数据，探索如何从舱、Rack、电芯及 SOS 数据中定位风险，并向使用者解释分析依据。</p></article>
-          <article><h3 data-i18n="responsibilityLabel">我的工作</h3><p data-i18n="ventureResponsibility">使用 LangGraph 构建状态图驱动的 Agent，以受控只读工具查询业务数据，明确模型与数据工具的职责。</p></article>
-          <article><h3 data-i18n="solutionLabel">实现方法</h3><p data-i18n="ventureSolution">记录数据版本、筛选条件和匹配范围，通过 SSE 向前端流式返回 KPI、表格与图表，保留结果与证据的关联。</p></article>
-          <article><h3 data-i18n="valueLabel">实践与结果</h3><p data-i18n="ventureValue">使用 SQLite Checkpointer 维护多轮上下文，设置执行步数、超时与异常回退，并用业务问题集检查 Agent 的表现。</p></article>
-          </div>
-          <div data-i18n="ventureAward">评测实践：构建覆盖 40+ 业务问题的 Agent 评测集。</div>
-        </details>
-      </div>
+    <section id="projects" aria-labelledby="fallback-projects-title">
+      <h2 id="fallback-projects-title"><span data-i18n="projectsHeading">项目选集</span></h2>
+      <article id="project/anchorcell">
+        <div id="featured"></div>
+        <h3>AnchorCell</h3>
+        <p>AI 原型 · 2026.05 启动 · <span data-i18n="ventureRole">Agent 开发 · 储能安全</span></p>
+        <p>面向储能电站的安全运维 AI Agent，用业务数据支持电芯风险分析。</p>
+        <p data-i18n="ventureContext">从舱、Rack、电芯及 SOS 数据中定位风险，保留判断依据。</p>
+        <ul><li>以 LangGraph 状态图组织 Agent，用受控只读工具查询业务数据。</li><li>记录数据版本、筛选条件与匹配范围，保留分析证据。</li><li>通过 SSE 向前端流式返回 KPI、表格和图表。</li></ul>
+        <div id="case-notes"><p data-i18n="ventureValue">用 SQLite Checkpointer 保存多轮上下文，设置步数与超时限制，并处理异常回退。</p><p data-i18n="ventureAward">评测集覆盖 40+ 个业务问题。</p></div>
+      </article>
+      <article id="project/battery">
+        <h3>端末智能电池管理系统</h3>
+        <p>创业项目 · 2025.05 启动 · <span data-i18n="yaoxiangRole">瑶想科技 · 核心成员</span></p>
+        <p>面向储能电站的电池安全监测与风险预警系统。</p>
+        <ul><li>开展需求调研与方案对接，负责核心前后端功能。</li><li>参与设备层级展示、告警处置和电芯健康评估规则设计。</li></ul>
+      </article>
+      <article id="project/cara">
+        <h3>cara</h3>
+        <p>2026.03 — 2026.05 · <span data-i18n="caraRole">多智能体架构 · 风控研究</span></p>
+        <p>面向 A 股事件的风控研究助手。</p>
+        <ul><li>用 ReAct 定义智能体分工与冲突仲裁。</li><li>通过 Intent Router 分类、分发问题。</li><li>调整提示词，支持结构化证据追溯。</li></ul>
+      </article>
+      <article id="project/tsinglink">
+        <h3>TsingLink</h3>
+        <p>2025 · <span data-i18n="tsingRole">需求分析 · 后端开发</span></p>
+        <p>面向清华 EMBA/MBA 校友的供需信息交流平台。</p>
+        <ul><li>参与需求分析，设计用户、酒类资源和融创项目模型。</li><li>用 Django 实现供需信息发布、查询与管理。</li></ul>
+        <a href="https://gitee.com/oceanccc/tsing-link" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
+      </article>
+      <article id="project/crypto">
+        <h3>Crypto Dashboard</h3>
+        <p>2025 · <span data-i18n="cryptoRole">实时数据链路 · 可视化界面</span></p>
+        <p>连接实时行情、流处理与可视化的数据项目。</p>
+        <ul><li>从 Binance API 接入行情，用 Kafka 与 Spark 处理实时数据。</li><li>通过 Flask、Socket.IO 展示价格与告警。</li></ul>
+        <p>由课程原型持续演进。</p>
+        <a href="https://github.com/connerald/crypto-dashboard" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
+      </article>
+      <article id="project/behavior">
+        <h3>电商用户行为分析</h3>
+        <p>2026 · <span data-i18n="behaviorRole">项目负责人 · 分布式数据分析</span></p>
+        <p>面向淘宝用户行为的分布式分析项目。</p>
+        <ul><li>搭建三节点 Hadoop、YARN 与 Spark 环境，负责主节点配置。</li><li>编写核心 PySpark、Spark SQL 程序，分析活跃、转化与用户分群。</li></ul>
+        <p>分析规模：百万级淘宝用户行为记录。</p>
+        <a href="https://github.com/connerald/cufe-bdmma2026s" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
+      </article>
+      <article id="project/paper">
+        <h3>CUFEpaper</h3>
+        <p>2025 · <span data-i18n="paperRole">独立开发</span></p>
+        <p>为中央财经大学课程论文开发的 LaTeX 模板。</p>
+        <ul><li>独立开发可复用模板，集中处理课程论文的排版格式。</li></ul>
+        <a href="https://github.com/connerald/CUFEpaper" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
+      </article>
     </section>
-
-    <section data-i18n-aria="capabilitiesLabel" aria-label="核心能力">
-      <div>
-        <article>
-          <div>01</div>
-          <h2 data-i18n="capability1Title">把数据链路打通</h2>
-          <p data-i18n="capability1Body">在基金风险工具与实验数据 ETL 中，处理数据获取、清洗、校验、存储和下游查询，让分析建立在可用的数据上。</p>
-        </article>
-        <article>
-          <div>02</div>
-          <h2 data-i18n="capability2Title">把业务问题拆清</h2>
-          <p data-i18n="capability2Body">从校友交流平台到储能电池管理，参与需求梳理、数据建模与前后端开发，将场景里的问题转化为具体功能。</p>
-        </article>
-        <article>
-          <div>03</div>
-          <h2 data-i18n="capability3Title">让 AI 分析有据可查</h2>
-          <p data-i18n="capability3Body">在 Agent 原型中实践工具查询、结构化证据、多轮会话与评测，让分析结果能够回到数据和筛选条件。</p>
-        </article>
-      </div>
+    <section id="experience" aria-labelledby="fallback-experience-title">
+      <h2 id="fallback-experience-title"><span data-i18n="experienceHeading">实习经历</span></h2>
+      <article>
+        <h3><span data-i18n="dcCompany">神州数码</span></h3>
+        <p><span data-i18n="dcRole">数据开发实习生</span> · <span data-i18n="dcDates">2025.09 — 2025.12</span> · <span data-i18n="beijing">北京</span></p>
+        <p data-i18n="dcContext">参与百济神州 HTS 高通量筛选实验数据自动化项目，将原始实验文件接入 ELN 系统。</p>
+        <ul><li><span data-i18n="dcResponsibility">负责字段抽取、格式转换、质量校验、批量处理与跨存储同步。</span></li><li><span data-i18n="dcSolution">用 Azure Data Factory 编排 Databricks 处理任务，写入 Azure Synapse，再通过 SQL 视图服务 ELN。</span></li><li><span data-i18n="dcValue">推动人工整理流程转为可调度的自动化数据链路。</span></li></ul>
+      </article>
+      <article>
+        <h3><span data-i18n="qhCompany">启后资本</span></h3>
+        <p><span data-i18n="qhRole">量化实习生</span> · <span data-i18n="qhDates">2025.01 — 2025.05</span> · <span data-i18n="beijing">北京</span></p>
+        <p data-i18n="qhContext">为私募基金持仓与净值数据建设日常风险监控工具。</p>
+        <ul><li><span data-i18n="qhResponsibility">用 Python 处理邮件中的净值文本与文件，完成清洗、MySQL 存储及定期更新。</span></li><li><span data-i18n="qhSolution">实现收益率、最大回撤和夏普比率等投资组合风险指标。</span></li><li><span data-i18n="qhValue">自动化数据整理与指标计算，并参与基金尽职调查和风控报告整理。</span></li></ul>
+      </article>
     </section>
-
-    <section id="projects">
-      <div>
-        <div>
-          <div data-i18n="projectsLabel">01 / Selected Work</div>
-          <h2 data-i18n="projectsHeading">在不同场景里，把问题做具体</h2>
-        </div>
-        <div>
-          <article>
-            <div><span>PROJECT 01</span><span data-i18n="yaoxiangStatus">创业项目 · 2025.05 启动</span></div>
-            <h3 data-i18n="yaoxiangTitle">端末智能电池管理系统</h3>
-            <p data-i18n="yaoxiangRole">瑶想科技 · 核心成员</p>
-            <p data-i18n="yaoxiangDescription">参与储能电站电池安全监测与风险预警项目，开展需求调研和方案对接；负责前后端核心功能，参与设备层级展示、告警处置和电芯健康评估规则设计。</p>
-            <div>Data Modeling · Full Stack · Energy Storage</div>
-          </article>
-          <article>
-            <div><span>PROJECT 02 · 2026</span><span data-i18n="caraStatus">2026.03 — 2026.05</span></div>
-            <h3>cara</h3>
-            <p data-i18n="caraRole">多 Agent 架构 · 风控研究</p>
-            <p data-i18n="caraDescription">A 股事件驱动风控研究助手。基于 ReAct 设计 Agent 职责分工与冲突仲裁，通过 Intent Router 分类和分发问题，并调整提示词以支持结构化证据追溯。</p>
-            <div>ReAct · Intent Router · Multi-agent</div>
-          </article>
-          <a href="https://gitee.com/oceanccc/tsing-link" target="_blank" rel="noreferrer" data-i18n-aria="tsingLinkAria" aria-label="访问 TsingLink 项目">
-            <div><span>PROJECT 03 · 2025</span><span data-i18n="visitProject">访问项目 ↗</span></div>
-            <h3>TsingLink</h3>
-            <p data-i18n="tsingRole">需求分析 · Django 后端开发</p>
-            <p data-i18n="tsingDescription">面向清华大学 EMBA/MBA 校友的信息交流平台。设计用户、酒类资源、融创项目等核心模型，实现供需信息发布、查询与管理。</p>
-            <div>Django · Data Modeling · Backend</div>
-          </a>
-          <a href="https://github.com/connerald/crypto-dashboard" target="_blank" rel="noreferrer" data-i18n-aria="cryptoAria" aria-label="访问 Crypto Dashboard 项目">
-            <div><span>PROJECT 04 · 2025</span><span data-i18n="visitProject">访问项目 ↗</span></div>
-            <h3>Crypto Dashboard</h3>
-            <p data-i18n="cryptoRole">实时数据链路 · 可视化界面</p>
-            <p data-i18n="cryptoDescription">从 Binance API 接入行情，以 Kafka 与 Spark 处理实时数据，并通过 Flask、Socket.IO 展示价格与告警。项目从课程原型持续演进，覆盖采集、流计算和实时展示。</p>
-            <div>Kafka · Spark · Flask · Socket.IO</div>
-          </a>
-          <a href="https://github.com/connerald/cufe-bdmma2026s" target="_blank" rel="noreferrer" data-i18n-aria="behaviorAria" aria-label="访问电商用户行为分析项目">
-            <div><span>PROJECT 05 · 2026</span><span data-i18n="visitProject">访问项目 ↗</span></div>
-            <h3 data-i18n="behaviorTitle">电商用户行为分析</h3>
-            <p data-i18n="behaviorRole">项目负责人 · 分布式数据分析</p>
-            <p data-i18n="behaviorDescription">基于 Hadoop、YARN 与 Spark 搭建三节点环境，分析百万级淘宝用户行为数据；负责主节点配置与核心 PySpark、Spark SQL 程序，围绕活跃、转化和用户分群设计分析任务。</p>
-            <div>Hadoop · YARN · PySpark · Spark SQL</div>
-          </a>
-          <a href="https://github.com/connerald/CUFEpaper" target="_blank" rel="noreferrer" data-i18n-aria="paperAria" aria-label="访问 CUFEpaper 项目">
-            <div><span>PROJECT 06 · 2025</span><span data-i18n="visitProject">访问项目 ↗</span></div>
-            <h3>CUFEpaper</h3>
-            <p data-i18n="paperRole">独立开发 · 可复用的写作工具</p>
-            <p data-i18n="paperDescription">为中央财经大学课程论文开发 LaTeX 模板，把重复的格式处理沉淀为可复用的工具，让写作更专注于内容。</p>
-            <div>LaTeX · Academic Writing</div>
-          </a>
-        </div>
-      </div>
+    <section id="about" aria-labelledby="fallback-about-title">
+      <h2 id="fallback-about-title"><span data-i18n="aboutHeading">关于我</span></h2>
+      <p data-i18n="aboutIntro">从金融、实验数据到储能安全，我关注数据如何进入真实业务，也关心分析结论能否说明依据。</p>
+      <h3><span data-i18n="principle1Title">从数据处理开始</span></h3><p data-i18n="principle1Body">在启后资本处理基金净值与风险指标，在神州数码参与实验数据自动化，逐步理解数据质量和流程的重要性。</p>
+      <h3><span data-i18n="principle2Title">走进具体业务</span></h3><p data-i18n="principle2Body">在 TsingLink 与储能安全项目中，从需求、数据模型走向业务功能，学习让系统回应具体问题。</p>
+      <h3><span data-i18n="principle3Title">把依据留在结果里</span></h3><p data-i18n="principle3Body">通过 AnchorCell 和 cara 探索 AI 分析中的证据追溯与评测。接下来，希望深入时间序列分析、风险预警与可解释决策。</p>
+      <h3><span data-i18n="careerNoteTitle">团队协作</span></h3><p data-i18n="careerNoteBody">曾任学院文体部干事、排球队经理，参与赛事策划、活动执行、赞助沟通和训练协调。</p>
     </section>
-
-    <section id="experience">
-      <div>
-        <div>
-          <div data-i18n="experienceLabel">02 / Experience</div>
-          <h2 data-i18n="experienceHeading">在真实业务中建设数据能力</h2>
-        </div>
-        <div>
-          <article>
-            <div><span>2025.09 — 2025.12</span><br><span data-i18n="beijing">北京</span></div>
-            <div>
-              <div>
-                <h3 data-i18n="dcCompany">神州数码</h3>
-                <div data-i18n="dcRole">数据开发实习生</div>
-              </div>
-              <div>
-                <div><div data-i18n="contextLabel">场景与问题</div><p data-i18n="dcContext">参与百济神州 HTS 高通量筛选实验数据自动化处理项目，支持实验数据从原始文件进入 ELN 系统。</p></div>
-                <div><div data-i18n="responsibilityLabel">我的工作</div><p data-i18n="dcResponsibility">参与 ETL 链路建设，负责字段抽取、格式转换、质量校验、批量处理及跨存储同步逻辑。</p></div>
-                <div><div data-i18n="solutionLabel">实现方法</div><p data-i18n="dcSolution">通过 Azure Data Factory 编排流程，调用 Databricks 处理数据，写入 Azure Synapse，并以 SQL 视图服务 ELN。</p></div>
-                <div><div data-i18n="valueLabel">实践与结果</div><p data-i18n="dcValue">推动实验数据处理由人工整理转向结构化、可调度的自动化 Pipeline。</p></div>
-              </div>
-            </div>
-          </article>
-
-          <article>
-            <div><span>2025.01 — 2025.05</span><br><span data-i18n="beijing">北京</span></div>
-            <div>
-              <div>
-                <h3 data-i18n="qhCompany">启后资本</h3>
-                <div data-i18n="qhRole">量化实习生</div>
-              </div>
-              <div>
-                <div><div data-i18n="contextLabel">场景与问题</div><p data-i18n="qhContext">面向私募基金持仓与净值数据，建设日常风险监控所需的数据和指标工具。</p></div>
-                <div><div data-i18n="responsibilityLabel">我的工作</div><p data-i18n="qhResponsibility">用 Python 处理邮件中的净值文本与文件，完成清洗、MySQL 存储和定期更新。</p></div>
-                <div><div data-i18n="solutionLabel">实现方法</div><p data-i18n="qhSolution">构建收益率、最大回撤、夏普比率等投资组合风险指标模块。</p></div>
-                <div><div data-i18n="valueLabel">实践与结果</div><p data-i18n="qhValue">将重复的数据整理与指标计算自动化，并参与基金尽职调查与风控报告整理。</p></div>
-              </div>
-            </div>
-          </article>
-        </div>
+    <section id="learning" aria-labelledby="fallback-learning-title">
+      <h2 id="fallback-learning-title">学习与工具</h2>
+      <div id="education">
+        <h3><span data-i18n="school">中央财经大学</span></h3>
+        <p><span data-i18n="major">大数据管理与应用 · 本科（2027 届）</span> · <span data-i18n="educationDates">2023.09 — 2027.06</span></p>
+        <p data-i18n="courses">课程成绩：机器学习 97、自然语言处理 95、应用随机过程 95。关注统计建模与可持续发展中的数据应用。</p>
+        <p data-i18n="educationLanguage">英语：IELTS 7.0</p>
       </div>
+      <h3><span data-i18n="toolkitHeading">技术与方法</span></h3>
+      <dl>
+        <div><dt><span data-i18n="skillProgramming">编程</span></dt><dd><span data-i18n="skillProgrammingValue">Python · SQL · Django</span></dd></div>
+        <div><dt><span data-i18n="skillData">数据工程</span></dt><dd><span data-i18n="skillDataValue">Azure Data Factory · Databricks · Synapse · MySQL</span></dd></div>
+        <div><dt><span data-i18n="skillBigData">大数据</span></dt><dd><span data-i18n="skillBigDataValue">Hadoop · Spark · Kafka</span></dd></div>
+        <div><dt><span data-i18n="skillMethods">AI 应用</span></dt><dd><span data-i18n="skillMethodsValue">LangGraph · ReAct · 工具调用 · Agent 评测</span></dd></div>
+      </dl>
+      <h3><span data-i18n="mathorTitle">MathorCup 赛区三等奖</span></h3>
+      <p data-i18n="mathorDescription">负责 Python 数据处理、建模和论文排版；以 XGBoost、遗传算法预测多品类销量，并用规划模型研究商品分仓。</p>
     </section>
-
-    <section id="about">
-      <div>
-        <div>
-          <div data-i18n="aboutLabel">03 / About Me</div>
-          <h2 data-i18n="aboutHeading">从理解数据，到理解数据背后的问题</h2>
-        </div>
-        <p data-i18n="aboutIntro">金融、实验数据和储能安全，看起来是不同的领域。我在其中反复遇到同一个问题：数据已经存在，但把它变成可用的判断，还需要清晰的规则、可靠的流程和对业务的理解。</p>
-        <div>
-          <article><span>01</span><h3 data-i18n="principle1Title">先把问题问清楚</h3><p data-i18n="principle1Body">TsingLink 的需求分析和储能项目的方案对接，让我开始从使用场景出发：谁需要什么信息，数据如何组织，功能怎样支持实际操作。</p></article>
-          <article><span>02</span><h3 data-i18n="principle2Title">沿着整条链路做事</h3><p data-i18n="principle2Body">我做过数据接入、指标计算、后端接口和前端展示。比起只看某个技术点，我更关心数据经过每一步之后，能否被下游真正使用。</p></article>
-          <article><span>03</span><h3 data-i18n="principle3Title">给结论留下依据</h3><p data-i18n="principle3Body">在 AnchorCell 与 cara 中，我把工具查询、证据追溯和 Agent 评测放进设计。接下来，我想继续探索储能安全中的时间序列分析、风险预警与可解释决策。</p></article>
-        </div>
-        <div>
-          <article>
-            <div data-i18n="foundationLabel">Education / 教育背景</div>
-            <div>2023.09 — 2027.06</div>
-            <div data-i18n="school">中央财经大学</div>
-            <div data-i18n="major">大数据管理与应用 · 本科（2027 届）</div>
-            <div data-i18n="courses">课程成绩：机器学习 97、自然语言处理 95、应用随机过程 95。关注数据工程、统计建模与可持续发展场景中的分析应用。</div>
-            <div data-i18n="educationLanguage">英语：IELTS 7.0</div>
-          </article>
-          <article>
-            <div data-i18n="toolkitLabel">Toolkit / 技术能力</div>
-            <h3 data-i18n="toolkitHeading">在项目中使用的工具与方法</h3>
-            <div>
-              <div><strong data-i18n="skillProgramming">编程</strong><span>Python · SQL · Django</span></div>
-              <div><strong data-i18n="skillData">数据工程</strong><span>Azure Data Factory · Databricks · Synapse · MySQL</span></div>
-              <div><strong data-i18n="skillBigData">大数据</strong><span>Hadoop · Spark · Kafka</span></div>
-              <div><strong data-i18n="skillMethods">AI 应用</strong><span data-i18n="skillMethodsValue">LangGraph · ReAct · 工具调用 · Agent 评测</span></div>
-            </div>
-          </article>
-          <article>
-            <strong data-i18n="mathorTitle">MathorCup 赛区三等奖</strong>
-            <p data-i18n="mathorDescription">负责 Python 数据处理、建模与论文排版；基于 XGBoost、遗传算法开展多品类销量预测，并通过规划模型研究商品分仓策略。</p>
-          </article>
-          <article>
-            <strong data-i18n="careerNoteTitle">也在团队协作中学习</strong>
-            <p data-i18n="careerNoteBody">曾任学院文体部干事、排球队经理，参与赛事策划、活动执行、赞助沟通与训练协调。这些经历让我练习把方案写清楚，也把人与时间协调好。</p>
-          </article>
-        </div>
-      </div>
+    <section id="contact" aria-labelledby="fallback-contact-title">
+      <h2 id="fallback-contact-title"><span data-i18n="contactHeading">联系我</span></h2>
+      <p data-i18n="contactBody">欢迎交流数据工程、AI 应用与数据产品方向的实习或合作，尤其关注储能安全与风险分析。</p>
+      <p><a href="mailto:connerald359@163.com">connerald359@163.com</a> · <a href="https://github.com/connerald" target="_blank" rel="noopener noreferrer">GitHub ↗</a></p>
     </section>
-
-    <section id="contact">
-      <div>
-        <div>
-          <div data-i18n="contactLabel">04 / Contact</div>
-          <h2 data-i18n="contactHeading">聊聊数据、AI 与实际问题。</h2>
-          <p data-i18n="contactBody">关注数据工程、AI 应用与数据产品方向的实习及合作机会，尤其希望继续探索储能安全与风险分析场景。欢迎通过邮件交流项目与想法。</p>
-        </div>
-        <div>
-          <a href="mailto:connerald359@163.com"><span>Email</span><span aria-hidden="true">↗</span></a>
-          <a href="https://github.com/connerald" target="_blank" rel="noreferrer"><span>GitHub</span><span aria-hidden="true">↗</span></a>
-        </div>
-      </div>
-    </section>
-    </main>
+  </main>
   <script type="module" src="assets/app.js" onerror="window.studyBootFail()"></script>
 </body>
 </html>

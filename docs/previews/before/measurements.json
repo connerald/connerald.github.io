@@ -1,0 +1,23 @@
+{
+  "desktop": {
+    "viewport": [
+      1440,
+      900
+    ],
+    "domContentLoadedMs": 29,
+    "loadMs": 29,
+    "frameIntervalMedianMs": 16.69999998807907,
+    "resources": 8
+  },
+  "mobile": {
+    "viewport": [
+      390,
+      844
+    ],
+    "domContentLoadedMs": 8,
+    "loadMs": 8,
+    "frameIntervalMedianMs": 16.69999998807907,
+    "resources": 7
+  },
+  "exceptions": []
+}
