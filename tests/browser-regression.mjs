@@ -296,6 +296,30 @@ try {
     await cdp.waitFor(`!document.querySelector('#reader').open`, 'Escape to close the reader');
   });
 
+  await test('AnchorCell and its neighboring books have space between their covers', async () => {
+    const gaps = await cdp.evaluate(`(async () => {
+      const { Box3, Scene } = await import('./assets/vendor/three.module.js');
+      const onBeforeRender = Scene.prototype.onBeforeRender;
+      let scene;
+      Scene.prototype.onBeforeRender = (_, renderedScene) => { scene = renderedScene; };
+      try { window.studyRoom.capture(); }
+      finally { Scene.prototype.onBeforeRender = onBeforeRender; }
+
+      const anchor = scene.getObjectsByProperty('isMesh', true)
+        .find(mesh => mesh.userData.contentId === 'project/anchorcell').parent;
+      const books = anchor.parent.children
+        .filter(object => object.isGroup && object.position.y > 2.8 && object.position.y < 3.3
+          && object.position.x > -1.575 && object.position.x < -.525)
+        .sort((a, b) => a.position.x - b.position.x);
+      const bounds = books.map(book => new Box3().setFromObject(book, true));
+      return bounds.slice(1).map((right, i) => right.min.x - bounds[i].max.x);
+    })()`);
+    assert.equal(gaps.length, 3, 'four books in the AnchorCell shelf bay');
+    for (const gap of gaps) {
+      assert.ok(gap > 0, `adjacent books must not overlap across their spines (gap: ${gap})`);
+    }
+  });
+
   await test('slow entry module displays the room poster without a document flash', async () => {
     await cdp.call('Fetch.enable', {
       patterns: [{ urlPattern: `${appUrl}*`, requestStage: 'Request' }],

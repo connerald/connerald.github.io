@@ -282,7 +282,10 @@ export async function createRoom({
   }
 
   // Three larger, distinct volumes are the primary project entrances.
-  rowBooks(shelf, -1.48, 2.63, ['', ''], ['#8d9a82', '#b7a08a'], .92);
+  // Fit the two shorter books between the upright and AnchorCell, including
+  // the cover bevels. Overlapping spines flicker during camera parallax.
+  book(shelf, -1.438, 2.63, '', '#8d9a82', .125, .92);
+  book(shelf, -1.275, 2.63, '', '#b7a08a', .145, .8);
   book(shelf, -1.02, 2.63, 'AnchorCell', '#587971', .31, 1.07, 'project/anchorcell');
   book(shelf, -.71, 2.63, '', '#c3b59a', .17, .92, null, -.07);
   rowBooks(shelf, -.44, 2.63, [''], ['#b68f80'], .92);
