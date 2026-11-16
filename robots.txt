@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://connerald.github.io/sitemap.xml
